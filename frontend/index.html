@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa com Leaflet</title> 
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div id="map"></div> <!-- Contêiner do mapa -->
+
+  <!-- Menu superior esquerdo -->
+  <div class="menu">
+    <h3>Opções</h3>
+    <ul>
+      <li><a onclick="alert('Adicionar marcador')">Adicionar Marcador</a></li>
+      <li><a onclick="alert('Centralizar mapa')">Centralizar Mapa</a></li>
+      <li><a onclick="alert('Alternar cluster')">Alternar Cluster</a></li>
+    </ul>
+  </div>
+
+  <!-- Barra de busca -->
+  <div class="top-search">
+    <input type="text" placeholder="Search...">
+    <button onclick="alert('Busca acionada')">🔍</button>
+  </div>
+
+  <!-- Menu lateral direito -->
+  <div class="side-right">
+    <button onclick="alert('Opção compartilhamento')">↻</button>
+    <button onclick="alert('Nova opção')">✚</button>
+    <button onclick="alert('Menu configuração')">⚙</button>
+  </div>
+
+  <!-- Cartões inferiores -->
+  <div class="bottom-cards">
+    <div class="card">
+      <img src="https://via.placeholder.com/200x100.png?text=Ferrari" alt="Ferrari">
+      <h4>Ferrari Maranello</h4>
+      <p>Via Abetone Inferiore 19, Maranello</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/200x100.png?text=Colosseo" alt="Colosseo">
+      <h4>Colosseo</h4>
+      <p>Piazza del Colosseo 1, Rome</p>
+    </div>
+    <div class="card">
+      <img src="https://via.placeholder.com/200x100.png?text=Duomo" alt="Duomo">
+      <h4>Duomo</h4>
+      <p>Piazza del Duomo, Milan</p>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
