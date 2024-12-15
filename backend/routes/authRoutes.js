@@ -1,7 +1,7 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const { authenticateUser, setupTwoFactor, verifyTwoFactor } = require('../services/authService');
-
+const UserController = require('../controllers/userController'); // Importa o controlador
 const router = express.Router();
 const SECRET_KEY = 'sua-chave-secreta';
 
@@ -21,12 +21,12 @@ function authenticateJWT(req, res, next) {
   });
 }
 
-// Rota de login
 /**
  * @swagger
- * /auth/login:
+ * /api/auth/register:
  *   post:
- *     summary: Realiza login do usuário
+ *     summary: Registra um novo usuário
+ *     tags: [Autenticação]
  *     requestBody:
  *       required: true
  *       content:
@@ -36,23 +36,42 @@ function authenticateJWT(req, res, next) {
  *             properties:
  *               username:
  *                 type: string
- *                 example: "usuario"
+ *                 example: teste
  *               password:
  *                 type: string
- *                 example: "senha123"
+ *                 example: 123456
+ *     responses:
+ *       201:
+ *         description: Usuário registrado com sucesso
+ *       400:
+ *         description: Dados inválidos
+ */
+router.post('/register', UserController.register); // Chama a função correta do controller
+
+/**
+ * @swagger
+ * /api/auth/login:
+ *   post:
+ *     summary: Realiza login do usuário
+ *     tags: [Autenticação]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 example: usuario
+ *               password:
+ *                 type: string
+ *                 example: senha123
  *     responses:
  *       200:
  *         description: Login bem-sucedido, retorna token JWT
  */
-router.post('/login', (req, res) => {
-  try {
-    const { username, password } = req.body;
-    const result = authenticateUser(username, password);
-    res.json(result);
-  } catch (error) {
-    res.status(401).json({ message: error.message });
-  }
-});
+router.post('/login', UserController.login);
 
 // Rota para configurar 2FA (protegida)
 router.post('/2fa/setup', authenticateJWT, (req, res) => {

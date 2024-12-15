@@ -4,12 +4,16 @@ class LocationService {
         this.locationRepository = locationRepository;
     }
 
-    async getAllLocations() {
+    /*async getAllLocations() {
         return this.locationRepository.findAll();
-    }
+    }*/
 
     async addLocation(locationData) {
         return this.locationRepository.create(locationData);
+    }
+
+    async getAllLocations() {
+        return await this.locationRepository.getAllLocations();
     }
 }
 

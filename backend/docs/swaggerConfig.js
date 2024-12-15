@@ -1,5 +1,4 @@
 const swaggerJsDoc = require('swagger-jsdoc');
-const authPaths = require('../paths/authPaths'); // Arquivo com as rotas de autenticação
 
 const swaggerOptions = {
   swaggerDefinition: {
@@ -30,11 +29,9 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['./backend/routes/*.js'], // Carrega rotas documentadas em outros arquivos
-  paths: {
-    ...authPaths, // Importa as rotas do módulo
-  },
+  apis: ['./routes/*.js'] // Caminho relativo ao backend/docs/
 };
 
 const swaggerDocs = swaggerJsDoc(swaggerOptions);
+
 module.exports = swaggerDocs;

@@ -19,7 +19,7 @@ router.use((req, res, next) => {
 
 /**
  * @swagger
- * /locations/criteria:
+ * /api/locations/criteria:
  *   get:
  *     summary: Busca localizações por critério específico
  *     parameters:
@@ -52,7 +52,7 @@ router.get('/criteria', getLocationsByCriteria);
 
 /**
  * @swagger
- * /locations/filter:
+ * /api/locations/filter:
  *   get:
  *     summary: Busca localizações por filtro específico (país, estado, cidade)
  *     parameters:
@@ -88,7 +88,7 @@ router.get('/filter', getLocationsByFilter);
 
 /**
  * @swagger
- * /locations/{id}:
+ * /api/locations/{id}:
  *   get:
  *     summary: Busca uma localização por ID
  *     parameters:
@@ -112,7 +112,7 @@ router.get('/:id', getLocationById);
 
 /**
  * @swagger
- * /locations/{id}:
+ * /api/locations/{id}:
  *   put:
  *     summary: Atualiza uma localização existente
  *     parameters:
@@ -137,7 +137,7 @@ router.put('/:id', updateLocation);
 
 /**
  * @swagger
- * /locations/{id}:
+ * /api/locations/{id}:
  *   delete:
  *     summary: Deleta uma localização
  *     parameters:
@@ -203,7 +203,7 @@ router.delete('/:id', deleteLocation);
 
 /**
  * @swagger
- * /locations:
+ * /api/locations:
  *   get:
  *     summary: Lista todas as localizações
  *     responses:
@@ -221,7 +221,7 @@ router.get('/', getAllLocations);
 
 /**
  * @swagger
- * /locations:
+ * /api/locations:
  *   post:
  *     summary: Cria uma nova localização
  *     requestBody:

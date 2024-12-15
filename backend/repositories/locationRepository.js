@@ -22,6 +22,16 @@ class LocationRepository {
             });
         });
     }
+
+    async getAllLocations() {
+        return new Promise((resolve, reject) => {
+            const query = 'SELECT name, latitude, longitude FROM locations';
+            this.db.query(query, (err, results) => {
+                if (err) return reject(err);
+                resolve(results);
+            });
+        });
+    }
 }
 
 module.exports = LocationRepository;

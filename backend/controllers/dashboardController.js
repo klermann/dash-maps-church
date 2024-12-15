@@ -26,6 +26,17 @@ class DashboardController {
             res.status(400).send('Erro ao adicionar a localização.');
         }
     }
+
+    
+    async getLocations(req, res) {
+        try {
+            const locations = await this.locationService.getAllLocations();
+            res.json({ locations });
+        } catch (err) {
+            console.error('Erro ao buscar localizações:', err.message);
+            res.status(500).json({ message: 'Erro ao buscar localizações.' });
+        }
+    }
 }
 
 module.exports = DashboardController;

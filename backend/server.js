@@ -9,10 +9,12 @@ const securityHeaders = require('./middlewares/securityHeaders');
 const locationRoutes = require('./routes/locationsRoutes');
 const authRoutes = require('./routes/authRoutes');
 const dashboardRoutes = require('./routes/dashboardRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const port = 3000;
 
+app.use(express.json());
 // Configuração do EJS
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -25,25 +27,37 @@ app.use(session({
   cookie: { secure: false } // Ajuste para "true" em produção com HTTPS
 }));
 
-// Middlewares globais
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'], // Permite o cabeçalho Authorization
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // Adiciona suporte para formulários HTML
 app.use(securityHeaders);
 
-// Servir arquivos estáticos do frontend
-const frontendPath = path.join(__dirname, '../frontend');
-app.use(express.static(path.join(frontendPath, 'public')));
+// Diretório estático configurado
+const frontendPath = path.join(__dirname, '../frontend/public');
+app.use(express.static(frontendPath));
 
 // Rotas do Swagger e API
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-app.use('/locations', locationRoutes);
-app.use('/auth', authRoutes);
 app.use('/', dashboardRoutes);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/locations', locationRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
+
+
 
 // Rota inicial - renderiza index.html
 app.get('/', (req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));
+});
+
+// Middleware de fallback para servir login.html se acessar diretamente
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'login.html'));
 });
 
 // Ajustar Content-Type para arquivos JavaScript

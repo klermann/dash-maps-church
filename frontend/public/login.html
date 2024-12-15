@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        .login-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-container h1 {
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #0056b3;
+        }
+        .error {
+            color: red;
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <div id="errorMessage" class="error"></div>
+    </div>
+    <script>document.getElementById('loginForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+    
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+    
+        try {
+            const response = await fetch('http://localhost:3000/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password }),
+            });
+    
+            const result = await response.json();
+            console.log('Resposta do servidor:', result); // Log para depuração
+    
+            if (response.ok && result.token) {
+                console.log('Token recebido:', result.token); // Log do token
+                localStorage.setItem('authToken', result.token); // Armazena o token no localStorage
+                window.location.href = '/dashboard'; // Redireciona para o dashboard
+            } else {
+                alert(result.message || 'Erro ao fazer login.');
+            }
+        } catch (error) {
+            console.error('Erro no login:', error);
+            alert('Erro de conexão. Tente novamente.');
+        }
+    });
+    
+    </script>
+</body>
+</html>
