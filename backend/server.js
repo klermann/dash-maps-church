@@ -6,6 +6,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('./docs/swaggerConfig');
 const securityHeaders = require('./middlewares/securityHeaders');
 const locationRoutes = require('./routes/locationsRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 const port = 3000;
@@ -22,6 +23,7 @@ app.use(express.static(path.join(frontendPath, 'public')));
 // Rotas do Swagger e API
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use('/locations', locationRoutes);
+app.use('/auth', authRoutes);
 
 // Rota inicial - renderiza index.html
 app.get('/', (req, res) => {
