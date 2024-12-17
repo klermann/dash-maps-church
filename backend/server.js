@@ -38,21 +38,23 @@ app.use(bodyParser.urlencoded({ extended: true })); // Adiciona suporte para for
 app.use(securityHeaders);
 
 // Diretório estático configurado
-const frontendPath = path.join(__dirname, '../frontend/public');
+// Configuração do diretório estático
+const frontendPath = path.join(__dirname, '../frontend');
 app.use(express.static(frontendPath));
 
-// Rota inicial - renderiza index.html
+// Rota inicial
 app.get('/', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'index.html'));
+  res.sendFile(path.join(frontendPath, 'public', 'index.html'));
 });
 
-// Middleware de fallback para servir login.html se acessar diretamente
+// Rota para login.html
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'login.html'));
+  res.sendFile(path.join(frontendPath, 'dashboard', 'login.html'));
 });
 
+// Rota para dashboard.html
 app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'dashboard.html'));
+  res.sendFile(path.join(frontendPath, 'public', 'index.html'));
 });
 
 app.use((req, res, next) => {
