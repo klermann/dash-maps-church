@@ -4,26 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Controle</title>
+    <script src="js/jquery.min.js"></script>
 </head>
 <body>
-    <h1 id="welcome">Carregando...</h1>
+    <h1>Dashboard</h1>
     <h2>Localizações:</h2>
     <ul id="locations"></ul>
 
     <h2>Adicionar Nova Localização</h2>
-    <form id="addLocationForm" action="/dashboard/locations" method="POST">
+    <form id="addLocationForm">
         <label for="name">Nome:</label>
-        <input type="text" id="name" name="name" required>
-
+        <input type="text" id="name" required>
         <label for="latitude">Latitude:</label>
-        <input type="text" id="latitude" name="latitude" required>
-
+        <input type="text" id="latitude" required>
         <label for="longitude">Longitude:</label>
-        <input type="text" id="longitude" name="longitude" required>
-
+        <input type="text" id="longitude" required>
         <button type="submit">Adicionar</button>
     </form>
-    
-    <script src="../public/js/dashboard.js"></script>
+
+    <script>
+    const token = localStorage.getItem('authToken');
+
+    // Redireciona se não houver token
+    if (!token) {
+        alert('Você precisa fazer login primeiro.');
+        window.location.href = '/login';
+    }
+
+    // Função para carregar as localizações
+    const loadLocations = () => {
+        $.ajax({
+            url: 'http://localhost:3000/api/locations',
+            method: 'GET',
+            headers: { Authorization: `Bearer ${token}` },
+            success: function (data) {
+                const $locationsList = $('#locations');
+                $locationsList.empty();
+
+                if (data.length === 0) {
+                    $locationsList.append('<li>Nenhuma localização encontrada.</li>');
+                } else {
+                    data.forEach((location) => {
+                        $locationsList.append(
+                            `<li>${location.name} - (${location.lat}, ${location.lng})</li>`
+                        );
+                    });
+                }
+            },
+            error: function () {
+                alert('Erro ao carregar as localizações. Tente novamente.');
+            },
+        });
+    };
+
+    // Função para adicionar uma nova localização
+    $('#addLocationForm').on('submit', function (e) {
+        e.preventDefault();
+
+        const newLocation = {
+            name: $('#name').val(),
+            latitude: $('#latitude').val(),
+            longitude: $('#longitude').val(),
+        };
+
+        $.ajax({
+            url: 'http://localhost:3000/api/locations',
+            method: 'POST',
+            headers: { Authorization: `Bearer ${token}` },
+            contentType: 'application/json',
+            data: JSON.stringify(newLocation),
+            success: function () {
+                alert('Localização adicionada com sucesso!');
+                loadLocations(); // Recarrega as localizações
+                $('#addLocationForm')[0].reset(); // Limpa o formulário
+            },
+            error: function () {
+                alert('Erro ao adicionar localização. Tente novamente.');
+            },
+        });
+    });
+
+    // Inicializa carregando as localizações
+    $(document).ready(loadLocations);
+    </script>
 </body>
 </html>
