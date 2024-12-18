@@ -29,18 +29,20 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
+            <form id="loginForm">
               <h1>Login</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Nome de Usuário" required="" />
+                <input type="text" id="username" class="form-control" placeholder="Nome de Usuário" required="" />
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Senha" required="" />
+                <input type="password" id="password" class="form-control" placeholder="Senha" required="" />
               </div>
               <div>
-                <a class="btn btn-success submit" href="index.html">Entrar</a>
+                <button type="submit" class="btn btn-success submit">Entrar</button>
                 <a class="btn btn-secondary reset_pass" href="#">Esqueceu sua senha?</a>
               </div>
+
+              <div id="errorMessage" style="color: red; margin-top: 10px;"></div>
 
               <div class="clearfix"></div>
 
@@ -60,52 +62,19 @@
             </form>
           </section>
         </div>
-
-        <div id="register" class="animate form registration_form">
-          <section class="login_content">
-            <form>
-              <h1>Criar Conta</h1>
-              <div>
-                <input type="text" class="form-control" placeholder="Nome de Usuário" required="" />
-              </div>
-              <div>
-                <input type="email" class="form-control" placeholder="E-mail" required="" />
-              </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Senha" required="" />
-              </div>
-              <div>
-                <a class="btn btn-default submit" href="index.html">Enviar</a>
-              </div>
-
-              <div class="clearfix"></div>
-
-              <div class="separator">
-                <p class="change_link">Já é membro?
-                  <a href="#signin" class="to_register"> Entrar </a>
-                </p>
-
-                <div class="clearfix"></div>
-                <br />
-
-                <div>
-                  <h1><i class="fa fa-paw"></i> IADMS - Geolocalização</h1>
-                  <p>©2016 Todos os Direitos Reservados. IADMS - Geolocalização da igrejas. Privacidade e Termos</p>
-                </div>
-              </div>
-            </form>
-          </section>
-        </div>
       </div>
     </div>
-    
+
+    <!-- jQuery Importação -->
+    <script src="../build/js/jquery.js"></script>
+    <!-- Scripts -->
     <script>
       $(document).ready(() => {
           $('#loginForm').on('submit', function (e) {
               e.preventDefault();
               const username = $('#username').val();
               const password = $('#password').val();
-  
+
               $.ajax({
                   url: 'http://localhost:3000/api/auth/login',
                   method: 'POST',
@@ -116,7 +85,7 @@
                       window.location.href = '/dashboard';
                   },
                   error: function (jqXHR) {
-                      $('#errorMessage').text(jqXHR.responseJSON.message || 'Erro ao fazer login.');
+                      $('#errorMessage').text(jqXHR.responseJSON?.message || 'Erro ao fazer login.');
                   },
               });
           });
