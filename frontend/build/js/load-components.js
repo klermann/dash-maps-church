@@ -31,5 +31,33 @@ $(document).ready(function () {
         });
       }
     });
+
+    // Carregar o componente de sidebar footer
+    $("#sidebarFooter").load("side_bar_footer.html", function (response, status, xhr) {
+      if (status === "error") {
+        console.error("Erro ao carregar o componente de perfil: ", xhr.status, xhr.statusText);
+      } else {
+        console.log("Componente de perfil carregado com sucesso.");
+      }
+    });
+
+    // Carregar o componente de topnav
+    $("#topNav").load("top_nav.html", function (response, status, xhr) {
+      if (status === "error") {
+        console.error("Erro ao carregar o componente de perfil: ", xhr.status, xhr.statusText);
+      } else {
+        console.log("Componente de perfil carregado com sucesso.");
+      }
+    });
+
+    // Carregar o componente de topnav
+    $("#footer").load("footer.html", function (response, status, xhr) {
+      if (status === "error") {
+        console.error("Erro ao carregar o componente de perfil: ", xhr.status, xhr.statusText);
+      } else {
+        console.log("Componente de perfil carregado com sucesso.");
+      }
+    });
+  
   });
   

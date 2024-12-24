@@ -38,129 +38,24 @@
             <div id="sidebarMenu"></div>
             <!-- /sidebar menu -->
 
-
             <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
+            <div id="sidebarFooter"></div>
             <!-- /menu footer buttons -->
           </div>
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <div class="nav toggle">
-                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                </div>
-                <nav class="nav navbar-nav">
-                <ul class=" navbar-right">
-                  <li class="nav-item dropdown open" style="padding-left: 15px;">
-                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="images/img.jpg" alt="">John Doe
-                    </a>
-                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                        <a class="dropdown-item"  href="javascript:;">
-                          <span class="badge bg-red pull-right">50%</span>
-                          <span>Settings</span>
-                        </a>
-                    <a class="dropdown-item"  href="javascript:;">Help</a>
-                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                    </div>
-                  </li>
-  
-                  <li role="presentation" class="nav-item dropdown open">
-                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                      <i class="fa fa-envelope-o"></i>
-                      <span class="badge bg-green">6</span>
-                    </a>
-                    <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <div class="text-center">
-                          <a class="dropdown-item">
-                            <strong>See All Alerts</strong>
-                            <i class="fa fa-angle-right"></i>
-                          </a>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
+        <div id="topNav"></div>
         <!-- /top navigation -->
 
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
 
-        <!-- Localizators --> 
-        <h2>Localizações:</h2>
-        <ul id="locations"></ul>           
-        <!-- Localizators --> 
-
-
+            <!-- Localizators --> 
+            <h2>Localizações:</h2>
+            <ul id="locations"></ul>           
+            <!-- Localizators --> 
 
             <div class="page-title">
               <div class="title_left">
@@ -230,7 +125,7 @@
 
                     <div class="row">
                       <div class="col-md-12 col-sm-12">
-                        <div class="x_panel fixed_height_320">
+                        <div class="x_panel">
                           <div class="x_title">
                             <h2>Número  de membros<small>membros</small></h2>
                             <ul class="nav navbar-right panel_toolbox">
@@ -317,6 +212,38 @@
                             </div>
                             <div class="widget_summary">
                               <div class="w_left w_20">
+                                <span>1.5.4</span>
+                              </div>
+                              <div class="w_center w_55">
+                                <div class="progress">
+                                  <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                    <span class="sr-only">60% Complete</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="w_right w_20">
+                                <span>23k</span>
+                              </div>
+                              <div class="clearfix"></div>
+                            </div>
+                            <div class="widget_summary">
+                              <div class="w_left w_20">
+                                <span>1.5.5</span>
+                              </div>
+                              <div class="w_center w_55">
+                                <div class="progress">
+                                  <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
+                                    <span class="sr-only">60% Complete</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="w_right w_20">
+                                <span>3k</span>
+                              </div>
+                              <div class="clearfix"></div>
+                            </div>
+                            <div class="widget_summary">
+                              <div class="w_left w_20">
                                 <span>0.1.5.6</span>
                               </div>
                               <div class="w_center w_55">
@@ -331,11 +258,59 @@
                               </div>
                               <div class="clearfix"></div>
                             </div>
+                            <div class="widget_summary">
+                              <div class="w_left w_20">
+                                <span>0.1.5.6</span>
+                              </div>
+                              <div class="w_center w_55">
+                                <div class="progress">
+                                  <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
+                                    <span class="sr-only">60% Complete</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="w_right w_20">
+                                <span>1k</span>
+                              </div>
+                              <div class="clearfix"></div>
+                            </div>
+                            <div class="widget_summary">
+                              <div class="w_left w_20">
+                                <span>1.5.2</span>
+                              </div>
+                              <div class="w_center w_55">
+                                <div class="progress">
+                                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
+                                    <span class="sr-only">60% Complete</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="w_right w_20">
+                                <span>123k</span>
+                              </div>
+                              <div class="clearfix"></div>
+                            </div>
         
+                            <div class="widget_summary">
+                              <div class="w_left w_20">
+                                <span>1.5.3</span>
+                              </div>
+                              <div class="w_center w_55">
+                                <div class="progress">
+                                  <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
+                                    <span class="sr-only">60% Complete</span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="w_right w_20">
+                                <span>53k</span>
+                              </div>
+                              <div class="clearfix"></div>
+                            </div>
                           </div>
                         </div>
                       </div>                      
-                    </div>
+                    </div>                  
 
                     <div class="row top_tiles" style="margin: 10px 0;">
                       <div class="col-md-3 tile">
@@ -373,7 +348,7 @@
 
                     <br />
                     <div class="row">
-                      <div class="col-md-3   widget widget_tally_box">
+                      <div class="col-md-3">
                         <div class="x_panel fixed_height_390">
                           <div class="x_title">
                             <h2>Tally Design</h2>
@@ -395,7 +370,7 @@
                           <div class="x_content">
 
                             <div style="text-align: center; overflow: hidden; margin: 10px 5px 0;">
-                              <canvas id="canvas_line1" height="200"></canvas>
+                              <canvas id="canvas_line1" height="150"></canvas>
                             </div>
 
                             <div style="text-align: center; margin-bottom: 15px;">
@@ -433,7 +408,7 @@
                       </div>
 
 
-                      <div class="col-md-3   widget widget_tally_box">
+                      <div class="col-md-3">
                         <div class="x_panel fixed_height_390">
                           <div class="x_title">
                             <h2>Sales Close</h2>
@@ -454,25 +429,25 @@
                           </div>
                           <div class="x_content">
 
-                            <div style="text-align: center; margin-bottom: 17px">
+                            <div style="text-align: center; margin-bottom: 17px; height: 120px;">
                               <ul class="verticle_bars list-inline" style="display: flex;">
                                 <li>
-                                  <div class="progress vertical progress_wide bottom">
+                                  <div class="progress vertical progress_wide bottom" style="height: 120px;">
                                     <div class="progress-bar progress-bar-dark" role="progressbar" data-transitiongoal="65"></div>
                                   </div>
                                 </li>
                                 <li>
-                                  <div class="progress vertical progress_wide bottom">
+                                  <div class="progress vertical progress_wide bottom" style="height: 120px;">
                                     <div class="progress-bar progress-bar-gray" role="progressbar" data-transitiongoal="85"></div>
                                   </div>
                                 </li>
                                 <li>
-                                  <div class="progress vertical progress_wide bottom">
+                                  <div class="progress vertical progress_wide bottom" style="height: 120px;">
                                     <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="45"></div>
                                   </div>
                                 </li>
                                 <li>
-                                  <div class="progress vertical progress_wide bottom">
+                                  <div class="progress vertical progress_wide bottom" style="height: 120px;">
                                     <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="75"></div>
                                   </div>
                                 </li>
@@ -508,7 +483,7 @@
                       </div>
 
 
-                      <div class="col-md-3   widget widget_tally_box">
+                      <div class="col-md-3">
                         <div class="x_panel ui-ribbon-container fixed_height_390">
                           <div class="ui-ribbon-wrapper">
                             <div class="ui-ribbon">
@@ -536,60 +511,12 @@
 
                           </div>
                         </div>
-                      </div>
+                      </div>                      
 
-
-                      <div class="col-md-3   widget widget_tally_box">
-                        <div class="x_panel fixed_height_390">
-                          <div class="x_content">
-
-                            <div class="flex">
-                              <ul class="list-inline widget_profile_box">
-                                <li>
-                                  <a>
-                                    <i class="fa fa-facebook"></i>
-                                  </a>
-                                </li>
-                                <li>
-                                  <img src="images/user.png" alt="..." class="img-circle profile_img">
-                                </li>
-                                <li>
-                                  <a>
-                                    <i class="fa fa-twitter"></i>
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-
-                            <h3 class="name">Musimbi</h3>
-
-                            <div class="flex">
-                              <ul class="list-inline count2">
-                                <li>
-                                  <h3>123</h3>
-                                  <span>Articles</span>
-                                </li>
-                                <li>
-                                  <h3>1234</h3>
-                                  <span>Followers</span>
-                                </li>
-                                <li>
-                                  <h3>123</h3>
-                                  <span>Following</span>
-                                </li>
-                              </ul>
-                            </div>
-                            <p>
-                              If you've decided to go in development mode and tweak all of this a bit, there are few things you should do.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-3   widget widget_tally_box">
-                        <div class="x_panel">
+                      <div class="col-md-3 ">
+                        <div class="x_panel tile fixed_height_390 overflow_hidden">
                           <div class="x_title">
-                            <h2>Tally Design1</h2>
+                            <h2>Device Usage</h2>
                             <ul class="nav navbar-right panel_toolbox">
                               <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                               </li>
@@ -606,257 +533,60 @@
                             <div class="clearfix"></div>
                           </div>
                           <div class="x_content">
-
-                            <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
-                                                  <span class="percent"></span>
-                              </span>
-                            </div>
-
-                            <div class="pie_bg" style="text-align: center; display: none; margin-bottom: 17px">
-                              <canvas id="canvas_doughnut" height="130"></canvas>
-                            </div>
-
-                            <div style="text-align: center;">
-                              <div class="btn-group" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-default btn-sm">1 D</button>
-                                <button type="button" class="btn btn-default btn-sm">1 W</button>
-                                <button type="button" class="btn btn-default btn-sm">1 M</button>
-                                <button type="button" class="btn btn-default btn-sm">1 Y</button>
-                              </div>
-                            </div>
-                            <div style="text-align: center; overflow: hidden; margin: 10px 5px 3px;">
-                              <canvas id="canvas_line" height="190"></canvas>
-                            </div>
-                            <div>
-                              <ul class="list-inline widget_tally">
-                                <li>
-                                  <p>
-                                    <span class="month">12 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">29 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">16 January 2015 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-
-
-                      <div class="col-md-3   widget widget_tally_box">
-                        <div class="x_panel">
-                          <div class="x_title">
-                            <h2>Tally Design2</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                              </li>
-                              <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Settings 1</a>
-                                    <a class="dropdown-item" href="#">Settings 2</a>
+                            <table class="" style="width:100%">
+                              <tbody><tr>
+                                <th style="width:37%;">
+                                  <p>Top 5</p>
+                                </th>
+                                <th>
+                                  <div class="col-lg-7 col-md-7 col-sm-7 ">
+                                    <p class="">Device</p>
                                   </div>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
-                              </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                          </div>
-                          <div class="x_content">
-
-                            <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
-                                                  <span class="percent"></span>
-                              </span>
-                            </div>
-
-                            <div class="pie_bg" style="text-align: center; display: none; margin-bottom: 17px">
-                              <canvas id="canvas_doughnut2" height="130"></canvas>
-                            </div>
-
-                            <div style="text-align: center;">
-                              <div class="btn-group" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-default btn-sm">1 D</button>
-                                <button type="button" class="btn btn-default btn-sm">1 W</button>
-                                <button type="button" class="btn btn-default btn-sm">1 M</button>
-                                <button type="button" class="btn btn-default btn-sm">1 Y</button>
-                              </div>
-                            </div>
-                            <div style="text-align: center; overflow: hidden; margin: 10px 5px 3px;">
-                              <canvas id="canvas_line2" height="190"></canvas>
-                            </div>
-                            <div>
-                              <ul class="list-inline widget_tally">
-                                <li>
-                                  <p>
-                                    <span class="month">12 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">29 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">16 January 2015 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <div class="col-md-3   widget widget_tally_box">
-                        <div class="x_panel">
-                          <div class="x_title">
-                            <h2>Tally Design3</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                              </li>
-                              <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Settings 1</a>
-                                    <a class="dropdown-item" href="#">Settings 2</a>
+                                  <div class="col-lg-5 col-md-5 col-sm-5 ">
+                                    <p class="">Progress</p>
                                   </div>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
-                              </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                          </div>
-                          <div class="x_content">
-
-                            <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
-                                                  <span class="percent"></span>
-                              </span>
-                            </div>
-
-                            <div class="pie_bg" style="text-align: center; display: none; margin-bottom: 17px">
-                              <canvas id="canvas_doughnut3" height="130"></canvas>
-                            </div>
-
-                            <div style="text-align: center;">
-                              <div class="btn-group" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-default btn-sm">1 D</button>
-                                <button type="button" class="btn btn-default btn-sm">1 W</button>
-                                <button type="button" class="btn btn-default btn-sm">1 M</button>
-                                <button type="button" class="btn btn-default btn-sm">1 Y</button>
-                              </div>
-                            </div>
-                            <div style="text-align: center; overflow: hidden; margin: 10px 5px 3px;">
-                              <canvas id="canvas_line3" height="190"></canvas>
-                            </div>
-                            <div>
-                              <ul class="list-inline widget_tally">
-                                <li>
-                                  <p>
-                                    <span class="month">12 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">29 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">16 January 2015 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-3   widget widget_tally_box">
-                        <div class="x_panel">
-                          <div class="x_title">
-                            <h2>Tally Design4</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                              </li>
-                              <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Settings 1</a>
-                                    <a class="dropdown-item" href="#">Settings 2</a>
-                                  </div>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
-                              </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                          </div>
-                          <div class="x_content">
-
-                            <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
-                                                  <span class="percent"></span>
-                              </span>
-                            </div>
-
-                            <div class="pie_bg" style="text-align: center; display: none; margin-bottom: 17px">
-                              <canvas id="canvas_doughnut4" height="130"></canvas>
-                            </div>
-
-                            <div style="text-align: center;">
-                              <div class="btn-group" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-default btn-sm">1 D</button>
-                                <button type="button" class="btn btn-default btn-sm">1 W</button>
-                                <button type="button" class="btn btn-default btn-sm">1 M</button>
-                                <button type="button" class="btn btn-default btn-sm">1 Y</button>
-                              </div>
-                            </div>
-                            <div style="text-align: center; overflow: hidden; margin: 10px 5px 3px;">
-                              <canvas id="canvas_line4" height="190"></canvas>
-                            </div>
-                            <div>
-                              <ul class="list-inline widget_tally">
-                                <li>
-                                  <p>
-                                    <span class="month">12 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">29 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">16 January 2015 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                              </ul>
-                            </div>
+                                </th>
+                              </tr>
+                              <tr>
+                                <td><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; inset: 0px;"></iframe>
+                                  <canvas class="canvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0px; width: 140px; height: 140px;"></canvas>
+                                </td>
+                                <td>
+                                  <table class="tile_info">
+                                    <tbody><tr>
+                                      <td>
+                                        <p><i class="fa fa-square blue"></i>IOS </p>
+                                      </td>
+                                      <td>30%</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <p><i class="fa fa-square green"></i>Android </p>
+                                      </td>
+                                      <td>10%</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <p><i class="fa fa-square purple"></i>Blackberry </p>
+                                      </td>
+                                      <td>20%</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <p><i class="fa fa-square aero"></i>Symbian </p>
+                                      </td>
+                                      <td>15%</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <p><i class="fa fa-square red"></i>Others </p>
+                                      </td>
+                                      <td>30%</td>
+                                    </tr>
+                                  </tbody></table>
+                                </td>
+                              </tr>
+                            </tbody></table>
                           </div>
                         </div>
                       </div>
@@ -869,13 +599,8 @@
         </div>
         <!-- /page content -->
 
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
+        <!-- footer content -->        
+        <div id="footer"></div>
         <!-- /footer content -->
       </div>
     </div>

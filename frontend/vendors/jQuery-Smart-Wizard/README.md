@@ -33,9 +33,9 @@ $('#wizard').smartWizard({
     enableFinishButton: false, // makes finish button enabled always
 	hideButtonsOnDisabled: false, // when the previous/next/finish buttons are disabled, hide them instead
     errorSteps:[],    // array of step numbers to highlighting as error steps
-    labelNext:'Next', // label for Next button
-    labelPrevious:'Previous', // label for Previous button
-    labelFinish:'Finish',  // label for Finish button        
+    labelNext:'Próximo', // for Next button
+    labelPrevious:'Anterior', // label for Previous button
+    labelFinish:'Fim',  // label for Finish button        
     noForwardJumping:false,
   // Events
     onLeaveStep: null, // triggers when leaving a step

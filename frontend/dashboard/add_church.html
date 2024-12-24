@@ -57,96 +57,7 @@
         </div>
 
         <!-- top navigation -->
-        <div class="top_nav">
-            <div class="nav_menu">
-                <div class="nav toggle">
-                  <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                </div>
-                <nav class="nav navbar-nav">
-                <ul class=" navbar-right">
-                  <li class="nav-item dropdown open" style="padding-left: 15px;">
-                    <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                      <img src="images/img.jpg" alt="">John Doe
-                    </a>
-                    <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item"  href="javascript:;"> Profile</a>
-                        <a class="dropdown-item"  href="javascript:;">
-                          <span class="badge bg-red pull-right">50%</span>
-                          <span>Settings</span>
-                        </a>
-                    <a class="dropdown-item"  href="javascript:;">Help</a>
-                      <a class="dropdown-item"  href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
-                    </div>
-                  </li>
-  
-                  <li role="presentation" class="nav-item dropdown open">
-                    <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1" data-toggle="dropdown" aria-expanded="false">
-                      <i class="fa fa-envelope-o"></i>
-                      <span class="badge bg-green">6</span>
-                    </a>
-                    <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="dropdown-item">
-                          <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
-                          <span>
-                            <span>John Smith</span>
-                            <span class="time">3 mins ago</span>
-                          </span>
-                          <span class="message">
-                            Film festivals used to be do-or-die moments for movie makers. They were where...
-                          </span>
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <div class="text-center">
-                          <a class="dropdown-item">
-                            <strong>See All Alerts</strong>
-                            <i class="fa fa-angle-right"></i>
-                          </a>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
+        <div id="topNav"></div>
         <!-- /top navigation -->
 
         <!-- page content -->
@@ -197,69 +108,94 @@
 
 
                     <!-- Smart Wizard -->
-                    <p>This is a basic form wizard example that inherits the colors from the selected scheme.</p>
+                     
+                    <form class="form-horizontal form-label-left">
+                    <p>Utilize o assistente abaixo para preencher os detalhes da igreja em etapas organizadas. Cada seção foi projetada para simplificar o processo de entrada de dados.</p>
                     <div id="wizard" class="form_wizard wizard_horizontal">
-                      <ul class="wizard_steps">
+                       <ul class="wizard_steps">
                         <li>
-                          <a href="#step-1">
-                            <span class="step_no">1</span>
-                            <span class="step_descr">
-                                              Step 1<br />
-                                              <small>Step 1 description</small>
-                                          </span>
-                          </a>
+                            <a href="#step-1">
+                                <span class="step_no">1</span>
+                                <span class="step_descr">Nome<br />
+                                  <small>Step 4 description</small></span>
+                            </a>
                         </li>
                         <li>
-                          <a href="#step-2">
-                            <span class="step_no">2</span>
-                            <span class="step_descr">
-                                              Step 2<br />
-                                              <small>Step 2 description</small>
-                                          </span>
-                          </a>
+                            <a href="#step-2">
+                              <span class="step_no">2</span>
+                              <span class="step_descr">Localização<br />
+                                <small>Step 4 description</small></span>
+                            </a>
                         </li>
                         <li>
-                          <a href="#step-3">
-                            <span class="step_no">3</span>
-                            <span class="step_descr">
-                                              Step 3<br />
-                                              <small>Step 3 description</small>
-                                          </span>
-                          </a>
+                            <a href="#step-3">
+                              <span class="step_no">3</span>
+                              <span class="step_descr">Detalhes<br />
+                                <small>Step 4 description</small></span>
+                            </a>
                         </li>
                         <li>
-                          <a href="#step-4">
-                            <span class="step_no">4</span>
-                            <span class="step_descr">
-                                              Step 4<br />
-                                              <small>Step 4 description</small>
-                                          </span>
-                          </a>
+                            <a href="#step-4">
+                                  <span class="step_no">4</span>
+                                  <span class="step_descr">Contato<br />
+                                    <small>Step 4 description</small></span>
+                            </a>
                         </li>
+                        
                       </ul>
                       <div id="step-1">
-                        <form class="form-horizontal form-label-left">
+                          <h3>Igreja</h3>
+                          <div class="form-group row">
+                            <label class="col-sm-3 col-form-label label-align">Nome da Igreja</label>
+                              <div class="col-sm-9">
+                                  <input type="text" class="form-control" id="nome" placeholder="Nome da Igreja" required>
+                              </div>
+                          </div>
+                          <h3>Endereço</h3>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label label-align">Logradouro</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="logradouro" placeholder="Logradouro" required>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label label-align">Número</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="numero" placeholder="Número">
+                                </div>
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label label-align">Bairro</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="bairro" placeholder="Bairro">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label label-align">Cidade</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="cidade" placeholder="Cidade">
+                                </div>
 
-                          <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 ">
-                              <input type="text" id="first-name" required="required" class="form-control  ">
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label label-align">Estado</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="estado" placeholder="Estado">
+                                </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Last Name <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 ">
-                              <input type="text" id="last-name" name="last-name" required="required" class="form-control ">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label label-align">CEP</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="cep" placeholder="CEP">
+                                </div>
+
+                              </div>
+                              <div class="form-group row">
+                                <label class="col-sm-3 col-form-label label-align">Complemento</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="complemento" placeholder="Complemento">
+                                </div>
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Middle Name / Initial</label>
-                            <div class="col-md-6 col-sm-6 ">
-                              <input id="middle-name" class="form-control col" type="text" name="middle-name">
-                            </div>
-                          </div>
                           <div class="form-group row">
                             <label class="col-form-label col-md-3 col-sm-3 label-align">Gender</label>
                             <div class="col-md-6 col-sm-6 ">
@@ -273,183 +209,59 @@
                               </div>
                             </div>
                           </div>
-                          <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align">Date Of Birth <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 ">
-                              <input id="birthday" class="date-picker form-control" required="required" type="text">
-                            </div>
-                          </div>
-
-                        </form>
 
                       </div>
                       <div id="step-2">
-                        <h2 class="StepTitle">Step 2 Content</h2>
-                        <p>
-                          do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                          fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+                        <h3>Localização</h3>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Latitude</label>
+                            <div class="col-sm-3">
+                                <input type="number" step="any" class="form-control" id="latitude" placeholder="Latitude">
+                            </div>
+                            <label class="col-sm-3 col-form-label">Longitude</label>
+                            <div class="col-sm-3">
+                                <input type="number" step="any" class="form-control" id="longitude" placeholder="Longitude">
+                            </div>
+                        </div>
                       </div>
                       <div id="step-3">
-                        <h2 class="StepTitle">Step 3 Content</h2>
-                        <p>
-                          sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore
-                          eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+                        <h3>Detalhes</h3>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tipo do Local</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="tipo_local" placeholder="Tipo do Local">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Descrição</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" id="descricao" rows="3" placeholder="Descrição"></textarea>
+                            </div>
+                        </div>
                       </div>
                       <div id="step-4">
-                        <h2 class="StepTitle">Step 4 Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                      </div>
-
-                    </div>
-                    <!-- End SmartWizard Content -->
-
-
-
-
-
-                    <h2>Example: Vertical Style</h2>
-                    <!-- Tabs -->
-                    <div id="wizard_verticle" class="form_wizard wizard_verticle">
-                      <ul class="list-unstyled wizard_steps">
-                        <li>
-                          <a href="#step-11">
-                            <span class="step_no">1</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#step-22">
-                            <span class="step_no">2</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#step-33">
-                            <span class="step_no">3</span>
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#step-44">
-                            <span class="step_no">4</span>
-                          </a>
-                        </li>
-                      </ul>
-
-                      <div id="step-11">
-                        <h2 class="StepTitle">Step 1 Content</h2>
-                        <form class="form-horizontal form-label-left">
-
-                          <span class="section">Personal Info</span>
-
-                          <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">First Name <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6">
-                              <input type="text" id="first-name2" required="required" class="form-control">
-                            </div>
+                        <h3>Contato</h3>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Telefone</label>
+                          <div class="col-sm-9">
+                              <input type="text" class="form-control" id="telefone" placeholder="Telefone">
                           </div>
-                          <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Last Name <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6">
-                              <input type="text" id="last-name2" name="last-name" required="required" class="form-control">
-                            </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Email</label>
+                          <div class="col-sm-9">
+                              <input type="email" class="form-control" id="email" placeholder="Email">
                           </div>
-                          <div class="form-group row">
-                            <label for="middle-name" class="col-form-label col-md-3 col-sm-3 label-align">Middle Name / Initial</label>
-                            <div class="col-md-6 col-sm-6">
-                              <input id="middle-name2" class="form-control " type="text" name="middle-name">
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Website</label>
+                            <div class="col-sm-9">
+                                <input type="url" class="form-control" id="website" placeholder="Website">
                             </div>
-                          </div>
-                          <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align">Gender</label>
-                            <div class="col-md-6 col-sm-6">
-                              <div id="gender2" class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-secondary">
-                                  <input type="radio" name="gender" value="male" class="join-btn"> &nbsp; Male &nbsp;
-                                </label>
-                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-secondary">
-                                  <input type="radio" name="gender" value="female" class="join-btn" checked=""> Female
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align">Date Of Birth <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6">
-                              <input id="birthday2" class="date-picker form-control" required="required" type="text">
-                            </div>
-                          </div>
-
-                        </form>
-                      </div>
-                      <div id="step-22">
-                        <h2 class="StepTitle">Step 2 Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                      </div>
-                      <div id="step-33">
-                        <h2 class="StepTitle">Step 3 Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                      </div>
-                      <div id="step-44">
-                        <h2 class="StepTitle">Step 4 Content</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                          in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </p>
+                        </div>
                       </div>
                     </div>
+                  </form>
                     <!-- End SmartWizard Content -->
                   </div>
                 </div>
@@ -459,13 +271,8 @@
         </div>
         <!-- /page content -->
 
-        <!-- footer content -->
-        <footer>
-          <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-          </div>
-          <div class="clearfix"></div>
-        </footer>
+        <!-- footer content -->        
+        <div id="footer"></div>
         <!-- /footer content -->
       </div>
     </div>
