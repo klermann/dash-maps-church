@@ -1,295 +1,552 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>IADMS - Geolocalização | </title>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+  <title>IADMS - Geolocalização | </title>
 
-    <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
-  </head>
+  <!-- Bootstrap -->
+  <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- NProgress -->
+  <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
 
-  <body class="nav-md">
-    <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
+  <!-- Custom Theme Style -->
+  <link href="../build/css/custom.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <style>
+    #map {
+      height: 400px;
+    }
 
-            <div class="clearfix"></div>
-            <!-- menu profile quick info -->
-            <div id="profileContainer"></div>
-            <!-- /menu profile quick info -->
+    .leaflet-container {
+      height: 400px;
+      width: 100%;
+      max-width: 100%;
+      max-height: 100%;
+      border: 1px solid #a0a0a0;
+    }
 
-            <br />
+    .buttons {
+      margin-top: 10px;
+    }
 
-            <!-- sidebar menu -->
-            <div id="sidebarMenu"></div>
-            <!-- /sidebar menu -->
+    .buttons button {
+      margin-right: 10px;
+    }
+  </style>
+</head>
 
-            <!-- /menu footer buttons -->
-            <div class="sidebar-footer hidden-small">
-              <a data-toggle="tooltip" data-placement="top" title="Settings">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Lock">
-                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-              </a>
-              <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-              </a>
-            </div>
-            <!-- /menu footer buttons -->
+<body class="nav-md">
+  <div class="container body">
+    <div class="main_container">
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
+
+          <div class="clearfix"></div>
+          <!-- menu profile quick info -->
+          <div id="profileContainer"></div>
+          <!-- /menu profile quick info -->
+
+          <br />
+
+          <!-- sidebar menu -->
+          <div id="sidebarMenu"></div>
+          <!-- /sidebar menu -->
+
+          <!-- /menu footer buttons -->
+          <div class="sidebar-footer hidden-small">
+            <a data-toggle="tooltip" data-placement="top" title="Settings">
+              <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+              <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Lock">
+              <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+            </a>
+            <a data-toggle="tooltip" data-placement="top" title="Logout" href="login.html">
+              <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+            </a>
           </div>
+          <!-- /menu footer buttons -->
         </div>
+      </div>
 
-        <!-- top navigation -->
-        <div id="topNav"></div>
-        <!-- /top navigation -->
+      <!-- top navigation -->
+      <div id="topNav"></div>
+      <!-- /top navigation -->
 
-        <!-- page content -->
-        <div class="right_col" role="main">
-          <div class="">
-            <div class="page-title">
-              <div class="title_left">
-                <h3>Adicionar igreja</h3>
-              </div>
+      <!-- page content -->
+      <div class="right_col" role="main">
+        <div class="">
+          <div class="page-title">
+            <div class="title_left">
+              <h3>Adicionar igreja</h3>
+            </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5  form-group row pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                              <button class="btn btn-secondary" type="button">Go!</button>
-                          </span>
-                  </div>
+            <div class="title_right">
+              <div class="col-md-5 col-sm-5  form-group row pull-right top_search">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search for...">
+                  <span class="input-group-btn">
+                    <button class="btn btn-secondary" type="button">Go!</button>
+                  </span>
                 </div>
               </div>
             </div>
-            <div class="clearfix"></div>
+          </div>
+          <div class="clearfix"></div>
 
-            <div class="row">
+          <div class="row">
 
-              <div class="col-md-12 col-sm-12 ">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Adicionar igreja <small>localização</small></h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                      </li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                        <ul class="dropdown-menu" role="menu">
-                          <li><a href="#">Settings 1</a>
-                          </li>
-                          <li><a href="#">Settings 2</a>
-                          </li>
-                        </ul>
-                      </li>
-                      <li><a class="close-link"><i class="fa fa-close"></i></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-
-                    <!-- Smart Wizard -->
-                     
-                    <form class="form-horizontal form-label-left">
-                    <p>Utilize o assistente abaixo para preencher os detalhes da igreja em etapas organizadas. Cada seção foi projetada para simplificar o processo de entrada de dados.</p>
+            <div class="col-md-12 col-sm-12 ">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Adicionar igreja <small>localização</small></h2>
+                  <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i
+                          class="fa fa-wrench"></i></a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Settings 1</a>
+                        </li>
+                        <li><a href="#">Settings 2</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <!-- Smart Wizard -->
+                  <form class="form-horizontal form-label-left">
+                    <p>Utilize o assistente abaixo para preencher os detalhes da igreja em etapas organizadas. Cada
+                      seção foi projetada para simplificar o processo de entrada de dados.</p>
                     <div id="wizard" class="form_wizard wizard_horizontal">
-                       <ul class="wizard_steps">
+                      <ul class="wizard_steps">
                         <li>
-                            <a href="#step-1">
-                                <span class="step_no">1</span>
-                                <span class="step_descr">Nome<br />
-                                  <small>Step 4 description</small></span>
-                            </a>
+                          <a href="#step-1">
+                            <span class="step_no">1</span>
+                            <span class="step_descr">Nome<br />
+                              <small>Step 4 description</small></span>
+                          </a>
                         </li>
                         <li>
-                            <a href="#step-2">
-                              <span class="step_no">2</span>
-                              <span class="step_descr">Localização<br />
-                                <small>Step 4 description</small></span>
-                            </a>
+                          <a href="#step-2">
+                            <span class="step_no">2</span>
+                            <span class="step_descr">Detalhes<br />
+                              <small>Step 4 description</small></span>
+                          </a>
                         </li>
                         <li>
-                            <a href="#step-3">
-                              <span class="step_no">3</span>
-                              <span class="step_descr">Detalhes<br />
-                                <small>Step 4 description</small></span>
-                            </a>
+                          <a href="#step-3">
+                            <span class="step_no">3</span>
+                            <span class="step_descr">Contato<br />
+                              <small>Step 4 description</small></span>
+                          </a>
                         </li>
-                        <li>
-                            <a href="#step-4">
-                                  <span class="step_no">4</span>
-                                  <span class="step_descr">Contato<br />
-                                    <small>Step 4 description</small></span>
-                            </a>
-                        </li>
-                        
+
                       </ul>
                       <div id="step-1">
-                          <h3>Igreja</h3>
-                          <div class="form-group row">
-                            <label class="col-sm-3 col-form-label label-align">Nome da Igreja</label>
-                              <div class="col-sm-9">
-                                  <input type="text" class="form-control" id="nome" placeholder="Nome da Igreja" required>
-                              </div>
+                        <h3>Igreja</h3>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label label-align">Nome da Igreja</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="nome" placeholder="Nome da Igreja" required
+                              data-parsley-required-message="O campo Nome da Igreja é obrigatório."
+                              data-parsley-trigger="change">
                           </div>
-                          <h3>Endereço</h3>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label label-align">Logradouro</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="logradouro" placeholder="Logradouro" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label label-align">Número</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="numero" placeholder="Número">
-                                </div>
-                              </div>
-                              <div class="form-group row">
-                                <label class="col-sm-3 col-form-label label-align">Bairro</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="bairro" placeholder="Bairro">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label label-align">Cidade</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="cidade" placeholder="Cidade">
-                                </div>
-
-                              </div>
-                              <div class="form-group row">
-                                <label class="col-sm-3 col-form-label label-align">Estado</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="estado" placeholder="Estado">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label label-align">CEP</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="cep" placeholder="CEP">
-                                </div>
-
-                              </div>
-                              <div class="form-group row">
-                                <label class="col-sm-3 col-form-label label-align">Complemento</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="complemento" placeholder="Complemento">
-                                </div>
-                            </div>
-                          <div class="form-group row">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align">Gender</label>
-                            <div class="col-md-6 col-sm-6 ">
-                              <div id="gender" class="btn-group" data-toggle="buttons">
-                                <label class="btn btn-secondary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-secondary">
-                                  <input type="radio" name="gender" value="male" class="join-btn"> &nbsp; Male &nbsp;
-                                </label>
-                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-secondary">
-                                  <input type="radio" name="gender" value="female" class="join-btn"> Female
-                                </label>
-                              </div>
-                            </div>
+                        </div>
+                        <h3>Endereço</h3>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label label-align">Logradouro</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="logradouro" placeholder="Logradouro" required
+                              data-parsley-required-message="O campo Logradouro é obrigatório."
+                              data-parsley-trigger="change">
                           </div>
-
-                      </div>
-                      <div id="step-2">
+                          <label class="col-sm-3 col-form-label label-align">Número</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="numero" placeholder="Número"
+                              data-parsley-type="digits"
+                              data-parsley-type-message="O campo Número deve conter apenas dígitos."
+                              data-parsley-trigger="change">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label label-align">Bairro</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="bairro" placeholder="Bairro" required
+                              data-parsley-required-message="O campo Bairro é obrigatório."
+                              data-parsley-trigger="change">
+                          </div>
+                          <label class="col-sm-3 col-form-label label-align">Cidade</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="cidade" placeholder="Cidade" required
+                              data-parsley-required-message="O campo Cidade é obrigatório."
+                              data-parsley-trigger="change">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label label-align">Estado</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="estado" placeholder="Estado" required
+                              data-parsley-required-message="O campo Estado é obrigatório."
+                              data-parsley-trigger="change">
+                          </div>
+                          <label class="col-sm-3 col-form-label label-align">CEP</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="cep" placeholder="CEP" required
+                              data-parsley-pattern="^\d{5}-\d{3}$"
+                              data-parsley-pattern-message="O CEP deve estar no formato 12345-678."
+                              data-parsley-trigger="change">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label label-align">Complemento</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="complemento" placeholder="Complemento"
+                              data-parsley-trigger="change">
+                          </div>
+                        </div>
                         <h3>Localização</h3>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Latitude</label>
-                            <div class="col-sm-3">
-                                <input type="number" step="any" class="form-control" id="latitude" placeholder="Latitude">
+                          <label class="col-sm-3 col-form-label label-align">Latitude</label>
+                          <div class="col-sm-3">
+                            <input type="number" step="any" class="form-control" id="latitude" placeholder="Latitude"
+                              required data-parsley-type="number" data-parsley-trigger="change"
+                              data-parsley-required-message="O campo Latitude é obrigatório."
+                              data-parsley-type-message="O campo Latitude deve ser numérico.">
+                          </div>
+                          <label class="col-sm-3 col-form-label label-align">Longitude</label>
+                          <div class="col-sm-3">
+                            <input type="number" step="any" class="form-control" id="longitude" placeholder="Longitude"
+                              required data-parsley-type="number" data-parsley-trigger="change"
+                              data-parsley-required-message="O campo Longitude é obrigatório."
+                              data-parsley-type-message="O campo Longitude deve ser numérico.">
+                          </div>
+                        </div>
+                        <div id="map"></div>
+                      </div>
+
+                      <div id="step-2">
+                        <h3>Detalhes</h3>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label label-align">Tipo do Local</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="tipo_local" placeholder="Tipo do Local" required
+                              data-parsley-required-message="O campo Tipo do Local é obrigatório."
+                              data-parsley-trigger="change">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+
+                          <label class="col-form-label col-md-3 col-sm-3 label-align">Status</label>
+                          <div class="col-md-3 col-sm-3 ">
+                            <div id="gender" class="btn-group" data-toggle="buttons">
+                              <label class="btn btn-secondary" data-toggle-class="btn-primary"
+                                data-toggle-passive-class="btn-default">
+                                <input type="radio" name="gender" value="male" class="join-btn"
+                                  data-parsley-multiple="gender" data-parsley-id="12"> &nbsp; Aberta &nbsp;
+                              </label>
+                              <label class="btn btn-primary active" data-toggle-class="btn-primary"
+                                data-toggle-passive-class="btn-default">
+                                <input type="radio" name="gender" value="female" class="join-btn"
+                                  data-parsley-multiple="gender"> Fechada
+                              </label>
                             </div>
-                            <label class="col-sm-3 col-form-label">Longitude</label>
-                            <div class="col-sm-3">
-                                <input type="number" step="any" class="form-control" id="longitude" placeholder="Longitude">
-                            </div>
+                          </div>
+                          <label class="col-sm-3 col-form-label label-align">Categoria</label>
+                          <div class="col-sm-3">
+                            <select class="form-control" id="categoria" required
+                              data-parsley-required-message="O campo Categoria é obrigatório."
+                              data-parsley-trigger="change">
+                              <option value="">Selecione uma categoria</option>
+                              <option value="igreja">Igreja</option>
+                              <option value="congregacao">Congregação</option>
+                              <option value="sede">Sede</option>
+                              <option value="outro">Outro</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label label-align">Descrição</label>
+                          <div class="col-sm-3">
+                            <textarea class="form-control" id="descricao" required rows="6" placeholder="Descrição"
+                              data-parsley-minlength="20"
+                              data-parsley-required-message="A descrição é obrigatória!"
+                              data-parsley-minlength-message="A descrição deve ter pelo menos 20 caracteres."
+                              data-parsley-trigger="keyup"></textarea>
+                          </div>
                         </div>
                       </div>
                       <div id="step-3">
-                        <h3>Detalhes</h3>
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Tipo do Local</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" id="tipo_local" placeholder="Tipo do Local">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Descrição</label>
-                            <div class="col-sm-9">
-                                <textarea class="form-control" id="descricao" rows="3" placeholder="Descrição"></textarea>
-                            </div>
-                        </div>
-                      </div>
-                      <div id="step-4">
                         <h3>Contato</h3>
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Telefone</label>
-                          <div class="col-sm-9">
-                              <input type="text" class="form-control" id="telefone" placeholder="Telefone">
+                          <label class="col-sm-3 col-form-label label-align">Telefone</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="telefone" required placeholder="Telefone"
+                              data-parsley-pattern="^\d{10,11}$"
+                              data-parsley-pattern-message="O telefone deve ter entre 10 e 11 dígitos numéricos."
+                              data-parsley-trigger="change">
+                          </div>
+                          <label class="col-sm-3 col-form-label label-align">Email</label>
+                          <div class="col-sm-3">
+                            <input type="email" class="form-control" id="email" required placeholder="Email"
+                              data-parsley-required-message="O campo Email é obrigatório."
+                              data-parsley-trigger="change">
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label">Email</label>
-                          <div class="col-sm-9">
-                              <input type="email" class="form-control" id="email" placeholder="Email">
+                          <label class="col-sm-3 col-form-label label-align">Website</label>
+                          <div class="col-sm-3">
+                            <input type="url" class="form-control" id="website" required placeholder="Website"
+                              data-parsley-required-message="O campo Website é obrigatório."
+                              data-parsley-trigger="change">
+                          </div>
+                          <label class="col-sm-3 col-form-label label-align">Facebook</label>
+                          <div class="col-sm-3">
+                            <input type="url" class="form-control" id="facebook" placeholder="Facebook" required
+                              data-parsley-trigger="change">
                           </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Website</label>
-                            <div class="col-sm-9">
-                                <input type="url" class="form-control" id="website" placeholder="Website">
-                            </div>
+                          <label class="col-sm-3 col-form-label label-align">Alkipage</label>
+                          <div class="col-sm-3">
+                            <input type="url" class="form-control" id="alkipage" placeholder="Alkipage" required
+                              data-parsley-trigger="change">
+                          </div>
+                          <label class="col-sm-3 col-form-label label-align">Instagram</label>
+                          <div class="col-sm-3">
+                            <input type="url" class="form-control" id="instagram" placeholder="Instagram" required
+                              data-parsley-trigger="change">
+                          </div>
+                        </div>
+
+                        <div class="actionBar">
+                          <button id="submitButton" class="btn btn-success btn-sm" type="submit">Enviar</button>
                         </div>
                       </div>
                     </div>
-                  </form>
-                    <!-- End SmartWizard Content -->
-                  </div>
                 </div>
+                </form>
+                <!-- End SmartWizard Content -->
               </div>
             </div>
           </div>
         </div>
-        <!-- /page content -->
-
-        <!-- footer content -->        
-        <div id="footer"></div>
-        <!-- /footer content -->
       </div>
     </div>
+    <!-- /page content -->
+    <!-- footer content -->
+    <div id="footer"></div>
+    <!-- /footer content -->
+  </div>
+  </div>
+  <!-- jQuery -->
+  <script src="../vendors/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- FastClick -->
+  <script src="../vendors/fastclick/lib/fastclick.js"></script>
+  <!-- NProgress -->
+  <script src="../vendors/nprogress/nprogress.js"></script>
+  <!-- jQuery Smart Wizard -->
+  <script src="../vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+  <!-- Custom Theme Scripts -->
+  <script src="../build/js/custom.min.js"></script>
+  <!-- Parsley -->
+  <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
+  <!-- Scripts Customizados -->
+  <script src="../build/js/load-components.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script>
+    $(document).ready(function () {
+      // Inicializando Parsley.js no formulário
+      const $form = $('form');
 
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-   <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
-    <!-- jQuery Smart Wizard -->
-    <script src="../vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
-    <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
-    <!-- Scripts Customizados -->
-    <script src="../build/js/load-components.js"></script>
-  </body>
+      $form.parsley();
+
+      // Interceptando o envio do formulário
+      $form.on('submit', function (e) {
+        e.preventDefault(); // Previne o envio padrão
+
+        // Verifica se o formulário é válido usando Parsley
+        if ($form.parsley().isValid()) {
+          // Se válido, chama a função de envio do formulário
+          console.log('Formulário válido! Dados serão enviados.');
+          submitForm(); // Chama a função de envio (exemplo no seu script)
+        } else {
+          // Caso inválido, exibe mensagens de erro automáticas do Parsley
+          console.log("Formulário inválido! Verifique os campos.");
+        }
+      });
+    });
+
+    const map = L.map('map').setView([-24.4878, -47.835], 7);
+
+    // Adiciona camada do mapa
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19
+    }).addTo(map);
+
+    // Marker inicial
+    let marker = L.marker([-24.4878, -47.835], { draggable: true }).addTo(map);
+
+    // Atualiza inputs quando o marcador é movido
+    marker.on('move', async function (e) {
+      const { lat, lng } = e.latlng;
+      document.getElementById('latitude').value = lat.toFixed(6);
+      document.getElementById('longitude').value = lng.toFixed(6);
+
+      try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+        const data = await response.json();
+        if (data.address) {
+          document.getElementById('logradouro').value = data.address.road || '';
+          document.getElementById('numero').value = data.address.house_number || '';
+          document.getElementById('bairro').value = data.address.neighbourhood || data.address.suburb || '';
+          document.getElementById('cidade').value = data.address.city || data.address.town || data.address.village || '';
+          document.getElementById('estado').value = data.address.state || '';
+          document.getElementById('cep').value = data.address.postcode || '';
+        }
+      } catch (error) {
+        console.error("Erro ao obter endereço reverso:", error);
+      }
+    });
+
+    // Botão Address → Position
+    document.getElementById('addressPosition').addEventListener('click', async () => {
+      const address = prompt("Digite o endereço:");
+      if (address) {
+        try {
+          const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address}`);
+          const data = await response.json();
+          if (data.length > 0) {
+            const { lat, lon } = data[0];
+            const newLatLng = new L.LatLng(lat, lon);
+            marker.setLatLng(newLatLng);
+            map.setView(newLatLng, 14);
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lon;
+          } else {
+            alert("Endereço não encontrado!");
+          }
+        } catch (error) {
+          alert("Erro ao buscar endereço!");
+        }
+      }
+    });
+
+    // Botão Set Position
+    document.getElementById('setPosition').addEventListener('click', () => {
+      const lat = parseFloat(document.getElementById('latitude').value);
+      const lng = parseFloat(document.getElementById('longitude').value);
+      if (!isNaN(lat) && !isNaN(lng)) {
+        const newLatLng = new L.LatLng(lat, lng);
+        marker.setLatLng(newLatLng);
+        map.setView(newLatLng, 14);
+      } else {
+        alert("Insira valores válidos de Latitude e Longitude!");
+      }
+    });
+
+    // Botão Get GPS Position
+    document.getElementById('getGPSPosition').addEventListener('click', () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { latitude, longitude } = position.coords;
+          const newLatLng = new L.LatLng(latitude, longitude);
+          marker.setLatLng(newLatLng);
+          map.setView(newLatLng, 14);
+          document.getElementById('latitude').value = latitude.toFixed(6);
+          document.getElementById('longitude').value = longitude.toFixed(6);
+        }, () => {
+          alert("Não foi possível obter a localização!");
+        });
+      } else {
+        alert("Geolocalização não suportada pelo navegador!");
+      }
+    });
+
+    function submitForm() {
+      const token = localStorage.getItem('authToken'); // Substitua pelo método apropriado
+
+      const churchData = {
+        churches: [
+          {
+            nome: $('#nome').val(),
+            endereco: {
+              logradouro: $('#logradouro').val(),
+              numero: $('#numero').val(),
+              bairro: $('#bairro').val(),
+              cidade: $('#cidade').val(),
+              estado: $('#estado').val(),
+              pais: "Brasil",
+              cep: $('#cep').val(),
+              complemento: $('#complemento').val()
+            },
+            localizacao: {
+              latitude: parseFloat($('#latitude').val()) || 0,
+              longitude: parseFloat($('#longitude').val()) || 0,
+              altitude: 0
+            },
+            detalhes: {
+              tipo_local: $('#tipo_local').val(),
+              descricao: $('#descricao').val(),
+              ponto_referencia: '',
+              horario_funcionamento: ''
+            },
+            contato: {
+              telefone: $('#telefone').val(),
+              email: $('#email').val(),
+              website: $('#website').val()
+            },
+            avaliacao: {
+              nota_media: 0,
+              numero_avaliacoes: 0
+            }
+          }
+        ]
+      };
+
+      fetch('http://localhost:3000/api/churches', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(churchData)
+      })
+        .then(response => {
+          if (response.status === 201) {
+            alert("Igreja criada com sucesso!");
+          } else {
+            return response.json().then(data => {
+              console.error("Erro:", data);
+              alert("Erro ao criar a igreja!");
+            });
+          }
+        })
+        .catch(error => {
+          console.error("Erro ao enviar a requisição:", error);
+          alert("Ocorreu um erro ao tentar criar a igreja!");
+        });
+    }
+  </script>
+</body>
+
 </html>
