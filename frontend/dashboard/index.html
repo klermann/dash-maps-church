@@ -1,540 +1,564 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- Meta, title, CSS, favicons, etc. -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>IADMS - Geolocalização | </title>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!-- Meta, title, CSS, favicons, etc. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
-    <!-- bootstrap-progressbar -->
-    <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+  <title>IADMS - Geolocalização | </title>
 
-    <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
-  </head>
+  <!-- Bootstrap -->
+  <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <!-- NProgress -->
+  <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+  <!-- bootstrap-progressbar -->
+  <link href="../vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
 
-  <body class="nav-md">
-    <div class="container body">
-      <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
+  <!-- Custom Theme Style -->
+  <link href="../build/css/custom.min.css" rel="stylesheet">
+</head>
 
-            <div class="clearfix"></div>
-            <!-- menu profile quick info -->
-            <div id="profileContainer"></div>
-            <!-- /menu profile quick info -->
-            <br />
-            
-            <!-- sidebar menu -->
-            <div id="sidebarMenu"></div>
-            <!-- /sidebar menu -->
+<body class="nav-md">
+  <div class="container body">
+    <div class="main_container">
+      <div class="col-md-3 left_col">
+        <div class="left_col scroll-view">
 
-            <!-- /menu footer buttons -->
-            <div id="sidebarFooter"></div>
-            <!-- /menu footer buttons -->
-          </div>
+          <div class="clearfix"></div>
+          <!-- menu profile quick info -->
+          <div id="profileContainer"></div>
+          <!-- /menu profile quick info -->
+          <br />
+
+          <!-- sidebar menu -->
+          <div id="sidebarMenu"></div>
+          <!-- /sidebar menu -->
+
+          <!-- /menu footer buttons -->
+          <div id="sidebarFooter"></div>
+          <!-- /menu footer buttons -->
         </div>
+      </div>
 
-        <!-- top navigation -->
-        <div id="topNav"></div>
-        <!-- /top navigation -->
+      <!-- top navigation -->
+      <div id="topNav"></div>
+      <!-- /top navigation -->
 
-        <!-- page content -->
-        <div class="right_col" role="main">
-          <div class="">
+      <!-- page content -->
+      <div class="right_col" role="main">
+        <div class="">
 
-            <!-- Localizators --> 
-            <h2>Localizações:</h2>
-            <ul id="locations"></ul>           
-            <!-- Localizators --> 
+          <!-- Localizators -->
+          <h2>Localizações:</h2>
+          <ul id="locations"></ul>
+          <!-- Localizators -->
 
-            <div class="page-title">
-              <div class="title_left">
-                <h3>Visão geral</h3>
-              </div>
+          <div class="page-title">
+            <div class="title_left">
+              <h3>Visão geral</h3>
+            </div>
 
-              <div class="title_right">
-                <div class="col-md-5 col-sm-5   form-group pull-right top_search">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search for...">
-                    <span class="input-group-btn">
-                      <button class="btn btn-default" type="button">Go!</button>
-                    </span>
-                  </div>
+            <div class="title_right">
+              <div class="col-md-5 col-sm-5   form-group pull-right top_search">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Search for...">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Go!</button>
+                  </span>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div class="clearfix"></div>
+          <div class="clearfix"></div>
 
-            <div class="row">
-              <div class="col-md-12">
-                <div class="">
-                  <div class="x_content">
-                    <div class="row">
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
-                        <div class="tile-stats">
-                          <div class="icon"><i class="fa fa-caret-square-o-right"></i>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="">
+                <div class="x_content">
+                  <div class="row">
+                    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                      <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-caret-square-o-right"></i>
+                        </div>
+                        <div class="count">900</div>
+
+                        <h3>Igrejas</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                      </div>
+                    </div>
+                    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                      <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-comments-o"></i>
+                        </div>
+                        <div class="count">300</div>
+
+                        <h3>Sedes</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                      </div>
+                    </div>
+                    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                      <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-sort-amount-desc"></i>
+                        </div>
+                        <div class="count">600</div>
+
+                        <h3>Congregações</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                      </div>
+                    </div>
+                    <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
+                      <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-check-square-o"></i>
+                        </div>
+                        <div class="count">55</div>
+
+                        <h3>Fechadas</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12">
+                      <div class="x_panel">
+                        <div class="x_title">
+                          <h2>Número de membros<small>membros</small></h2>
+                          <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Settings 1</a>
+                                <a class="dropdown-item" href="#">Settings 2</a>
+                              </div>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                          </ul>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                          <h4></h4>
+                          <div class="widget_summary">
+                            <div class="w_left w_20">
+                              <span>1.5.2</span>
+                            </div>
+                            <div class="w_center w_55">
+                              <div class="progress">
+                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60"
+                                  aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
+                                  <span class="sr-only">60% Complete</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="w_right w_20">
+                              <span>123k</span>
+                            </div>
+                            <div class="clearfix"></div>
                           </div>
-                          <div class="count">900</div>
 
-                          <h3>Igrejas</h3>
-                          <p>Lorem ipsum psdea itgum rixt.</p>
+                          <div class="widget_summary">
+                            <div class="w_left w_20">
+                              <span>1.5.3</span>
+                            </div>
+                            <div class="w_center w_55">
+                              <div class="progress">
+                                <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60"
+                                  aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
+                                  <span class="sr-only">60% Complete</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="w_right w_20">
+                              <span>53k</span>
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="widget_summary">
+                            <div class="w_left w_20">
+                              <span>1.5.4</span>
+                            </div>
+                            <div class="w_center w_55">
+                              <div class="progress">
+                                <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60"
+                                  aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                  <span class="sr-only">60% Complete</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="w_right w_20">
+                              <span>23k</span>
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="widget_summary">
+                            <div class="w_left w_20">
+                              <span>1.5.5</span>
+                            </div>
+                            <div class="w_center w_55">
+                              <div class="progress">
+                                <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60"
+                                  aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
+                                  <span class="sr-only">60% Complete</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="w_right w_20">
+                              <span>3k</span>
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="widget_summary">
+                            <div class="w_left w_20">
+                              <span>1.5.4</span>
+                            </div>
+                            <div class="w_center w_55">
+                              <div class="progress">
+                                <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60"
+                                  aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
+                                  <span class="sr-only">60% Complete</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="w_right w_20">
+                              <span>23k</span>
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="widget_summary">
+                            <div class="w_left w_20">
+                              <span>1.5.5</span>
+                            </div>
+                            <div class="w_center w_55">
+                              <div class="progress">
+                                <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60"
+                                  aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
+                                  <span class="sr-only">60% Complete</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="w_right w_20">
+                              <span>3k</span>
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="widget_summary">
+                            <div class="w_left w_20">
+                              <span>0.1.5.6</span>
+                            </div>
+                            <div class="w_center w_55">
+                              <div class="progress">
+                                <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60"
+                                  aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
+                                  <span class="sr-only">60% Complete</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="w_right w_20">
+                              <span>1k</span>
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="widget_summary">
+                            <div class="w_left w_20">
+                              <span>0.1.5.6</span>
+                            </div>
+                            <div class="w_center w_55">
+                              <div class="progress">
+                                <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60"
+                                  aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
+                                  <span class="sr-only">60% Complete</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="w_right w_20">
+                              <span>1k</span>
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
+                          <div class="widget_summary">
+                            <div class="w_left w_20">
+                              <span>1.5.2</span>
+                            </div>
+                            <div class="w_center w_55">
+                              <div class="progress">
+                                <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60"
+                                  aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
+                                  <span class="sr-only">60% Complete</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="w_right w_20">
+                              <span>123k</span>
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
+
+                          <div class="widget_summary">
+                            <div class="w_left w_20">
+                              <span>1.5.3</span>
+                            </div>
+                            <div class="w_center w_55">
+                              <div class="progress">
+                                <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60"
+                                  aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
+                                  <span class="sr-only">60% Complete</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="w_right w_20">
+                              <span>53k</span>
+                            </div>
+                            <div class="clearfix"></div>
+                          </div>
                         </div>
                       </div>
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
-                        <div class="tile-stats">
-                          <div class="icon"><i class="fa fa-comments-o"></i>
-                          </div>
-                          <div class="count">300</div>
+                    </div>
+                  </div>
 
-                          <h3>Sedes</h3>
-                          <p>Lorem ipsum psdea itgum rixt.</p>
+                  <div class="row top_tiles" style="margin: 10px 0;">
+                    <div class="col-md-3 tile">
+                      <span>Total Sessions</span>
+                      <h2>231,809</h2>
+                      <span class="sparkline_two" style="height: 160px;">
+                        <canvas width="200" height="60"
+                          style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+                      </span>
+                    </div>
+                    <div class="col-md-3 tile">
+                      <span>Total Revenue</span>
+                      <h2>$ 1,231,809</h2>
+                      <span class="sparkline_two" style="height: 160px;">
+                        <canvas width="200" height="60"
+                          style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+                      </span>
+                    </div>
+                    <div class="col-md-3 tile">
+                      <span>Total Sessions</span>
+                      <h2>231,809</h2>
+                      <span class="sparkline_three" style="height: 160px;">
+                        <canvas width="200" height="60"
+                          style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+                      </span>
+                    </div>
+                    <div class="col-md-3 tile">
+                      <span>Total Sessions</span>
+                      <h2>231,809</h2>
+                      <span class="sparkline_two" style="height: 160px;">
+                        <canvas width="200" height="60"
+                          style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+                      </span>
+                    </div>
+                  </div>
+
+                  <br />
+                  <div class="row">
+                    <div class="col-md-3">
+                      <div class="x_panel fixed_height_390">
+                        <div class="x_title">
+                          <h2>Tally Design</h2>
+                          <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Settings 1</a>
+                                <a class="dropdown-item" href="#">Settings 2</a>
+                              </div>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                          </ul>
+                          <div class="clearfix"></div>
                         </div>
-                      </div>
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
-                        <div class="tile-stats">
-                          <div class="icon"><i class="fa fa-sort-amount-desc"></i>
-                          </div>
-                          <div class="count">600</div>
+                        <div class="x_content">
 
-                          <h3>Congregações</h3>
-                          <p>Lorem ipsum psdea itgum rixt.</p>
-                        </div>
-                      </div>
-                      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
-                        <div class="tile-stats">
-                          <div class="icon"><i class="fa fa-check-square-o"></i>
+                          <div style="text-align: center; overflow: hidden; margin: 10px 5px 0;">
+                            <canvas id="canvas_line1" height="150"></canvas>
                           </div>
-                          <div class="count">55</div>
 
-                          <h3>Fechadas</h3>
-                          <p>Lorem ipsum psdea itgum rixt.</p>
+                          <div style="text-align: center; margin-bottom: 15px;">
+                            <div class="btn-group" role="group" aria-label="First group">
+                              <button type="button" class="btn btn-default btn-sm">Day</button>
+                              <button type="button" class="btn btn-default btn-sm">Month</button>
+                              <button type="button" class="btn btn-default btn-sm">Year</button>
+                            </div>
+                          </div>
+
+                          <div>
+                            <ul class="list-inline widget_tally">
+                              <li>
+                                <p>
+                                  <span class="month">12 December 2014 </span>
+                                  <span class="count">+12%</span>
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  <span class="month">29 December 2014 </span>
+                                  <span class="count">+12%</span>
+                                </p>
+                              </li>
+                              <li>
+                                <p>
+                                  <span class="month">16 January 2015 </span>
+                                  <span class="count">+12%</span>
+                                </p>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    <div class="row">
-                      <div class="col-md-12 col-sm-12">
-                        <div class="x_panel">
-                          <div class="x_title">
-                            <h2>Número  de membros<small>membros</small></h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    <div class="col-md-3">
+                      <div class="x_panel fixed_height_390">
+                        <div class="x_title">
+                          <h2>Sales Close</h2>
+                          <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Settings 1</a>
+                                <a class="dropdown-item" href="#">Settings 2</a>
+                              </div>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                          </ul>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                          <div style="text-align: center; margin-bottom: 17px; height: 120px;">
+                            <ul class="verticle_bars list-inline" style="display: flex;">
+                              <li>
+                                <div class="progress vertical progress_wide bottom" style="height: 120px;">
+                                  <div class="progress-bar progress-bar-dark" role="progressbar"
+                                    data-transitiongoal="65"></div>
+                                </div>
                               </li>
-                              <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Settings 1</a>
-                                    <a class="dropdown-item" href="#">Settings 2</a>
-                                  </div>
+                              <li>
+                                <div class="progress vertical progress_wide bottom" style="height: 120px;">
+                                  <div class="progress-bar progress-bar-gray" role="progressbar"
+                                    data-transitiongoal="85"></div>
+                                </div>
                               </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
+                              <li>
+                                <div class="progress vertical progress_wide bottom" style="height: 120px;">
+                                  <div class="progress-bar progress-bar-info" role="progressbar"
+                                    data-transitiongoal="45"></div>
+                                </div>
+                              </li>
+                              <li>
+                                <div class="progress vertical progress_wide bottom" style="height: 120px;">
+                                  <div class="progress-bar progress-bar-success" role="progressbar"
+                                    data-transitiongoal="75"></div>
+                                </div>
                               </li>
                             </ul>
-                            <div class="clearfix"></div>
                           </div>
-                          <div class="x_content">
-                            <h4></h4>
-                            <div class="widget_summary">
-                              <div class="w_left w_20">
-                                <span>1.5.2</span>
-                              </div>
-                              <div class="w_center w_55">
-                                <div class="progress">
-                                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
-                                    <span class="sr-only">60% Complete</span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="w_right w_20">
-                                <span>123k</span>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-        
-                            <div class="widget_summary">
-                              <div class="w_left w_20">
-                                <span>1.5.3</span>
-                              </div>
-                              <div class="w_center w_55">
-                                <div class="progress">
-                                  <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
-                                    <span class="sr-only">60% Complete</span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="w_right w_20">
-                                <span>53k</span>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="widget_summary">
-                              <div class="w_left w_20">
-                                <span>1.5.4</span>
-                              </div>
-                              <div class="w_center w_55">
-                                <div class="progress">
-                                  <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                                    <span class="sr-only">60% Complete</span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="w_right w_20">
-                                <span>23k</span>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="widget_summary">
-                              <div class="w_left w_20">
-                                <span>1.5.5</span>
-                              </div>
-                              <div class="w_center w_55">
-                                <div class="progress">
-                                  <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
-                                    <span class="sr-only">60% Complete</span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="w_right w_20">
-                                <span>3k</span>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="widget_summary">
-                              <div class="w_left w_20">
-                                <span>1.5.4</span>
-                              </div>
-                              <div class="w_center w_55">
-                                <div class="progress">
-                                  <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 25%;">
-                                    <span class="sr-only">60% Complete</span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="w_right w_20">
-                                <span>23k</span>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="widget_summary">
-                              <div class="w_left w_20">
-                                <span>1.5.5</span>
-                              </div>
-                              <div class="w_center w_55">
-                                <div class="progress">
-                                  <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 5%;">
-                                    <span class="sr-only">60% Complete</span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="w_right w_20">
-                                <span>3k</span>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="widget_summary">
-                              <div class="w_left w_20">
-                                <span>0.1.5.6</span>
-                              </div>
-                              <div class="w_center w_55">
-                                <div class="progress">
-                                  <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-                                    <span class="sr-only">60% Complete</span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="w_right w_20">
-                                <span>1k</span>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="widget_summary">
-                              <div class="w_left w_20">
-                                <span>0.1.5.6</span>
-                              </div>
-                              <div class="w_center w_55">
-                                <div class="progress">
-                                  <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 2%;">
-                                    <span class="sr-only">60% Complete</span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="w_right w_20">
-                                <span>1k</span>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                            <div class="widget_summary">
-                              <div class="w_left w_20">
-                                <span>1.5.2</span>
-                              </div>
-                              <div class="w_center w_55">
-                                <div class="progress">
-                                  <div class="progress-bar bg-green" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 66%;">
-                                    <span class="sr-only">60% Complete</span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="w_right w_20">
-                                <span>123k</span>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-        
-                            <div class="widget_summary">
-                              <div class="w_left w_20">
-                                <span>1.5.3</span>
-                              </div>
-                              <div class="w_center w_55">
-                                <div class="progress">
-                                  <div class="progress-bar bg-blue" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 45%;">
-                                    <span class="sr-only">60% Complete</span>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="w_right w_20">
-                                <span>53k</span>
-                              </div>
-                              <div class="clearfix"></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>                      
-                    </div>                  
+                          <div class="divider"></div>
 
-                    <div class="row top_tiles" style="margin: 10px 0;">
-                      <div class="col-md-3 tile">
-                        <span>Total Sessions</span>
-                        <h2>231,809</h2>
-                        <span class="sparkline_two" style="height: 160px;">
-                                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                  </span>
-                      </div>
-                      <div class="col-md-3 tile">
-                        <span>Total Revenue</span>
-                        <h2>$ 1,231,809</h2>
-                        <span class="sparkline_two" style="height: 160px;">
-                                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                  </span>
-                      </div>
-                      <div class="col-md-3 tile">
-                        <span>Total Sessions</span>
-                        <h2>231,809</h2>
-                        <span class="sparkline_three" style="height: 160px;">
-                                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                  </span>
-                      </div>
-                      <div class="col-md-3 tile">
-                        <span>Total Sessions</span>
-                        <h2>231,809</h2>
-                        <span class="sparkline_two" style="height: 160px;">
-                                      <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                  </span>
+                          <ul class="legend list-unstyled">
+                            <li>
+                              <p>
+                                <span class="icon"><i class="fa fa-square dark"></i></span> <span class="name">Item One
+                                  Name</span>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                <span class="icon"><i class="fa fa-square grey"></i></span> <span class="name">Item Two
+                                  Name</span>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                <span class="icon"><i class="fa fa-square blue"></i></span> <span class="name">Item
+                                  Three Name</span>
+                              </p>
+                            </li>
+                            <li>
+                              <p>
+                                <span class="icon"><i class="fa fa-square green"></i></span> <span class="name">Item
+                                  Four Name</span>
+                              </p>
+                            </li>
+                          </ul>
+
+                        </div>
                       </div>
                     </div>
 
-
-
-
-                    <br />
-                    <div class="row">
-                      <div class="col-md-3">
-                        <div class="x_panel fixed_height_390">
-                          <div class="x_title">
-                            <h2>Tally Design</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                              </li>
-                              <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Settings 1</a>
-                                    <a class="dropdown-item" href="#">Settings 2</a>
-                                  </div>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
-                              </li>
-                            </ul>
-                            <div class="clearfix"></div>
+                    <div class="col-md-3">
+                      <div class="x_panel ui-ribbon-container fixed_height_390">
+                        <div class="ui-ribbon-wrapper">
+                          <div class="ui-ribbon">
+                            30% Off
                           </div>
-                          <div class="x_content">
+                        </div>
+                        <div class="x_title">
+                          <h2>User Mail</h2>
+                          <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
 
-                            <div style="text-align: center; overflow: hidden; margin: 10px 5px 0;">
-                              <canvas id="canvas_line1" height="150"></canvas>
-                            </div>
+                          <div style="text-align: center; margin-bottom: 17px">
+                            <span class="chart" data-percent="86">
+                              <span class="percent"></span>
+                            </span>
+                          </div>
 
-                            <div style="text-align: center; margin-bottom: 15px;">
-                              <div class="btn-group" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-default btn-sm">Day</button>
-                                <button type="button" class="btn btn-default btn-sm">Month</button>
-                                <button type="button" class="btn btn-default btn-sm">Year</button>
+                          <h3 class="name_title">Finance</h3>
+                          <p>Short Description</p>
+
+                          <div class="divider"></div>
+
+                          <p>If you've decided to go in development mode and tweak all of this a bit, there are few
+                            things you should do.</p>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 ">
+                      <div class="x_panel tile fixed_height_390 overflow_hidden">
+                        <div class="x_title">
+                          <h2>Device Usage</h2>
+                          <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Settings 1</a>
+                                <a class="dropdown-item" href="#">Settings 2</a>
                               </div>
-                            </div>
-
-                            <div>
-                              <ul class="list-inline widget_tally">
-                                <li>
-                                  <p>
-                                    <span class="month">12 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">29 December 2014 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                                <li>
-                                  <p>
-                                    <span class="month">16 January 2015 </span>
-                                    <span class="count">+12%</span>
-                                  </p>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                          </ul>
+                          <div class="clearfix"></div>
                         </div>
-                      </div>
-
-
-                      <div class="col-md-3">
-                        <div class="x_panel fixed_height_390">
-                          <div class="x_title">
-                            <h2>Sales Close</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                              </li>
-                              <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Settings 1</a>
-                                    <a class="dropdown-item" href="#">Settings 2</a>
-                                  </div>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
-                              </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                          </div>
-                          <div class="x_content">
-
-                            <div style="text-align: center; margin-bottom: 17px; height: 120px;">
-                              <ul class="verticle_bars list-inline" style="display: flex;">
-                                <li>
-                                  <div class="progress vertical progress_wide bottom" style="height: 120px;">
-                                    <div class="progress-bar progress-bar-dark" role="progressbar" data-transitiongoal="65"></div>
-                                  </div>
-                                </li>
-                                <li>
-                                  <div class="progress vertical progress_wide bottom" style="height: 120px;">
-                                    <div class="progress-bar progress-bar-gray" role="progressbar" data-transitiongoal="85"></div>
-                                  </div>
-                                </li>
-                                <li>
-                                  <div class="progress vertical progress_wide bottom" style="height: 120px;">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" data-transitiongoal="45"></div>
-                                  </div>
-                                </li>
-                                <li>
-                                  <div class="progress vertical progress_wide bottom" style="height: 120px;">
-                                    <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="75"></div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                            <div class="divider"></div>
-
-                            <ul class="legend list-unstyled">
-                              <li>
-                                <p>
-                                  <span class="icon"><i class="fa fa-square dark"></i></span> <span class="name">Item One Name</span>
-                                </p>
-                              </li>
-                              <li>
-                                <p>
-                                  <span class="icon"><i class="fa fa-square grey"></i></span> <span class="name">Item Two Name</span>
-                                </p>
-                              </li>
-                              <li>
-                                <p>
-                                  <span class="icon"><i class="fa fa-square blue"></i></span> <span class="name">Item Three Name</span>
-                                </p>
-                              </li>
-                              <li>
-                                <p>
-                                  <span class="icon"><i class="fa fa-square green"></i></span> <span class="name">Item Four Name</span>
-                                </p>
-                              </li>
-                            </ul>
-
-                          </div>
-                        </div>
-                      </div>
-
-
-                      <div class="col-md-3">
-                        <div class="x_panel ui-ribbon-container fixed_height_390">
-                          <div class="ui-ribbon-wrapper">
-                            <div class="ui-ribbon">
-                              30% Off
-                            </div>
-                          </div>
-                          <div class="x_title">
-                            <h2>User Mail</h2>
-                            <div class="clearfix"></div>
-                          </div>
-                          <div class="x_content">
-
-                            <div style="text-align: center; margin-bottom: 17px">
-                              <span class="chart" data-percent="86">
-                                                  <span class="percent"></span>
-                              </span>
-                            </div>
-
-                            <h3 class="name_title">Finance</h3>
-                            <p>Short Description</p>
-
-                            <div class="divider"></div>
-
-                            <p>If you've decided to go in development mode and tweak all of this a bit, there are few things you should do.</p>
-
-                          </div>
-                        </div>
-                      </div>                      
-
-                      <div class="col-md-3 ">
-                        <div class="x_panel tile fixed_height_390 overflow_hidden">
-                          <div class="x_title">
-                            <h2>Device Usage</h2>
-                            <ul class="nav navbar-right panel_toolbox">
-                              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                              </li>
-                              <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Settings 1</a>
-                                    <a class="dropdown-item" href="#">Settings 2</a>
-                                  </div>
-                              </li>
-                              <li><a class="close-link"><i class="fa fa-close"></i></a>
-                              </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                          </div>
-                          <div class="x_content">
-                            <table class="" style="width:100%">
-                              <tbody><tr>
+                        <div class="x_content">
+                          <table class="" style="width:100%">
+                            <tbody>
+                              <tr>
                                 <th style="width:37%;">
                                   <p>Top 5</p>
                                 </th>
@@ -548,46 +572,50 @@
                                 </th>
                               </tr>
                               <tr>
-                                <td><iframe class="chartjs-hidden-iframe" style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; inset: 0px;"></iframe>
-                                  <canvas class="canvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0px; width: 140px; height: 140px;"></canvas>
+                                <td><iframe class="chartjs-hidden-iframe"
+                                    style="width: 100%; display: block; border: 0px; height: 0px; margin: 0px; position: absolute; inset: 0px;"></iframe>
+                                  <canvas class="canvasDoughnut" height="140" width="140"
+                                    style="margin: 15px 10px 10px 0px; width: 140px; height: 140px;"></canvas>
                                 </td>
                                 <td>
                                   <table class="tile_info">
-                                    <tbody><tr>
-                                      <td>
-                                        <p><i class="fa fa-square blue"></i>IOS </p>
-                                      </td>
-                                      <td>30%</td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <p><i class="fa fa-square green"></i>Android </p>
-                                      </td>
-                                      <td>10%</td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <p><i class="fa fa-square purple"></i>Blackberry </p>
-                                      </td>
-                                      <td>20%</td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <p><i class="fa fa-square aero"></i>Symbian </p>
-                                      </td>
-                                      <td>15%</td>
-                                    </tr>
-                                    <tr>
-                                      <td>
-                                        <p><i class="fa fa-square red"></i>Others </p>
-                                      </td>
-                                      <td>30%</td>
-                                    </tr>
-                                  </tbody></table>
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                          <p><i class="fa fa-square blue"></i>IOS </p>
+                                        </td>
+                                        <td>30%</td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <p><i class="fa fa-square green"></i>Android </p>
+                                        </td>
+                                        <td>10%</td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <p><i class="fa fa-square purple"></i>Blackberry </p>
+                                        </td>
+                                        <td>20%</td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <p><i class="fa fa-square aero"></i>Symbian </p>
+                                        </td>
+                                        <td>15%</td>
+                                      </tr>
+                                      <tr>
+                                        <td>
+                                          <p><i class="fa fa-square red"></i>Others </p>
+                                        </td>
+                                        <td>30%</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
                                 </td>
                               </tr>
-                            </tbody></table>
-                          </div>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
                     </div>
@@ -597,95 +625,160 @@
             </div>
           </div>
         </div>
-        <!-- /page content -->
+      </div>
+      <!-- /page content -->
 
-        <!-- footer content -->        
-        <div id="footer"></div>
-        <!-- /footer content -->
+      <!-- footer content -->
+      <div id="footer"></div>
+      <!-- /footer content -->
+    </div>
+  </div>
+
+  <div id="loginModal" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel2">Sessão Expirada</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Sua sessão expirou. Por favor, faça login novamente para continuar.</p>
+        </div>
+        <div class="modal-footer">
+          <button id="loginButton" class="btn btn-primary">Fazer Login</button>
+        </div>
       </div>
     </div>
+  </div>
+  <!-- jQuery -->
+  <script src="../vendors/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- FastClick -->
+  <script src="../vendors/fastclick/lib/fastclick.js"></script>
+  <!-- NProgress -->
+  <script src="../vendors/nprogress/nprogress.js"></script>
+  <!-- Chart.js -->
+  <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
+  <!-- jQuery Sparklines -->
+  <script src="../vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+  <!-- easy-pie-chart -->
+  <script src="../vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
+  <!-- bootstrap-progressbar -->
+  <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
 
-    <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap -->
-   <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
-    <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>    
-    <!-- Chart.js -->
-    <script src="../vendors/Chart.js/dist/Chart.min.js"></script>
-    <!-- jQuery Sparklines -->
-    <script src="../vendors/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-    <!-- easy-pie-chart -->
-    <script src="../vendors/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
-    <!-- bootstrap-progressbar -->
-    <script src="../vendors/bootstrap-progressbar/bootstrap-progressbar.min.js"></script>
+  <!-- Custom Theme Scripts -->
+  <script src="../build/js/custom.min.js"></script>
 
-    <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
-        
-    <!-- Scripts Customizados -->
-    <script src="../build/js/load-components.js"></script>
-    <script>
+  <!-- Scripts Customizados -->
+  <script src="../build/js/load-components.js"></script>
+  <script>
+
+    $(document).ready(function () {
+
       const token = localStorage.getItem('authToken');
-  
-      // Redireciona se não houver token
+
+      // Redireciona para login se não houver token
       if (!token) {
-          alert('Você precisa fazer login primeiro.');
-          window.location.href = '/login';
+        //alert('Você precisa fazer login primeiro.');
+        window.location.href = '/login';
       }
-  
-      // Função para carregar as localizações
-      const loadLocations = () => {
-        $.ajax({
-            url: 'http://localhost:3000/api/locations',
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-            success: function (data) {
-                console.log('Localizações recebidas:', data);
-                $('#locations').empty();
-                data.forEach((location) => {
-                    $('#locations').append(
-                        `<li>${location.name} - (${location.lat}, ${location.lng})</li>`
-                    );
-                });
-            },
-            error: function (jqXHR) {
-                console.error('Erro ao carregar localizações:', jqXHR.responseText);
-                alert('Erro ao carregar localizações!');
-            },
-        });
-      };
-  
-      // Função para adicionar uma nova localização
-      $('#addLocationForm').on('submit', function (e) {
-          e.preventDefault();
-  
-          const newLocation = {
-              name: $('#name').val(),
-              latitude: $('#latitude').val(),
-              longitude: $('#longitude').val(),
-          };
-  
-          $.ajax({
-              url: 'http://localhost:3000/api/locations',
-              method: 'POST',
-              headers: { Authorization: `Bearer ${token}` },
-              contentType: 'application/json',
-              data: JSON.stringify(newLocation),
-              success: function () {
-                  alert('Localização adicionada com sucesso!');
-                  loadLocations(); // Recarrega as localizações
-                  $('#addLocationForm')[0].reset(); // Limpa o formulário
-              },
-              error: function () {
-                  alert('Erro ao adicionar localização. Tente novamente.');
-              },
+
+      // Use o token para chamadas à API ou outros usos
+      console.log('Token carregado:', token);
+    });
+
+    // Use o token para chamadas à API ou outros usos
+    console.log('Token carregado:', token);
+
+    // Função para carregar as localizações
+    const loadLocations = () => {
+      $.ajax({
+        url: 'http://localhost:3000/api/locations',
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        success: function (data) {
+          console.log('Localizações recebidas:', data);
+          $('#locations').empty();
+          data.forEach((location) => {
+            $('#locations').append(
+              `<li>${location.name} - (${location.lat}, ${location.lng})</li>`
+            );
           });
-      });     
-      </script>
-  </body>
+        },
+        error: function (jqXHR) {
+          console.error('Erro ao carregar localizações:', jqXHR.responseText);
+          alert('Erro ao carregar localizações!');
+        },
+      });
+    };
+
+    // Função para adicionar uma nova localização
+    $('#addLocationForm').on('submit', function (e) {
+      e.preventDefault();
+
+      const newLocation = {
+        name: $('#name').val(),
+        latitude: $('#latitude').val(),
+        longitude: $('#longitude').val(),
+      };
+
+      $.ajax({
+        url: 'http://localhost:3000/api/locations',
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}` },
+        contentType: 'application/json',
+        data: JSON.stringify(newLocation),
+        success: function () {
+          alert('Localização adicionada com sucesso!');
+          loadLocations(); // Recarrega as localizações
+          $('#addLocationForm')[0].reset(); // Limpa o formulário
+        },
+        error: function () {
+          alert('Erro ao adicionar localização. Tente novamente.');
+        },
+      });
+    });
+
+    async function apiRequest(url, options = {}) {
+      const token = localStorage.getItem('authToken');
+
+      // Adicione o token ao cabeçalho da requisição
+      if (token) {
+        options.headers = {
+          ...options.headers,
+          'Authorization': `Bearer ${token}`,
+        };
+      }
+
+      try {
+        const response = await fetch(url, options);
+
+        // Se o token estiver expirado ou inválido (403), redirecione
+        if (response.status === 403) {
+          const errorData = await response.json();
+          console.error('Erro de autenticação:', errorData.message);
+          alert('Sua sessão expirou. Faça login novamente.');
+          localStorage.removeItem('authToken'); // Remova o token antigo
+          window.location.href = '/login'; // Redirecione para login
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error(`Erro: ${response.status} - ${response.statusText}`);
+        }
+
+        return response.json();
+      } catch (error) {
+        console.error('Erro ao fazer a requisição:', error);
+        throw error; // Opcional: propagar o erro para lidar em outro lugar
+      }
+    }
+
+  </script>
+</body>
+
 </html>

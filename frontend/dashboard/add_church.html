@@ -106,7 +106,6 @@
           <div class="clearfix"></div>
 
           <div class="row">
-
             <div class="col-md-12 col-sm-12 ">
               <div class="x_panel">
                 <div class="x_title">
@@ -157,16 +156,28 @@
                               <small>Step 4 description</small></span>
                           </a>
                         </li>
-
                       </ul>
                       <div id="step-1">
                         <h3>Igreja</h3>
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label label-align">Nome da Igreja</label>
-                          <div class="col-sm-9">
+                          <div class="col-sm-3">
                             <input type="text" class="form-control" id="nome" placeholder="Nome da Igreja" required
                               data-parsley-required-message="O campo Nome da Igreja é obrigatório."
                               data-parsley-trigger="change">
+                          </div>
+
+                          <label class="col-sm-3 col-form-label label-align">Categoria</label>
+                          <div class="col-sm-3">
+                            <select class="form-control" id="categoria" required
+                              data-parsley-required-message="O campo Categoria é obrigatório."
+                              data-parsley-trigger="change">
+                              <option value="">Selecione uma categoria</option>
+                              <option value="igreja">Igreja</option>
+                              <option value="congregacao">Congregação</option>
+                              <option value="sede">Sede</option>
+                              <option value="outro">Outro</option>
+                            </select>
                           </div>
                         </div>
                         <h3>Endereço</h3>
@@ -209,7 +220,7 @@
                           <label class="col-sm-3 col-form-label label-align">CEP</label>
                           <div class="col-sm-3">
                             <input type="text" class="form-control" id="cep" placeholder="CEP" required
-                              data-parsley-pattern="^\d{5}-\d{3}$"
+                              data-inputmask="'mask': '99999-999'"
                               data-parsley-pattern-message="O CEP deve estar no formato 12345-678."
                               data-parsley-trigger="change">
                           </div>
@@ -238,67 +249,135 @@
                               data-parsley-type-message="O campo Longitude deve ser numérico.">
                           </div>
                         </div>
-                        <div id="map"></div>
+                        <div class="form-group row">
+                          <div class="col-md-3 col-sm-3">
+                            <div class="btn-group-sm buttons">
+                              <!--<button type="button" class="btn btn-primary" id="addressPosition">
+                                <i class="fa fa-map-marker"></i> Address → Position
+                              </button>-->
+                              <button type="button" class="btn btn-primary" id="setPosition">
+                                <i class="fa fa-map-marker"></i> Set Position
+                              </button>
+                              <button type="button" class="btn btn-primary" id="getGPSPosition">
+                                <i class="fa fa-map-marker"></i> Get GPS Position
+                              </button>
+                            </div>
+                          </div>
+                          <div id="map"></div>
+                        </div>
                       </div>
 
                       <div id="step-2">
                         <h3>Detalhes</h3>
+                        <!-- Tipo do Local e Categoria -->
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label label-align">Tipo do Local</label>
-                          <div class="col-sm-9">
+                          <div class="col-sm-3">
                             <input type="text" class="form-control" id="tipo_local" placeholder="Tipo do Local" required
                               data-parsley-required-message="O campo Tipo do Local é obrigatório."
                               data-parsley-trigger="change">
                           </div>
+                          <label class="col-sm-3 col-form-label label-align">Ponto de Referência</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="ponto_referencia"
+                              placeholder="Ponto de referência" required
+                              data-parsley-required-message="O campo Ponto de referência é obrigatório."
+                              data-parsley-trigger="change">
+                          </div>
                         </div>
+
+                        <!-- Ponto de Referência e Status -->
                         <div class="form-group row">
 
-                          <label class="col-form-label col-md-3 col-sm-3 label-align">Status</label>
-                          <div class="col-md-3 col-sm-3 ">
-                            <div id="gender" class="btn-group" data-toggle="buttons">
-                              <label class="btn btn-secondary" data-toggle-class="btn-primary"
-                                data-toggle-passive-class="btn-default">
-                                <input type="radio" name="gender" value="male" class="join-btn"
-                                  data-parsley-multiple="gender" data-parsley-id="12"> &nbsp; Aberta &nbsp;
+                          <label class="col-sm-3 col-form-label label-align">Status</label>
+                          <div class="col-sm-3">
+                            <div id="status" class="btn-group btn-group-sm w-100" data-toggle="buttons">
+                              <label class="btn btn-info w-50">
+                                <input type="radio" name="status" value="aberta" class="join-btn"> Aberta
                               </label>
-                              <label class="btn btn-primary active" data-toggle-class="btn-primary"
-                                data-toggle-passive-class="btn-default">
-                                <input type="radio" name="gender" value="female" class="join-btn"
-                                  data-parsley-multiple="gender"> Fechada
+                              <label class="btn btn-secondary active w-50">
+                                <input type="radio" name="status" value="fechada" class="join-btn"> Fechada
                               </label>
                             </div>
                           </div>
-                          <label class="col-sm-3 col-form-label label-align">Categoria</label>
+                          <label class="col-sm-3 col-form-label label-align">Tem estacionamento?</label>
                           <div class="col-sm-3">
-                            <select class="form-control" id="categoria" required
-                              data-parsley-required-message="O campo Categoria é obrigatório."
+                            <input type="text" class="form-control" id="estacionamento"
+                              placeholder="Tem estacionamento?"
+                              data-parsley-required-message="O campo Tem estacionamento? é obrigatório."
                               data-parsley-trigger="change">
-                              <option value="">Selecione uma categoria</option>
-                              <option value="igreja">Igreja</option>
-                              <option value="congregacao">Congregação</option>
-                              <option value="sede">Sede</option>
-                              <option value="outro">Outro</option>
-                            </select>
                           </div>
                         </div>
+
+                        <!-- Descrição -->
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label label-align">Descrição</label>
-                          <div class="col-sm-3">
+                          <div class="col-sm-9">
                             <textarea class="form-control" id="descricao" required rows="6" placeholder="Descrição"
-                              data-parsley-minlength="20"
-                              data-parsley-required-message="A descrição é obrigatória!"
+                              data-parsley-minlength="20" data-parsley-required-message="A descrição é obrigatória!"
                               data-parsley-minlength-message="A descrição deve ter pelo menos 20 caracteres."
                               data-parsley-trigger="keyup"></textarea>
                           </div>
                         </div>
+
+                        <div class="ln_solid"></div>
+                        <!-- Horário de Funcionamento -->
+
+                        <h3>Horário</h3>
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label label-align">Horário de Funcionamento</label>
+                          <div class="col-sm-9">
+                            <div class="row align-items-center">
+                              <div class="col-sm-4">
+                                <select class="form-control" id="dias_semana">
+                                  <option value="" disabled selected>Selecione um dia</option>
+                                  <option value="Segunda-feira">Segunda-feira</option>
+                                  <option value="Terça-feira">Terça-feira</option>
+                                  <option value="Quarta-feira">Quarta-feira</option>
+                                  <option value="Quinta-feira">Quinta-feira</option>
+                                  <option value="Sexta-feira">Sexta-feira</option>
+                                  <option value="Sábado">Sábado</option>
+                                  <option value="Domingo">Domingo</option>
+                                </select>
+                              </div>
+                              <div class="col-sm-3">
+                                <input type="time" class="form-control" id="hora_abertura"
+                                  placeholder="Hora de Abertura">
+                              </div>
+                              <div class="col-sm-3">
+                                <input type="time" class="form-control" id="hora_fechamento"
+                                  placeholder="Hora de Fechamento">
+                              </div>
+                              <div class="col-sm-2">
+                                <button type="button" class="btn btn-primary w-100" id="add_horario">
+                                  <i class="fa fa-plus"></i> Adicionar
+                                </button>
+                              </div>
+                            </div>
+                            <table class="table table-striped  bulk_action mt-3" id="tabela_horarios">
+                              <thead>
+                                <tr>
+                                  <th>Dia</th>
+                                  <th>Hora de Abertura</th>
+                                  <th>Hora de Fechamento</th>
+                                  <th>Ações</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <!-- Linhas serão adicionadas dinamicamente aqui -->
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
                       </div>
+
                       <div id="step-3">
                         <h3>Contato</h3>
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label label-align">Telefone</label>
                           <div class="col-sm-3">
                             <input type="text" class="form-control" id="telefone" required placeholder="Telefone"
-                              data-parsley-pattern="^\d{10,11}$"
+                              data-inputmask="'mask' : '(99) 99999-9999'"
                               data-parsley-pattern-message="O telefone deve ter entre 10 e 11 dígitos numéricos."
                               data-parsley-trigger="change">
                           </div>
@@ -310,10 +389,9 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label label-align">Website</label>
+                          <label class="col-sm-3 col-form-label label-align">Alkipage</label>
                           <div class="col-sm-3">
-                            <input type="url" class="form-control" id="website" required placeholder="Website"
-                              data-parsley-required-message="O campo Website é obrigatório."
+                            <input type="url" class="form-control" id="alkipage" placeholder="Alkipage" required
                               data-parsley-trigger="change">
                           </div>
                           <label class="col-sm-3 col-form-label label-align">Facebook</label>
@@ -323,18 +401,12 @@
                           </div>
                         </div>
                         <div class="form-group row">
-                          <label class="col-sm-3 col-form-label label-align">Alkipage</label>
-                          <div class="col-sm-3">
-                            <input type="url" class="form-control" id="alkipage" placeholder="Alkipage" required
-                              data-parsley-trigger="change">
-                          </div>
                           <label class="col-sm-3 col-form-label label-align">Instagram</label>
                           <div class="col-sm-3">
                             <input type="url" class="form-control" id="instagram" placeholder="Instagram" required
                               data-parsley-trigger="change">
                           </div>
                         </div>
-
                         <div class="actionBar">
                           <button id="submitButton" class="btn btn-success btn-sm" type="submit">Enviar</button>
                         </div>
@@ -371,10 +443,13 @@
   <script src="../vendors/parsleyjs/dist/parsley.min.js"></script>
   <!-- Scripts Customizados -->
   <script src="../build/js/load-components.js"></script>
+  <!-- jquery.inputmask -->
+  <script src="../vendors/jquery.inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
   <script>
     $(document).ready(function () {
+
       // Inicializando Parsley.js no formulário
       const $form = $('form');
 
@@ -394,6 +469,83 @@
           console.log("Formulário inválido! Verifique os campos.");
         }
       });
+
+      function isTokenExpired(token) {
+        const payload = JSON.parse(atob(token.split('.')[1])); // Decodificar o payload do JWT
+        const now = Math.floor(Date.now() / 1000); // Timestamp atual em segundos
+        return payload.exp < now;
+      }
+
+      const token = localStorage.getItem('authToken');
+      if (!token || isTokenExpired(token)) {
+        alert('Sua sessão expirou. Faça login novamente.');
+        localStorage.removeItem('authToken');
+        window.location.href = '/login';
+      }
+
+      // Redireciona para login se não houver token
+      if (!token) {
+        //alert('Você precisa fazer login primeiro.');
+        window.location.href = '/login';
+      }
+
+      // Use o token para chamadas à API ou outros usos
+      console.log('Token carregado:', token);
+
+
+      // Evento para adicionar horários
+      $('#add_horario').on('click', function () {
+        const dia = $('#dias_semana').val();
+        const horaAbertura = $('#hora_abertura').val();
+        const horaFechamento = $('#hora_fechamento').val();
+
+        if (!dia || !horaAbertura || !horaFechamento) {
+          alert('Por favor, preencha todos os campos antes de adicionar.');
+          return;
+        }
+
+        // Adiciona linha à tabela
+        const linha = `
+        <tr>
+          <td>${dia}</td>
+          <td>${horaAbertura}</td>
+          <td>${horaFechamento}</td>
+          <td>
+            <button type="button" class="btn btn-danger btn-sm remove-linha">
+              <i class="fa fa-trash"></i> Remover
+            </button>
+          </td>
+        </tr>`;
+        $('#tabela_horarios tbody').append(linha);
+
+        // Limpa os campos
+        $('#dias_semana').val('');
+        $('#hora_abertura').val('');
+        $('#hora_fechamento').val('');
+
+        // Evento para remover a linha
+        $('.remove-linha').on('click', function () {
+          $(this).closest('tr').remove();
+        });
+
+        console.log('Horário adicionado com sucesso.');
+      });
+
+
+      const buttons = document.querySelectorAll("#status .btn");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", function () {
+          buttons.forEach((btn) => {
+            btn.classList.remove("btn-info", "active");
+            btn.classList.add("btn-secondary");
+          });
+
+          this.classList.remove("btn-secondary");
+          this.classList.add("btn-info", "active");
+        });
+      });
+
     });
 
     const map = L.map('map').setView([-24.4878, -47.835], 7);
@@ -485,10 +637,27 @@
     function submitForm() {
       const token = localStorage.getItem('authToken'); // Substitua pelo método apropriado
 
+      // Extrair os horários da tabela
+      const horarios = [];
+      $('#tabela_horarios tbody tr').each(function () {
+        const dia = $(this).find('td').eq(0).text();
+        const horaAbertura = $(this).find('td').eq(1).text();
+        const horaFechamento = $(this).find('td').eq(2).text();
+        if (dia && horaAbertura && horaFechamento) {
+          horarios.push({
+            dia_semana: dia,
+            hora_abertura: horaAbertura,
+            hora_fechamento: horaFechamento,
+          });
+        }
+      });
+
+      // Construir o objeto churchData
       const churchData = {
         churches: [
           {
             nome: $('#nome').val(),
+            categoria: $('#categoria').val(),
             endereco: {
               logradouro: $('#logradouro').val(),
               numero: $('#numero').val(),
@@ -497,55 +666,102 @@
               estado: $('#estado').val(),
               pais: "Brasil",
               cep: $('#cep').val(),
-              complemento: $('#complemento').val()
+              complemento: $('#complemento').val(),
             },
             localizacao: {
               latitude: parseFloat($('#latitude').val()) || 0,
               longitude: parseFloat($('#longitude').val()) || 0,
-              altitude: 0
+              altitude: 0,
             },
             detalhes: {
               tipo_local: $('#tipo_local').val(),
               descricao: $('#descricao').val(),
-              ponto_referencia: '',
-              horario_funcionamento: ''
+              ponto_referencia: $('#ponto_referencia').val(),
+              estacionamento: $('#estacionamento').val(),
+              status: $('#status').val(),
+              horario_funcionamento: horarios, // Adicionando os horários
             },
             contato: {
               telefone: $('#telefone').val(),
               email: $('#email').val(),
-              website: $('#website').val()
+              alkipage: $('#alkipage').val(),
+              instagram: $('#instagran').val(),
+              facebook: $('#facebook').val(),
             },
             avaliacao: {
               nota_media: 0,
-              numero_avaliacoes: 0
-            }
-          }
-        ]
+              numero_avaliacoes: 0,
+            },
+          },
+        ],
       };
 
-      fetch('http://localhost:3000/api/churches', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(churchData)
-      })
-        .then(response => {
-          if (response.status === 201) {
-            alert("Igreja criada com sucesso!");
-          } else {
-            return response.json().then(data => {
-              console.error("Erro:", data);
-              alert("Erro ao criar a igreja!");
-            });
-          }
-        })
-        .catch(error => {
-          console.error("Erro ao enviar a requisição:", error);
-          alert("Ocorreu um erro ao tentar criar a igreja!");
-        });
+      createChurch(churchData); // Chama a função de criação da igreja
     }
+
+    async function createChurch(churchData) {
+      try {
+        const url = 'http://localhost:3000/api/churches';
+        const options = {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(churchData),
+        };
+
+        const response = await apiRequest(url, options); // Usando apiRequest
+
+        const newToken = response.headers.get('Authorization'); // Captura o novo token
+        if (newToken) {
+          localStorage.setItem('authToken', newToken.split(' ')[1]); // Atualiza o token local
+        }
+
+        if (response) { // apiRequest já trata 403, então só valida o retorno aqui
+          alert("Igreja criada com sucesso!");
+          console.log("Resposta da API:", response);
+        }
+      } catch (error) {
+        console.error("Erro ao enviar a requisição:", error);
+        alert("Ocorreu um erro ao tentar criar a igreja!");
+      }
+    }
+
+    async function apiRequest(url, options = {}) {
+      const token = localStorage.getItem('authToken');
+
+      // Adicione o token ao cabeçalho da requisição
+      if (token) {
+        options.headers = {
+          ...options.headers,
+          'Authorization': `Bearer ${token}`,
+        };
+      }
+
+      try {
+        const response = await fetch(url, options);
+
+        // Se o token estiver expirado ou inválido (403), redirecione
+        if (response.status === 403) {
+          const errorData = await response.json();
+          console.error('Erro de autenticação:', errorData.message);
+          alert('Sua sessão expirou. Faça login novamente.');
+          localStorage.removeItem('authToken'); // Remova o token antigo
+          window.location.href = '/login'; // Redirecione para login
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error(`Erro: ${response.status} - ${response.statusText}`);
+        }
+
+        return response.json();
+      } catch (error) {
+        console.error('Erro ao fazer a requisição:', error);
+        throw error; // Opcional: propagar o erro para lidar em outro lugar
+      }
+    }
+
   </script>
 </body>
 

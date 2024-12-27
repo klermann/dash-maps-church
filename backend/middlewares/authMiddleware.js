@@ -5,7 +5,7 @@ const authenticateJWT = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401).json({ message: 'Acesso negado. Token não fornecido.' });
+    return res.redirect('/login'); // Redireciona para login se o token não estiver presente
   }
 
   const token = authHeader.split(' ')[1];
@@ -15,7 +15,8 @@ const authenticateJWT = (req, res, next) => {
     req.user = decoded; // Adiciona as informações do usuário decodificado à requisição
     next(); // Prossegue para a próxima etapa
   } catch (error) {
-    return res.status(403).json({ message: 'Token inválido ou expirado.' });
+    return res.redirect('/login');
+    //return res.status(403).json({ message: 'Token inválido ou expirado.' });
   }
 };
 

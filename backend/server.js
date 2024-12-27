@@ -4,6 +4,7 @@ const cors = require('cors');
 const path = require('path');
 const session = require('express-session');
 const securityHeaders = require('./middlewares/securityHeaders');
+const authenticateJWT = require('./middlewares/authMiddleware');
 
 const app = express();
 const port = 4000;
@@ -43,7 +44,7 @@ const frontendPath = path.join(__dirname, '../frontend');
 app.use(express.static(frontendPath));
 
 // Rota inicial
-app.get('/', (req, res) => {
+app.get('/', authenticateJWT, (req, res) => {
   res.sendFile(path.join(frontendPath, 'public', 'index.html'));
 });
 
@@ -53,7 +54,7 @@ app.get('/login', (req, res) => {
 });
 
 // Rota para dashboard.html
-app.get('/dashboard', (req, res) => {
+app.get('/dashboard', authenticateJWT, (req, res) => {
   res.sendFile(path.join(frontendPath, 'public', 'index.html'));
 });
 

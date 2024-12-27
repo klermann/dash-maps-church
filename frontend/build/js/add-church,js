@@ -1,0 +1,221 @@
+    $(document).ready(function () {
+      // Inicialize Parsley.js no formulário
+      const $form = $('form');
+      $form.parsley();
+
+      // Validação do formulário ao enviar
+      $form.on('submit', function (e) {
+        e.preventDefault(); // Previne o envio padrão
+        if ($form.parsley().isValid()) {
+          console.log('Formulário válido! Dados serão enviados.');
+          submitForm(); // Função de envio
+        } else {
+          console.log('Formulário inválido! Verifique os campos.');
+        }
+      });
+
+      // Evento para adicionar horários
+      $('#add_horario').on('click', function () {
+        const dia = $('#dias_semana').val();
+        const horaAbertura = $('#hora_abertura').val();
+        const horaFechamento = $('#hora_fechamento').val();
+
+        if (!dia || !horaAbertura || !horaFechamento) {
+          alert('Por favor, preencha todos os campos antes de adicionar.');
+          return;
+        }
+
+        // Adiciona linha à tabela
+        const linha = `
+        <tr>
+          <td>${dia}</td>
+          <td>${horaAbertura}</td>
+          <td>${horaFechamento}</td>
+          <td>
+            <button type="button" class="btn btn-danger btn-sm remove-linha">
+              <i class="fa fa-trash"></i> Remover
+            </button>
+          </td>
+        </tr>`;
+        $('#tabela_horarios tbody').append(linha);
+
+        // Limpa os campos
+        $('#dias_semana').val('');
+        $('#hora_abertura').val('');
+        $('#hora_fechamento').val('');
+
+        // Evento para remover a linha
+        $('.remove-linha').on('click', function () {
+          $(this).closest('tr').remove();
+        });
+
+        console.log('Horário adicionado com sucesso.');
+      });
+    });
+
+    const map = L.map('map').setView([-24.4878, -47.835], 7);
+
+    // Adiciona camada do mapa
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19
+    }).addTo(map);
+
+    // Marker inicial
+    let marker = L.marker([-24.4878, -47.835], { draggable: true }).addTo(map);
+
+    // Atualiza inputs quando o marcador é movido
+    marker.on('move', async function (e) {
+      const { lat, lng } = e.latlng;
+      document.getElementById('latitude').value = lat.toFixed(6);
+      document.getElementById('longitude').value = lng.toFixed(6);
+
+      try {
+        const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`);
+        const data = await response.json();
+        if (data.address) {
+          document.getElementById('logradouro').value = data.address.road || '';
+          document.getElementById('numero').value = data.address.house_number || '';
+          document.getElementById('bairro').value = data.address.neighbourhood || data.address.suburb || '';
+          document.getElementById('cidade').value = data.address.city || data.address.town || data.address.village || '';
+          document.getElementById('estado').value = data.address.state || '';
+          document.getElementById('cep').value = data.address.postcode || '';
+        }
+      } catch (error) {
+        console.error("Erro ao obter endereço reverso:", error);
+      }
+    });
+
+    // Botão Address → Position
+    document.getElementById('addressPosition').addEventListener('click', async () => {
+      const address = prompt("Digite o endereço:");
+      if (address) {
+        try {
+          const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${address}`);
+          const data = await response.json();
+          if (data.length > 0) {
+            const { lat, lon } = data[0];
+            const newLatLng = new L.LatLng(lat, lon);
+            marker.setLatLng(newLatLng);
+            map.setView(newLatLng, 14);
+            document.getElementById('latitude').value = lat;
+            document.getElementById('longitude').value = lon;
+          } else {
+            alert("Endereço não encontrado!");
+          }
+        } catch (error) {
+          alert("Erro ao buscar endereço!");
+        }
+      }
+    });
+
+    // Botão Set Position
+    document.getElementById('setPosition').addEventListener('click', () => {
+      const lat = parseFloat(document.getElementById('latitude').value);
+      const lng = parseFloat(document.getElementById('longitude').value);
+      if (!isNaN(lat) && !isNaN(lng)) {
+        const newLatLng = new L.LatLng(lat, lng);
+        marker.setLatLng(newLatLng);
+        map.setView(newLatLng, 14);
+      } else {
+        alert("Insira valores válidos de Latitude e Longitude!");
+      }
+    });
+
+    // Botão Get GPS Position
+    document.getElementById('getGPSPosition').addEventListener('click', () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const { latitude, longitude } = position.coords;
+          const newLatLng = new L.LatLng(latitude, longitude);
+          marker.setLatLng(newLatLng);
+          map.setView(newLatLng, 14);
+          document.getElementById('latitude').value = latitude.toFixed(6);
+          document.getElementById('longitude').value = longitude.toFixed(6);
+        }, () => {
+          alert("Não foi possível obter a localização!");
+        });
+      } else {
+        alert("Geolocalização não suportada pelo navegador!");
+      }
+    });
+
+    function submitForm() {
+      const token = localStorage.getItem('authToken'); // Substitua pelo método apropriado
+
+      // Extrair os horários da tabela
+      const horarios = [];
+      $('#tabela_horarios tbody tr').each(function () {
+        const dia = $(this).find('td').eq(0).text();
+        const horaAbertura = $(this).find('td').eq(1).text();
+        const horaFechamento = $(this).find('td').eq(2).text();
+        if (dia && horaAbertura && horaFechamento) {
+          horarios.push({
+            dia_semana: dia,
+            hora_abertura: horaAbertura,
+            hora_fechamento: horaFechamento,
+          });
+        }
+      });
+
+      // Construir o objeto churchData
+      const churchData = {
+        churches: [
+          {
+            nome: $('#nome').val(),
+            endereco: {
+              logradouro: $('#logradouro').val(),
+              numero: $('#numero').val(),
+              bairro: $('#bairro').val(),
+              cidade: $('#cidade').val(),
+              estado: $('#estado').val(),
+              pais: "Brasil",
+              cep: $('#cep').val(),
+              complemento: $('#complemento').val(),
+            },
+            localizacao: {
+              latitude: parseFloat($('#latitude').val()) || 0,
+              longitude: parseFloat($('#longitude').val()) || 0,
+              altitude: 0,
+            },
+            detalhes: {
+              tipo_local: $('#tipo_local').val(),
+              descricao: $('#descricao').val(),
+              ponto_referencia: '',
+              horario_funcionamento: horarios, // Adicionando os horários
+            },
+            contato: {
+              telefone: $('#telefone').val(),
+              email: $('#email').val(),
+              website: $('#website').val(),
+            },
+            avaliacao: {
+              nota_media: 0,
+              numero_avaliacoes: 0,
+            },
+          },
+        ],
+      };
+
+      fetch('http://localhost:3000/api/churches', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(churchData)
+      })
+        .then(response => {
+          if (response.status === 201) {
+            alert("Igreja criada com sucesso!");
+          } else {
+            return response.json().then(data => {
+              console.error("Erro:", data);
+              alert("Erro ao criar a igreja!");
+            });
+          }
+        })
+        .catch(error => {
+          console.error("Erro ao enviar a requisição:", error);
+          alert("Ocorreu um erro ao tentar criar a igreja!");
+        });
+    }
