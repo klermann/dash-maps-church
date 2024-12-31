@@ -81,6 +81,12 @@
             <div class="col-md-12">
               <div class="">
                 <div class="x_content">
+                  <a id="btn-logout" class="dropdown-item logout" href="#">
+                    <i class="fa fa-sign-out pull-right"></i> Sair
+                  </a>
+                  <a id="addLocationForm" class="dropdown-item logout" href="#">
+                    <i class="fa fa-sign-out pull-right"></i> Carregar igrejas
+                  </a>
                   <div class="row">
                     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6  ">
                       <div class="tile-stats">
@@ -627,7 +633,6 @@
         </div>
       </div>
       <!-- /page content -->
-
       <!-- footer content -->
       <div id="footer"></div>
       <!-- /footer content -->
@@ -681,31 +686,79 @@
 
       // Redireciona para login se não houver token
       if (!token) {
-        //alert('Você precisa fazer login primeiro.');
-        window.location.href = '/login';
+        console.error("Token não encontrado. Redirecionando para login...");
+        window.location.href = "/login"; // Redireciona para a página de login
+      } else {
+        console.log("Token carregado:", token);
       }
 
-      // Use o token para chamadas à API ou outros usos
-      console.log('Token carregado:', token);
+      $('#btn-logout').on('click', async function (e) {
+        e.preventDefault(); // Evita o comportamento padrão do link
+
+        console.log("Botão de logout clicado!");
+
+        try {
+          const token = localStorage.getItem('authToken'); // Recupera o token do localStorage
+          if (!token) throw new Error("Token não encontrado!");
+
+          // Chamada para a API de logout
+          await apiRequest('http://localhost:3000/api/auth/logout', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`, // Inclui o token no cabeçalho
+            },
+          });
+
+          // Remove o token e redireciona
+          localStorage.removeItem('authToken');
+          sessionStorage.removeItem('authToken');
+          document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          window.location.href = '/login';
+        } catch (error) {
+          console.error("Erro durante o logout:", error.message);
+          alert("Erro ao realizar logout. Verifique sua conexão.");
+        }
+      });
     });
 
-    // Use o token para chamadas à API ou outros usos
-    console.log('Token carregado:', token);
+    // Função genérica para chamadas à API
+    async function apiRequest(url, options = {}) {
+      try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || `Erro HTTP: ${response.status}`);
+        }
+        return response.status !== 204 ? response.json() : null;
+      } catch (error) {
+        console.error("Erro ao fazer requisição:", error.message);
+        throw error;
+      }
+    };
 
-    // Função para carregar as localizações
+    $('#addLocationForm').on('click', function (e) {
+      e.preventDefault();  // Previne o comportamento padrão de navegação do link
+      loadLocations();     // Chama a função para carregar as igrejas
+    });
+
     const loadLocations = () => {
+      
+      const token = localStorage.getItem('authToken');
+
+      console.log('###########################################');
       $.ajax({
-        url: 'http://localhost:3000/api/locations',
+        url: 'http://localhost:3000/api/churches',
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,  // Verifique se o token está sendo atribuído corretamente
         },
         success: function (data) {
           console.log('Localizações recebidas:', data);
           $('#locations').empty();
           data.forEach((location) => {
             $('#locations').append(
-              `<li>${location.name} - (${location.lat}, ${location.lng})</li>`
+              `<li>${location.nome} - (${location.localizacao.latitude	}, ${location.localizacao.longitude})</li>`
             );
           });
         },
@@ -715,68 +768,6 @@
         },
       });
     };
-
-    // Função para adicionar uma nova localização
-    $('#addLocationForm').on('submit', function (e) {
-      e.preventDefault();
-
-      const newLocation = {
-        name: $('#name').val(),
-        latitude: $('#latitude').val(),
-        longitude: $('#longitude').val(),
-      };
-
-      $.ajax({
-        url: 'http://localhost:3000/api/locations',
-        method: 'POST',
-        headers: { Authorization: `Bearer ${token}` },
-        contentType: 'application/json',
-        data: JSON.stringify(newLocation),
-        success: function () {
-          alert('Localização adicionada com sucesso!');
-          loadLocations(); // Recarrega as localizações
-          $('#addLocationForm')[0].reset(); // Limpa o formulário
-        },
-        error: function () {
-          alert('Erro ao adicionar localização. Tente novamente.');
-        },
-      });
-    });
-
-    async function apiRequest(url, options = {}) {
-      const token = localStorage.getItem('authToken');
-
-      // Adicione o token ao cabeçalho da requisição
-      if (token) {
-        options.headers = {
-          ...options.headers,
-          'Authorization': `Bearer ${token}`,
-        };
-      }
-
-      try {
-        const response = await fetch(url, options);
-
-        // Se o token estiver expirado ou inválido (403), redirecione
-        if (response.status === 403) {
-          const errorData = await response.json();
-          console.error('Erro de autenticação:', errorData.message);
-          alert('Sua sessão expirou. Faça login novamente.');
-          localStorage.removeItem('authToken'); // Remova o token antigo
-          window.location.href = '/login'; // Redirecione para login
-          return;
-        }
-
-        if (!response.ok) {
-          throw new Error(`Erro: ${response.status} - ${response.statusText}`);
-        }
-
-        return response.json();
-      } catch (error) {
-        console.error('Erro ao fazer a requisição:', error);
-        throw error; // Opcional: propagar o erro para lidar em outro lugar
-      }
-    }
 
   </script>
 </body>

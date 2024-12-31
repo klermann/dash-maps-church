@@ -1,62 +1,50 @@
-$(document).ready(function () {
-  // Carregar o componente de perfil
-  $("#profileContainer").load("profile-info.html", function (response, status, xhr) {
-    if (status === "error") {
-      console.error("Erro ao carregar o componente de perfil: ", xhr.status, xhr.statusText);
-    } else {
-      console.log("Componente de perfil carregado com sucesso.");
-    }
-  });
+document.addEventListener("DOMContentLoaded", function () {
+  // Função para carregar componentes
+  async function loadComponent(selector, filePath, callback) {
+    try {
+      const response = await fetch(filePath);
+      if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
+      const content = await response.text();
+      document.querySelector(selector).innerHTML = content;
+      console.log(`${filePath} carregado com sucesso.`);
 
-  // Carregar sidebar menu
-  $("#sidebarMenu").load("sidebar_menu.html", function (response, status, xhr) {
-    if (status === "error") {
-      console.error("Erro ao carregar o menu lateral: ", xhr.status, xhr.statusText);
-    } else {
-      console.log("Menu lateral carregado com sucesso.");
-      // Inicializar o efeito de sanfona após o carregamento
-      $(".nav.side-menu > li > a").on("click", function () {
-        var $li = $(this).parent();
-        if ($li.hasClass("active")) {
-          $li.removeClass("active active-sm");
-          $("ul:first", $li).slideUp();
+      // Executar callback após carregar o componente
+      if (callback) callback();
+    } catch (error) {
+      console.error(`Erro ao carregar ${filePath}:`, error);
+    }
+  }
+
+  // Carregar o menu lateral com o efeito sanfona
+  loadComponent("#sidebarMenu", "sidebar_menu.html", function () {
+    console.log("Inicializando o efeito de sanfona...");
+    document.querySelectorAll(".nav.side-menu > li > a").forEach((link) => {
+      link.addEventListener("click", function () {
+        const li = this.parentElement;
+        const submenu = li.querySelector("ul");
+
+        if (li.classList.contains("active")) {
+          li.classList.remove("active", "active-sm");
+          if (submenu) submenu.style.display = "none";
         } else {
           // Fechar outros menus
-          $(".nav.side-menu > li").removeClass("active active-sm");
-          $(".nav.side-menu > li ul").slideUp();
+          document.querySelectorAll(".nav.side-menu > li").forEach((item) => {
+            item.classList.remove("active", "active-sm");
+            const ul = item.querySelector("ul");
+            if (ul) ul.style.display = "none";
+          });
 
-          $li.addClass("active");
-          $("ul:first", $li).slideDown();
+          // Abrir o submenu atual
+          li.classList.add("active");
+          if (submenu) submenu.style.display = "block";
         }
       });
-    }
+    });
   });
 
-  // Carregar o componente de sidebar footer
-  $("#sidebarFooter").load("side_bar_footer.html", function (response, status, xhr) {
-    if (status === "error") {
-      console.error("Erro ao carregar o componente de perfil: ", xhr.status, xhr.statusText);
-    } else {
-      console.log("Componente de perfil carregado com sucesso.");
-    }
-  });
-
-  // Carregar o componente de topnav
-  $("#topNav").load("top_nav.html", function (response, status, xhr) {
-    if (status === "error") {
-      console.error("Erro ao carregar o componente de perfil: ", xhr.status, xhr.statusText);
-    } else {
-      console.log("Componente de perfil carregado com sucesso.");
-    }
-  });
-
-  // Carregar o componente de topnav
-  $("#footer").load("footer.html", function (response, status, xhr) {
-    if (status === "error") {
-      console.error("Erro ao carregar o componente de perfil: ", xhr.status, xhr.statusText);
-    } else {
-      console.log("Componente de perfil carregado com sucesso.");
-    }
-  });
-
+  // Carregar os outros componentes
+  loadComponent("#profileContainer", "profile-info.html");
+  loadComponent("#sidebarFooter", "side_bar_footer.html");
+  loadComponent("#topNav", "top_nav.html");
+  loadComponent("#footer", "footer.html");
 });

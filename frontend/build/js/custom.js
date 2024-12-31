@@ -2487,6 +2487,7 @@ function init_DataTables() {
     var handleDataTableButtons = function () {
         if ($("#datatable-buttons").length) {
             $("#datatable-buttons").DataTable({
+                fixedHeader: true,
                 dom: "Blfrtip",
                 buttons: [
                     {

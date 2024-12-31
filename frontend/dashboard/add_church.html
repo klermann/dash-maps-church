@@ -487,10 +487,8 @@
       if (!token) {
         //alert('Você precisa fazer login primeiro.');
         window.location.href = '/login';
-      }
-
       // Use o token para chamadas à API ou outros usos
-      console.log('Token carregado:', token);
+      }
 
 
       // Evento para adicionar horários
@@ -546,7 +544,50 @@
         });
       });
 
+      $('#btn-logout').on('click', async function (e) {
+        e.preventDefault(); // Evita o comportamento padrão do link
+
+        console.log("Botão de logout clicado!");
+
+        try {
+          const token = localStorage.getItem('authToken'); // Recupera o token do localStorage
+          if (!token) throw new Error("Token não encontrado!");
+
+          // Chamada para a API de logout
+          await apiRequest('http://localhost:3000/api/auth/logout', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`, // Inclui o token no cabeçalho
+            },
+          });
+
+          // Remove o token e redireciona
+          localStorage.removeItem('authToken');
+          sessionStorage.removeItem('authToken');
+          document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          window.location.href = '/login';
+        } catch (error) {
+          console.error("Erro durante o logout:", error.message);
+          alert("Erro ao realizar logout. Verifique sua conexão.");
+        }
+      });
     });
+
+    // Função genérica para chamadas à API
+    async function apiRequest(url, options = {}) {
+      try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || `Erro HTTP: ${response.status}`);
+        }
+        return response.status !== 204 ? response.json() : null;
+      } catch (error) {
+        console.error("Erro ao fazer requisição:", error.message);
+        throw error;
+      }
+    };
 
     const map = L.map('map').setView([-24.4878, -47.835], 7);
 
@@ -761,6 +802,46 @@
         throw error; // Opcional: propagar o erro para lidar em outro lugar
       }
     }
+
+    document.querySelector('.dropdown-item.logout').addEventListener('click', async function () {
+      try {
+        const token = localStorage.getItem('authToken');
+        if (!token) throw new Error("Token não encontrado!");
+
+        // Logout na API
+        await apiRequest('http://localhost:3000/api/logout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Inclui o token no cabeçalho
+          },
+        });
+
+        // Remover token e redirecionar
+        localStorage.removeItem('authToken');
+        sessionStorage.removeItem('authToken');
+        document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.href = '/login';
+      } catch (error) {
+        console.error("Erro durante o logout:", error.message);
+        alert("Erro ao realizar logout. Verifique sua conexão.");
+      }
+    });
+
+    async function apiRequest(url, options = {}) {
+      try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || `Erro HTTP: ${response.status}`);
+        }
+        return response.status !== 204 ? response.json() : null; // 204 = sem conteúdo
+      } catch (error) {
+        console.error("Erro ao fazer requisição:", error.message);
+        throw error;
+      }
+    }
+
 
   </script>
 </body>
