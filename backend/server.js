@@ -5,19 +5,25 @@ const path = require('path');
 const session = require('express-session');
 const securityHeaders = require('./middlewares/securityHeaders');
 const authenticateJWT = require('./middlewares/authMiddleware');
+const helmet = require('helmet');
 
 const app = express();
 const port = 4000;
 
+app.use((req, res, next) => {
+  res.setHeader('Content-Security-Policy', "default-src 'self'; img-src 'self' https://*.tile.openstreetmap.org https://unpkg.com https://via.placeholder.com https://maps.gstatic.com https://maps.googleapis.com data:; script-src 'self' https://maps.googleapis.com");
+  next();
+});
+
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'chave-secreta', // Use uma chave segura em produção
-    resave: false, 
-    saveUninitialized: false, 
-    cookie: { 
-        secure: process.env.NODE_ENV === 'production', // HTTPS em produção
-        httpOnly: true, 
-        maxAge: 1000 * 60 * 30 // 30 minutos
-    }
+  secret: process.env.SESSION_SECRET || 'chave-secreta', // Use uma chave segura em produção
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production', // HTTPS em produção
+    httpOnly: true,
+    maxAge: 1000 * 60 * 30 // 30 minutos
+  }
 }));
 
 app.use(express.json());

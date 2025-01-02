@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps Example</title>
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Google Maps Example</h2>
+    <div id="map"></div>
+
+    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh3uUlNUV1D7IjRwKV3QgLh_89cAXfy-E&callback=initMap&libraries=marker&loading=async"></script>
+
+    <script>
+        let map;
+        const markers = []; // Array para armazenar os marcadores
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+
+            // Carregar as localizações através da API
+            loadLocations();
+        }
+
+        function loadLocations() {
+            const token = localStorage.getItem('authToken');
+
+            $.ajax({
+                url: 'http://localhost:3000/api/churches',
+                method: 'GET',
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+                success: function (data) {
+                    console.log('Dados recebidos:', data);
+
+                    // Remove todos os marcadores existentes
+                    markers.forEach(marker => marker.setMap(null));
+                    markers.length = 0; // Limpa o array de marcadores
+
+                    const bounds = new google.maps.LatLngBounds();
+
+                    data.forEach(location => {
+                        if (location.localizacao && location.localizacao.latitude && location.localizacao.longitude) {
+                            const { latitude, longitude } = location.localizacao;
+
+                            console.warn(`Dados de localização: ${location.nome}`, location);
+
+                            const marker = new google.maps.Marker({
+                                position: { lat: latitude, lng: longitude },
+                                map: map,
+                                title: location.nome,
+                            });
+
+                            const infowindow = new google.maps.InfoWindow({
+                                content: `<b>${location.nome}</b><br>${location.endereco.logradouro}, ${location.endereco.numero}`,
+                            });
+
+                            marker.addListener("click", function () {
+                                infowindow.open(map, marker);
+                            });
+
+                            // Adiciona o marcador ao array
+                            markers.push(marker);
+
+                            // Expande o limite do mapa para incluir este marcador
+                            bounds.extend(marker.getPosition());
+                        } else {
+                            console.warn(`Dados de localização incompletos para: ${location.nome}`, location);
+                        }
+                    });
+
+                    // Ajusta o mapa para mostrar todos os marcadores
+                    if (markers.length > 0) {
+                        map.fitBounds(bounds);
+                    } else {
+                        console.warn('Nenhuma localização válida encontrada.');
+                    }
+                },
+                error: function (jqXHR) {
+                    const errorData = JSON.parse(jqXHR.responseText);
+                    const errorMessage = errorData.message || 'Erro desconhecido';
+                    console.error('Erro ao carregar os dados!:', jqXHR.responseText);
+                    alert('Erro: ' + errorMessage);
+                },
+            });
+        }
+    </script>
+</body>
+
+</html>
