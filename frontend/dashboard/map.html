@@ -26,28 +26,17 @@
   <!-- Custom Theme Style -->
   <link href="../build/css/custom.min.css" rel="stylesheet">
   <link href="../build/css/style-map.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh3uUlNUV1D7IjRwKV3QgLh_89cAXfy-E&callback=initMap" async defer></script> -->
-  <style>
-    #street-view {
-      width: 100%;
-      height: 400px;
-    }
-  </style>
-
 </head>
 
 <body class="nav-md">
 
   <div id="map"></div>
-  <div id="street-view" style="width: 100%; height: 400px;"></div>
+  <div id="street-view"></div>
 
 
   <!-- sidebar menu -->
   <div class="menu">
-    <!-- menu profile quick info -->
-    <div id="profileContainer"></div>
+    <div id="profileContainer" style="padding-top: 80px;"></div>
   </div>
 
   <!-- top navigation -->
@@ -111,62 +100,34 @@
       </ul>
     </div>
   </div>
-
-
-  <div class="menu-container">
-    <div class="menu-item">
-      <div class="row">
-        <div class="col-md-4">
-          <img src="images/media.jpg" alt="Ferrari" class="menu-image">
-        </div>
-        <div class="col-md-8">
-          <div class="menu-text">
-            <h2>Ferrari Maranello</h2>
-            <p>Via Abetone Inferiore 19, Maranello, 41053, Italy</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="menu-item">
-      <div class="row">
-        <div class="col-md-4">
-          <img src="images/media.jpg" alt="Ferrari" class="menu-image">
-        </div>
-        <div class="col-md-8">
-          <div class="menu-text">
-            <h2>Ferrari Maranello</h2>
-            <p>Via Abetone Inferiore 19, Maranello, 41053, Italy</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="menu-item">
-      <div class="row">
-        <div class="col-md-4">
-          <img src="images/media.jpg" alt="Ferrari" class="menu-image">
-        </div>
-        <div class="col-md-8">
-          <div class="menu-text">
-            <h2>Ferrari Maranello</h2>
-            <p>Via Abetone Inferiore 19, Maranello, 41053, Italy</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
   <!-- Menu flutuante -->
   <div class="menu-button">
+    <button class="btn btn-round btn-info" id="satellite"><i class="fa fa-home"></i></button>
     <button id="satellite"><i class="fa fa-globe"></i></button>
     <button id="route"><i class="fa fa-exchange"></i></button>
     <button id="bookmark"><i class="fa fa-bookmark"></i></button>
   </div>
 
+  <!-- Carousel para igrejas -->
+  <div class="container text-center my-3">
+    <h2 class="font-weight-light">Churches</h2>
+    <div class="row slider-container">
+      <div id="churchCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner" role="listbox" id="churchCarouselItems"></div>
+        <a class="carousel-control-prev slider-btn prev-btn w-aut" href="#churchCarousel" role="button"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </a>
+        <a class="carousel-control-next slider-btn next-btn w-aut" href="#churchCarousel" role="button"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+
   <!-- Menu flutuante -->
   <div class="menu-button-right">
-    <button class="btn btn-round btn-info" id="satellite"><i class="fa fa-home"></i></button>
-    <button id="route"><i class="fa fa-plus"></i></button>
-    <button id="route"><i class="fa fa-minus"></i></button>
-    <button id="bookmark"><i class="fa fa-expand"></i></button>
   </div>
 
   <!-- jQuery -->
@@ -202,24 +163,87 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh3uUlNUV1D7IjRwKV3QgLh_89cAXfy-E&callback=initMap&libraries=marker&loading=async"></script>
 
   <script>
+
+    let items = document.querySelectorAll('.carousel .carousel-item')
+
+    items.forEach((el) => {
+      const minPerSlide = 2
+      let next = el.nextElementSibling
+      for (var i = 1; i < minPerSlide; i++) {
+        if (!next) {
+          // wrap carousel by using first child
+          next = items[0]
+        }
+        let cloneChild = next.cloneNode(true)
+        el.appendChild(cloneChild.children[0])
+        next = next.nextElementSibling
+      }
+    })
+
+    document.querySelectorAll('.slider-item').forEach((item, index) => {
+      /* item.addEventListener('click', () => {
+        const marker = markers[index]; // Assumindo que os marcadores estão em um array na mesma ordem dos itens
+        map.setCenter(marker.getPosition());
+        google.maps.event.trigger(marker, 'click'); // Simula o clique no marcador
+      }); */
+      item.addEventListener('click', () => {
+        const marker = markers[index]; // Assumindo que os marcadores estão em um array na mesma ordem dos itens
+        if (marker) {
+          map.setCenter(marker.getPosition()); // Centraliza o mapa na posição do marcador
+          map.setZoom(15); // Ajusta o nível de zoom (opcional)
+        }
+      });
+    });
+    const slider = document.querySelector('.slider');
+    const sliderContainer = document.querySelector('.slider-container');
+
     let map;
     let panorama; // Para o Street View
     const markers = []; // Array para armazenar os marcadores
 
     function initMap() {
-      // Inicializa o mapa
+      const token = localStorage.getItem('authToken');
+
+      if (!token) {
+        console.error("Token não encontrado. Redirecionando para login...");
+        window.location.href = "/login"; // Redireciona para login se o token não existir
+      } else {
+        console.log("Token carregado:", token);
+      }
+
+      // Inicializa o mapa com ferramentas adicionais
       map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: -34.397, lng: 150.644 },
         zoom: 8,
+        mapTypeControl: true, // Habilita controle de tipo de mapa (satélite, terreno, etc.)
+        mapTypeControlOptions: {
+          style: google.maps.MapTypeControlStyle.DROPDOWN_MENU, // Estilo do controle
+          position: google.maps.ControlPosition.TOP_RIGHT, // Posição no mapa
+        },
+        zoomControl: true, // Habilita o controle de zoom
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_BOTTOM, // Posição no mapa
+        },
+        fullscreenControl: true, // Habilita o controle de tela cheia
+        fullscreenControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_BOTTOM, // Posição no mapa
+        },
+        streetViewControl: true, // Habilita o controle de Street View
+        streetViewControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_BOTTOM, // Posição no mapa
+        },
       });
 
       // Inicializa o panorama (Street View)
       panorama = new google.maps.StreetViewPanorama(
-        document.getElementById("street-view"), {
-        position: { lat: -34.397, lng: 150.644 },
-        pov: { heading: 165, pitch: 0 }, // Defina a direção da câmera
-      }
+        document.getElementById("street-view"),
+        {
+          position: { lat: -34.397, lng: 150.644 },
+          pov: { heading: 275, pitch: 0 }, // Define a direção da câmera
+          enableCloseButton: true, // Exibe o botão nativo de fechar/voltar
+        }
       );
+
       map.setStreetView(panorama); // Define o mapa para usar o Street View
 
       // Carregar as localizações através da API
@@ -263,8 +287,10 @@
               marker.addListener("click", function () {
                 infowindow.open(map, marker);
 
-                // Atualiza o panorama (Street View) para a localização do marcador
+                // Exibe o Street View
+                document.getElementById("street-view").style.display = "block"; // Torna o Street View visível
                 panorama.setPosition(marker.getPosition());
+
               });
 
               // Adiciona o marcador ao array
@@ -272,6 +298,40 @@
 
               // Expande o limite do mapa para incluir este marcador
               bounds.extend(marker.getPosition());
+
+
+              // Criar item do carousel
+              // Agora, selecionando corretamente o contêiner do carrossel
+              const carouselItemsContainer = document.getElementById('churchCarouselItems');
+
+              // Criar item do carousel
+              let firstItem = true;
+              const carouselItem = document.createElement('div');
+              carouselItem.classList.add('carousel-item', firstItem ? 'active' : '');
+              firstItem = false;
+
+              carouselItem.innerHTML = `
+                <div class="col-md-3">
+                  <div class="card">
+                    <div class="card-img">
+                      <img src="https://via.placeholder.com/150" class="img-fluid" alt="Igreja">
+                    </div>                
+                  </div>
+                </div>
+                <div class="col-md-9">
+                  <div class="">
+                    <p>${location.endereco.logradouro}, ${location.endereco.numero}</p>
+                  </div>
+                </div>
+              `;
+
+              carouselItem.addEventListener('click', () => {
+                map.setCenter(marker.getPosition());
+                map.setZoom(15); // Centraliza e dá zoom no mapa
+              });
+
+              carouselItemsContainer.appendChild(carouselItem);
+
             } else {
               console.warn(`Dados de localização incompletos para: ${location.nome}`, location);
             }
@@ -292,120 +352,6 @@
         },
       });
     }
-    /*  $(document).ready(function () {
- 
-       const token = localStorage.getItem('authToken');
- 
-       if (!token) {
-         console.error("Token não encontrado. Redirecionando para login...");
-         window.location.href = "/login"; // Redireciona para login se o token não existir
-       } else {
-         console.log("Token carregado:", token);
-       }
- 
-       const map = L.map('map').setView([-23.55052, -46.633308], 13); // Inicializa o mapa
-       console.log('Mapa inicializado:', map);
- 
-       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-         maxZoom: 19,
-       }).addTo(map);
- 
-       const loadLocations = () => {
-         if (!token) {
-           Notifier.notifyError('Token não encontrado', 'Por favor, faça o login para continuar.');
-           return;
-         }
- 
-         $.ajax({
-           url: 'http://localhost:3000/api/churches',
-           method: 'GET',
-           headers: {
-             Authorization: `Bearer ${token}`,
-           },
-           success: function (data) {
-             console.log('Dados recebidos:', data);
- 
-             // Remove todos os marcadores existentes do mapa
-             map.eachLayer((layer) => {
-               if (layer instanceof L.Marker) map.removeLayer(layer);
-             });
- 
-             const bounds = []; // Array para armazenar todas as coordenadas
- 
-             data.forEach((location) => {
-               if (location.localizacao && location.localizacao.latitude && location.localizacao.longitude) {
-                 const { latitude, longitude } = location.localizacao;
- 
-                 console.warn(`Dados de localização: ${location.nome}`, location);
- 
-                 const marker = L.marker([latitude, longitude]).addTo(map);
-                 marker.bindPopup(`<b>${location.nome}</b><br>${location.endereco.logradouro}, ${location.endereco.numero}`);
- 
-                 // Adiciona as coordenadas ao array de bounds
-                 bounds.push([latitude, longitude]);
-               } else {
-                 console.warn(`Dados de localização incompletos para: ${location.nome}`, location);
-               }
-             });
- 
-             // Ajusta o mapa para mostrar todos os marcadores
-             if (bounds.length > 0) {
-               map.fitBounds(bounds);
-             } else {
-               console.warn('Nenhuma localização válida encontrada.');
-             }
-           },
-           error: function (jqXHR) {
-             const errorData = JSON.parse(jqXHR.responseText);
-             const errorMessage = errorData.message || 'Erro desconhecido';
-             console.error('Erro ao carregar os dados!:', jqXHR.responseText);
-             Notifier.notifyError('Erro', errorMessage);
-           },
-         });
-       };
- 
-       loadLocations(); // Carrega as localizações ao iniciar;
- 
- 
-       const editLocation = (id) => {
-         const token = localStorage.getItem('authToken');
-         const updatedData = {
-           nome: prompt('Digite o novo nome:'),
-           status: prompt('Digite o novo status:'),
-           latitude: prompt('Digite a nova latitude:'),
-           longitude: prompt('Digite a nova longitude:'),
-         };
- 
-         $.ajax({
-           url: `http://localhost:3000/api/churches/${id}`,
-           method: 'PUT',
-           headers: {
-             Authorization: `Bearer ${token}`,
-           },
-           contentType: 'application/json',
-           data: JSON.stringify(updatedData),
-           success: function () {
-             Notifier.notifySuccess('Sucesso!', 'Localização atualizada com sucesso!');
-             loadLocations();
-           },
-           error: function (jqXHR) {
-             console.error('Erro ao atualizar a localização:', jqXHR.responseText);
-             Notifier.notifyError('Erro ao atualizar a localização!!', jqXHR.responseText);
-           },
-         });
-       };
- 
-       document.querySelector('.filter-toggle-button').addEventListener('click', () => {
-         const filtersContainer = document.querySelector('.filters-container');
-         filtersContainer.classList.toggle('show');
-       });
- 
-       document.querySelector('.reset-button').addEventListener('click', () => {
-         document.querySelectorAll('.filters-list input[type="checkbox"]').forEach((checkbox) => {
-           checkbox.checked = false;
-         });
-       });
-     }); */
   </script>
 </body>
 

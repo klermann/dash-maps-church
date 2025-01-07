@@ -17,6 +17,16 @@ html {
     z-index: 1;
 }
 
+#street-view {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: none;
+}
+
 /* Menu e outros elementos flutuantes */
 .menu {
     position: absolute;
@@ -30,8 +40,12 @@ html {
 /* Menu e outros elementos flutuantes */
 .menu2 {
     position: absolute;
-    top: 10px;
+    top: 50%;
+    /* Centraliza verticalmente */
     right: 10px;
+    /* Mantém alinhado à direita */
+    transform: translateY(-50%);
+    /* Move metade da altura para cima */
     height: 300px;
     width: 150px;
     background-color: white;
@@ -41,6 +55,7 @@ html {
     z-index: 2;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
 
 .menu h3 {
     margin: 0 0 10px 0;
@@ -120,7 +135,7 @@ html {
     gap: 20px;
     padding: 10px;
     border-radius: 10px;
-    
+
 }
 
 .menu-item {
@@ -140,6 +155,107 @@ html {
 
 .menu-item:hover {
     transform: scale(1.05);
+}
+
+.carousel-inner {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    z-index: 990;
+}
+
+.carousel-item {
+    flex: 0 0 20%;
+    /* Ajuste para exibir 4 itens de cada vez */
+    z-index: 999;
+    padding: 10px;
+    height: 80px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    z-index: 999;
+    width: 40px;
+    background: #ff0000;
+    color: #000;
+    border: 1px solid #1900ff;
+    /* Para os controles não tomarem espaço excessivo */
+}
+
+
+@media (max-width: 767px) {
+    .carousel-inner .carousel-item {
+        flex: 0 0 100%;
+        /* Exibe 1 item por vez */
+    }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+/* medium and up screens */
+@media (min-width: 768px) {
+
+    .carousel-inner .carousel-item-end.active,
+    .carousel-inner .carousel-item-next {
+        transform: translateX(25%);
+    }
+
+    .carousel-inner .carousel-item-start.active,
+    .carousel-inner .carousel-item-prev {
+        transform: translateX(-25%);
+    }
+}
+
+.carousel-inner .carousel-item-end,
+.carousel-inner .carousel-item-start {
+    transform: translateX(0);
+}
+
+.card-img-overlay {
+    color: white;
+    /* Definindo a cor do texto */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fundo semitransparente */
+    padding: 15px;
+    /* Adicionando padding para melhorar o layout */
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* Fazendo com que ocupe toda a área da imagem */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-img {
+    position: relative;
+    /* Necessário para a sobreposição funcionar corretamente */
+}
+
+.card-img img {
+    width: 100%;
+    /* Garantindo que a imagem ocupe 100% da largura */
+}
+
+.slider-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 999;
 }
 
 .row {
