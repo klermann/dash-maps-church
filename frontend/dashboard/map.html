@@ -13,8 +13,13 @@
 
   <!-- Bootstrap -->
   <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="../vendors/bootstrap/dist/css/swiper-bundle.min.css" rel="stylesheet">
+
+
   <!-- Font Awesome -->
   <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
   <!-- NProgress -->
   <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
   <!-- bootstrap-progressbar -->
@@ -33,7 +38,6 @@
   <div id="map"></div>
   <div id="street-view"></div>
 
-
   <!-- sidebar menu -->
   <div class="menu">
     <div id="profileContainer" style="padding-top: 80px;"></div>
@@ -45,8 +49,6 @@
 
   <div id="footer"></div>
   <!-- sidebar menu -->
-  <div class="menu2">
-  </div>
 
   <div class="search-container">
     <input type="text" class="search-input" placeholder="Search...">
@@ -102,38 +104,31 @@
   </div>
   <!-- Menu flutuante -->
   <div class="menu-button">
-    <button class="btn btn-round btn-info" id="satellite"><i class="fa fa-home"></i></button>
-    <button id="satellite"><i class="fa fa-globe"></i></button>
-    <button id="route"><i class="fa fa-exchange"></i></button>
-    <button id="bookmark"><i class="fa fa-bookmark"></i></button>
+    <button id="satellite-home" aria-label="Home View"><i class="fa fa-home"></i></button>
+    <button id="satellite-globe" aria-label="globe View"><i class="fa fa-globe"></i></button>
+    <button id="route" aria-label="route View"><i class="fa fa-exchange"></i></button>
+    <button id="bookmark" aria-label="bookmark View"><i class="fa fa-bookmark"></i></button>
   </div>
 
-  <!-- Carousel para igrejas -->
-  <div class="container text-center my-3">
-    <h2 class="font-weight-light">Churches</h2>
-    <div class="row slider-container">
-      <div id="churchCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner" role="listbox" id="churchCarouselItems"></div>
-        <a class="carousel-control-prev slider-btn prev-btn w-aut" href="#churchCarousel" role="button"
-          data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </a>
-        <a class="carousel-control-next slider-btn next-btn w-aut" href="#churchCarousel" role="button"
-          data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </a>
-      </div>
+  <div class="swiper-container">
+    <div class="swiper-wrapper" id="churchSwiperItems">
     </div>
-  </div>
-
-  <!-- Menu flutuante -->
-  <div class="menu-button-right">
+    <div class="swiper-button-next">
+      <i class="fa fa-chevron-right"></i>
+    </div>
+    <div class="swiper-button-prev">
+      <i class="fa fa-chevron-left"></i>
+    </div>
+    <div class="swiper-pagination"></div>
   </div>
 
   <!-- jQuery -->
   <script src="../vendors/jquery/dist/jquery.min.js"></script>
+  <script src="../vendors/jquery/dist/swiper-bundle.min.js"></script>
+
   <!-- Bootstrap -->
   <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
   <!-- FastClick -->
   <script src="../vendors/fastclick/lib/fastclick.js"></script>
   <!-- NProgress -->
@@ -163,23 +158,6 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh3uUlNUV1D7IjRwKV3QgLh_89cAXfy-E&callback=initMap&libraries=marker&loading=async"></script>
 
   <script>
-
-    let items = document.querySelectorAll('.carousel .carousel-item')
-
-    items.forEach((el) => {
-      const minPerSlide = 2
-      let next = el.nextElementSibling
-      for (var i = 1; i < minPerSlide; i++) {
-        if (!next) {
-          // wrap carousel by using first child
-          next = items[0]
-        }
-        let cloneChild = next.cloneNode(true)
-        el.appendChild(cloneChild.children[0])
-        next = next.nextElementSibling
-      }
-    })
-
     document.querySelectorAll('.slider-item').forEach((item, index) => {
       /* item.addEventListener('click', () => {
         const marker = markers[index]; // Assumindo que os marcadores estão em um array na mesma ordem dos itens
@@ -198,20 +176,17 @@
     const sliderContainer = document.querySelector('.slider-container');
 
     let map;
-    let panorama; // Para o Street View
-    const markers = []; // Array para armazenar os marcadores
+    let panorama;
+    const markers = [];
 
     function initMap() {
       const token = localStorage.getItem('authToken');
 
       if (!token) {
         console.error("Token não encontrado. Redirecionando para login...");
-        window.location.href = "/login"; // Redireciona para login se o token não existir
-      } else {
-        console.log("Token carregado:", token);
+        window.location.href = "/login";
       }
 
-      // Inicializa o mapa com ferramentas adicionais
       map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: -34.397, lng: 150.644 },
         zoom: 8,
@@ -246,39 +221,32 @@
 
       map.setStreetView(panorama); // Define o mapa para usar o Street View
 
-      // Carregar as localizações através da API
       loadLocations();
     }
 
     function loadLocations() {
       const token = localStorage.getItem('authToken');
 
-      $.ajax({
-        url: 'http://localhost:3000/api/churches',
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        success: function (data) {
-          console.log('Dados recebidos:', data);
-
-          // Remove todos os marcadores existentes
-          markers.forEach(marker => marker.setMap(null));
-          markers.length = 0; // Limpa o array de marcadores
-
+      fetch('http://localhost:3000/api/churches', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(response => response.json())
+        .then(data => {
+          const locations = Array.isArray(data) ? data : data.locations || [];
           const bounds = new google.maps.LatLngBounds();
+          const swiperWrapper = document.getElementById('churchSwiperItems');
+          swiperWrapper.innerHTML = '';
 
-          data.forEach(location => {
-            if (location.localizacao && location.localizacao.latitude && location.localizacao.longitude) {
+          locations.forEach((location, index) => {
+            if (location.localizacao?.latitude && location.localizacao?.longitude) {
               const { latitude, longitude } = location.localizacao;
-
-              console.warn(`Dados de localização: ${location.nome}`, location);
 
               const marker = new google.maps.Marker({
                 position: { lat: latitude, lng: longitude },
-                map: map,
+                map,
                 title: location.nome,
               });
+
 
               const infowindow = new google.maps.InfoWindow({
                 content: `<b>${location.nome}</b><br>${location.endereco.logradouro}, ${location.endereco.numero}`,
@@ -286,71 +254,47 @@
 
               marker.addListener("click", function () {
                 infowindow.open(map, marker);
-
-                // Exibe o Street View
-                document.getElementById("street-view").style.display = "block"; // Torna o Street View visível
                 panorama.setPosition(marker.getPosition());
-
+                document.getElementById("street-view").style.display = "block";
               });
 
-              // Adiciona o marcador ao array
               markers.push(marker);
-
-              // Expande o limite do mapa para incluir este marcador
               bounds.extend(marker.getPosition());
 
-
-              // Criar item do carousel
-              // Agora, selecionando corretamente o contêiner do carrossel
-              const carouselItemsContainer = document.getElementById('churchCarouselItems');
-
-              // Criar item do carousel
-              let firstItem = true;
-              const carouselItem = document.createElement('div');
-              carouselItem.classList.add('carousel-item', firstItem ? 'active' : '');
-              firstItem = false;
-
-              carouselItem.innerHTML = `
-                <div class="col-md-3">
-                  <div class="card">
-                    <div class="card-img">
-                      <img src="https://via.placeholder.com/150" class="img-fluid" alt="Igreja">
-                    </div>                
+              const slide = document.createElement('div');
+              slide.classList.add('swiper-slide');
+              slide.innerHTML = `
+                <div class="row">
+                  <div class="col-md-5">
+                    <img src="https://via.placeholder.com/100/ff0000/ffffff" class="swiper-img-top" alt="Igreja">
+                  </div>                  
+                  <div class="col-md-7">
+                    <div class="swiper-media-body">
+                      <p class="title">${location.nome}
+                      <br>${location.endereco.logradouro}, ${location.endereco.numero}</p>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-9">
-                  <div class="">
-                    <p>${location.endereco.logradouro}, ${location.endereco.numero}</p>
-                  </div>
-                </div>
-              `;
+                </div>`;
 
-              carouselItem.addEventListener('click', () => {
+              slide.addEventListener('click', () => {
                 map.setCenter(marker.getPosition());
-                map.setZoom(15); // Centraliza e dá zoom no mapa
+                map.setZoom(15);
               });
 
-              carouselItemsContainer.appendChild(carouselItem);
-
-            } else {
-              console.warn(`Dados de localização incompletos para: ${location.nome}`, location);
+              swiperWrapper.appendChild(slide);
             }
           });
 
-          // Ajusta o mapa para mostrar todos os marcadores
-          if (markers.length > 0) {
-            map.fitBounds(bounds);
-          } else {
-            console.warn('Nenhuma localização válida encontrada.');
-          }
-        },
-        error: function (jqXHR) {
-          const errorData = JSON.parse(jqXHR.responseText);
-          const errorMessage = errorData.message || 'Erro desconhecido';
-          console.error('Erro ao carregar os dados!:', jqXHR.responseText);
-          alert('Erro: ' + errorMessage);
-        },
-      });
+          map.fitBounds(bounds);
+
+          new Swiper('.swiper-container', {
+            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+            pagination: { el: '.swiper-pagination', clickable: true },
+            slidesPerView: 3,
+            spaceBetween: 8,
+          });
+        })
+        .catch(err => console.error('Erro ao carregar locais:', err));
     }
   </script>
 </body>
