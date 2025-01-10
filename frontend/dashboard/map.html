@@ -36,12 +36,31 @@
 <body class="nav-md">
 
   <div id="map"></div>
-  <div id="street-view"></div>
+  <div id="fullscreen-streetview"></div>
 
-  <!-- sidebar menu -->
-  <div class="menu">
-    <div id="profileContainer" style="padding-top: 80px;"></div>
+  <!-- Modal lateral -->
+  <div id="churchModal">
+    <div class="modal-header">
+      <h4 id="churchName">Nome da Igreja</h4>
+      <button class="close-button" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p><strong>Pastor:</strong> <span id="churchPastor"></span></p>
+      <p><strong>Endereço:</strong> <span id="churchAddress"></span></p>
+      <p><strong>Status:</strong> <span id="churchStatus"></span></p>
+      <p><strong>Descrição:</strong> <span id="churchDescription"></span></p>
+      <p><strong>Horários de Funcionamento:<span id="churchHour"></span></p>
+      <ul id="churchSchedule"></ul>
+      <div id="churchIdentifiers" class="church-section">
+        <h3>Identificadores</h3>
+        <ul id="identifierList"></ul>
+      </div>
+      <p><strong>Avaliação:</strong> <span id="churchRating"></span></p>
+      <img id="churchImage" src="" alt="Imagem da Igreja"
+        style="width: auto; height: 400px; border-radius: 8px; margin-top: 10px;">
+    </div>
   </div>
+
 
   <!-- top navigation -->
   <div id="topNav"></div>
@@ -51,8 +70,8 @@
   <!-- sidebar menu -->
 
   <div class="search-container">
-    <input type="text" class="search-input" placeholder="Search...">
-    <button class="filter-toggle-button">🔍</button>
+    <input type="text" class="search-input" placeholder="Buscar...">
+    <button class="filter-toggle-button"><i class="fa fa-search"></i></button>
     <div class="filters-container">
       <div class="filters-header">
         <span>Filters</span>
@@ -104,13 +123,12 @@
   </div>
   <!-- Menu flutuante -->
   <div class="menu-button">
-    <button id="satellite-home" aria-label="Home View"><i class="fa fa-home"></i></button>
-    <button id="satellite-globe" aria-label="globe View"><i class="fa fa-globe"></i></button>
+    <button id="home" aria-label="Home View"><img src="images/pin.png" height="40px" /></button>
     <button id="route" aria-label="route View"><i class="fa fa-exchange"></i></button>
     <button id="bookmark" aria-label="bookmark View"><i class="fa fa-bookmark"></i></button>
   </div>
 
-  <div class="swiper-container">
+  <div id="churchSwiper" class="swiper-container">
     <div class="swiper-wrapper" id="churchSwiperItems">
     </div>
     <div class="swiper-button-next">
@@ -120,6 +138,11 @@
       <i class="fa fa-chevron-left"></i>
     </div>
     <div class="swiper-pagination"></div>
+  </div>
+
+  <div id="street-view-thumbnail"
+    style="display:none; position: fixed; bottom: 10px; left: 10px; width: 200px; height: 120px; z-index: 9999; cursor: pointer; border-radius: 10px; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); background-color: white; overflow: hidden; border: 2px solid rgb(255, 255, 255);">
+    <div id="thumbnail-content" style="width: 100%; height: 100%;"><img src="images/streetview_icon.png" /></div>
   </div>
 
   <!-- jQuery -->
@@ -148,7 +171,6 @@
   <script src="../vendors/pnotify/dist/pnotify.nonblock.js"></script>
   <!-- Custom Theme Scripts -->
   <script src="../build/js/custom.min.js"></script>
-  <script src="../build/js/load-components.js"></script>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
@@ -158,6 +180,83 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh3uUlNUV1D7IjRwKV3QgLh_89cAXfy-E&callback=initMap&libraries=marker&loading=async"></script>
 
   <script>
+
+    let map;
+    let panorama;
+    const markers = [];
+    let currentInfoWindow = null;
+
+    document.getElementById("home").addEventListener("click", () => {
+      window.location.href = "/dashboard/";
+    });
+
+    function showStreetViewThumbnail(position) {
+      if (!position) {
+        console.error("Posição inválida:", position);
+        return;
+      }
+
+      const thumbnail = document.getElementById("street-view-thumbnail");
+      if (thumbnail) {
+        thumbnail.style.display = "block";
+        const thumbnailContent = document.getElementById("thumbnail-content");
+        thumbnailContent.innerHTML = "";
+        const thumbnailPanorama = new google.maps.StreetViewPanorama(thumbnailContent, {
+          position: position,
+          pov: { heading: 90, pitch: 0 },
+          linksControl: false,
+          panControl: false,
+          enableCloseButton: false,
+          addressControl: false,
+        });
+      }
+
+      thumbnail.onclick = () => {
+        const fullScreenContainer = document.createElement('div');
+        fullScreenContainer.id = 'fullscreen-streetview';
+        fullScreenContainer.style.position = 'absolute';
+        fullScreenContainer.style.top = '0px';
+        fullScreenContainer.style.left = '0';
+        fullScreenContainer.style.width = '100%';
+        fullScreenContainer.style.height = '100%';
+        fullScreenContainer.style.zIndex = '10000';
+        fullScreenContainer.style.backgroundColor = 'white';
+
+        document.body.appendChild(fullScreenContainer);
+
+        const fullScreenPanorama = new google.maps.StreetViewPanorama(fullScreenContainer, {
+          position: position,
+          pov: { heading: 90, pitch: 0 },
+          linksControl: true,
+          panControl: true,
+          /* enableCloseButton: true, */
+          addressControl: true,
+        });
+
+        // Adiciona um botão para fechar o Street View em tela cheia
+        const closeButton = document.createElement('button');
+        closeButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+        closeButton.style.position = 'absolute';
+        closeButton.style.top = '10px';
+        closeButton.style.right = '60px';
+        closeButton.style.width = '40px';
+        closeButton.style.height = '40px';
+        closeButton.style.zIndex = '10001';
+        closeButton.style.padding = '10px';
+        closeButton.style.backgroundColor = '#ff0000';
+        closeButton.style.color = 'white';
+        closeButton.style.border = 'none';
+        closeButton.style.borderRadius = '5px';
+        closeButton.style.cursor = 'pointer';
+
+        closeButton.onclick = () => {
+          document.body.removeChild(fullScreenContainer);
+        };
+
+        fullScreenContainer.appendChild(closeButton);
+      };
+    }
+
     document.querySelectorAll('.slider-item').forEach((item, index) => {
       /* item.addEventListener('click', () => {
         const marker = markers[index]; // Assumindo que os marcadores estão em um array na mesma ordem dos itens
@@ -167,17 +266,15 @@
       item.addEventListener('click', () => {
         const marker = markers[index]; // Assumindo que os marcadores estão em um array na mesma ordem dos itens
         if (marker) {
-          map.setCenter(marker.getPosition()); // Centraliza o mapa na posição do marcador
+          //map.setCenter(marker.getPosition()); // Centraliza o mapa na posição do marcador
+          const center = bounds.getCenter();
+          map.setCenter(center);
           map.setZoom(15); // Ajusta o nível de zoom (opcional)
         }
       });
     });
     const slider = document.querySelector('.slider');
     const sliderContainer = document.querySelector('.slider-container');
-
-    let map;
-    let panorama;
-    const markers = [];
 
     function initMap() {
       const token = localStorage.getItem('authToken');
@@ -189,7 +286,7 @@
 
       map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: -34.397, lng: 150.644 },
-        zoom: 8,
+        zoom: 15,
         mapTypeControl: true, // Habilita controle de tipo de mapa (satélite, terreno, etc.)
         mapTypeControlOptions: {
           style: google.maps.MapTypeControlStyle.DROPDOWN_MENU, // Estilo do controle
@@ -214,15 +311,79 @@
         document.getElementById("street-view"),
         {
           position: { lat: -34.397, lng: 150.644 },
-          pov: { heading: 275, pitch: 0 }, // Define a direção da câmera
+          pov: { heading: 90, pitch: 0 }, // Define a direção da câmera
           enableCloseButton: true, // Exibe o botão nativo de fechar/voltar
         }
       );
 
       map.setStreetView(panorama); // Define o mapa para usar o Street View
 
+      map.addListener('click', () => {
+        if (currentInfoWindow) {
+          currentInfoWindow.close();  // Fecha o infowindow atual
+        }
+      });
+
       loadLocations();
     }
+
+    function openChurchModal(church) {
+      // Preencher campos básicos
+      document.getElementById('churchName').innerText = `Igreja ${church.nome || 'Não informado'}`;
+      document.getElementById('churchAddress').innerText = church.endereco
+        ? `${church.endereco.logradouro || ''}, ${church.endereco.numero || ''}, ${church.endereco.bairro || ''}, ${church.endereco.cidade || ''} - ${church.endereco.estado || ''}, ${church.endereco.cep || ''}`
+        : 'Endereço não informado';
+      document.getElementById('churchPastor').innerText = church.pastor || 'Não informado';
+      document.getElementById('churchStatus').innerText = church.status || 'Não informado';
+      document.getElementById('churchDescription').innerText = church.detalhes?.descricao || 'Não informado';
+      document.getElementById('churchImage').src = `images/${church.imagem.imagem}`;
+
+      // Preencher horários de funcionamento
+      const scheduleList = document.getElementById('churchSchedule');
+      scheduleList.innerHTML = ""; // Limpar lista anterior
+      church.detalhes.horario_funcionamento.forEach(horario => {
+        const li = document.createElement('li');
+        li.innerText = `${horario.dia_semana}: ${horario.hora_abertura} - ${horario.hora_fechamento}`;
+        scheduleList.appendChild(li);
+      });
+
+      // Preencher identificadores
+      const identifierList = document.getElementById('identifierList');
+      identifierList.innerHTML = ""; // Limpar lista anterior
+
+      console.info("Posição inválida:", church.identificadores);
+      console.info("Posição inválida:", church.identificadores.contas);
+      if (church.identificadores && church.identificadores.contas) {
+        console.info("Posição inválida:", church.identificadores.contas);
+        church.identificadores.contas.forEach(conta => {
+          console.error("church.identificadores.conta:", church.identificadores.conta);
+          const li = document.createElement('li');
+          li.innerText = `${conta.tipo.toUpperCase()}: Código ${conta.codigo} - ${conta.descricao}`;
+          identifierList.appendChild(li);
+        });
+      } else {
+        const li = document.createElement('li');
+        li.innerText = 'Identificadores não informados';
+        identifierList.appendChild(li);
+      }
+
+      // Preencher avaliação
+      document.getElementById('churchRating').innerText = `${church.avaliacao.nota_media} (${church.avaliacao.numero_avaliacoes} avaliações)`;
+
+      // Abrir modal
+      const modal = document.getElementById('churchModal');
+      modal.classList.add('open');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('churchModal');
+      modal.classList.remove('open');
+    }
+
+
+    document.querySelector('#churchModal .close-button').addEventListener('click', () => {
+      document.getElementById('churchModal').classList.remove('open');
+    });
 
     function loadLocations() {
       const token = localStorage.getItem('authToken');
@@ -245,56 +406,137 @@
                 position: { lat: latitude, lng: longitude },
                 map,
                 title: location.nome,
+                icon: {
+                  url: "images/pin.png", // Caminho da sua imagem personalizada
+                  size: new google.maps.Size(60, 70), // Tamanho do ícone
+                  origin: new google.maps.Point(0, 0), // Posição de origem do ícone
+                  anchor: new google.maps.Point(25, 25) // Ponto de ancoragem do ícone (ajustar conforme necessário)
+                }
               });
 
+              // Conteúdo do InfoWindow com imagem e outras informações
+              const statusIcon = location.status === "ativo"
+                ? "🟢" // Ícone para status ativo
+                : location.status === "inativo"
+                  ? "🔴" // Ícone para status inativo
+                  : "🟡"; // Ícone para status desconhecido ou outro
+
+              const infowindowContent = `
+                <div style="max-width: 200px; overflow: hidden;">
+                  <img src="images/${location.imagem.imagem}" alt="${location.nome}" style="width: 100%; height: 120px; border-radius: 8px; margin-bottom: 8px;">
+                  <div class="block">
+                    <div class="block_content">
+                      <h2 class="title"><a>${location.nome}</a> ${statusIcon}</h2>
+                      <div class="byline">
+                        <span>Informações </span> estão <a> aqui</a>
+                      </div>
+                      <p class="excerpt"><a><strong>Endereço:</strong> ${location.endereco.logradouro}, ${location.endereco.numero}</a>
+                      <p class="excerpt"><a><strong>Pastor:</strong> ${location.pastor}</a></p>
+                      <button class="btn btn-sm btn-link" onclick="openChurchModal(${JSON.stringify(location).replace(/"/g, '&quot;')})">Ver Detalhes</button>
+                    </div>
+                  </div>
+                </div>
+              `;
 
               const infowindow = new google.maps.InfoWindow({
-                content: `<b>${location.nome}</b><br>${location.endereco.logradouro}, ${location.endereco.numero}`,
+                content: infowindowContent,
               });
-
               marker.addListener("click", function () {
+                map.setCenter(marker.getPosition());
+                showStreetViewThumbnail(marker.getPosition());
                 infowindow.open(map, marker);
                 panorama.setPosition(marker.getPosition());
-                document.getElementById("street-view").style.display = "block";
+                marker.setAnimation(google.maps.Animation.BOUNCE); // Adiciona animação de "pular"
+                setTimeout(() => marker.setAnimation(null), 1400);
+
+
+                // Fecha o infowindow anterior se existir
+                if (currentInfoWindow) {
+                  currentInfoWindow.close();
+                }
+                currentInfoWindow = infowindow;  // Atualiza o infowindow atual
               });
 
-              markers.push(marker);
-              bounds.extend(marker.getPosition());
+              console.info(location);
 
+              markers.push(marker);
+
+              bounds.extend(marker.getPosition());
               const slide = document.createElement('div');
               slide.classList.add('swiper-slide');
               slide.innerHTML = `
-                <div class="row">
-                  <div class="col-md-5">
-                    <img src="https://via.placeholder.com/100/ff0000/ffffff" class="swiper-img-top" alt="Igreja">
-                  </div>                  
-                  <div class="col-md-7">
-                    <div class="swiper-media-body">
-                      <p class="title">${location.nome}
-                      <br>${location.endereco.logradouro}, ${location.endereco.numero}</p>
-                    </div>
+                <div class="row position-relative">
+                <div class="col-md-5">
+                  <!-- Inserir a imagem com o caminho dinâmico -->
+                  <img src="images/${location.imagem.imagem}" class="swiper-img-top" alt="Igreja">
+                  <!-- Ícone de status flutuante -->
+                  <div class="status-icon">
+                    <i class="fa fa-circle" aria-hidden="true" style="color: green;"></i> <!-- Exemplo: ícone verde -->
                   </div>
-                </div>`;
+                </div>                  
+                <div class="col-md-7 p-0">
+                  <div class="swiper-media-body">
+                    <p class="title"><strong>${location.nome}</strong>
+                    <br>${location.endereco.logradouro}, ${location.endereco.numero}</p>
+                  </div>
+                </div>
+              </div>
+              `;
 
               slide.addEventListener('click', () => {
-                map.setCenter(marker.getPosition());
-                map.setZoom(15);
+                const targetPosition = marker.getPosition(); // Posição do marcador correspondente ao slide
+                map.panTo(marker.getPosition());
+                marker.setAnimation(google.maps.Animation.BOUNCE); // Adiciona animação de "pular"
+                setTimeout(() => marker.setAnimation(null), 1400);
+
+                // Exibe a miniatura do Street View
+                showStreetViewThumbnail(marker.getPosition());
+
+                // Exibe o infowindow ao clicar no slide
+                if (currentInfoWindow) {
+                  currentInfoWindow.close();  // Fecha o infowindow anterior
+                }
+                infowindow.open(map, marker);  // Abre o infowindow do marcador clicado
+                currentInfoWindow = infowindow;  // Atualiza o infowindow atual
               });
 
               swiperWrapper.appendChild(slide);
             }
           });
 
-          map.fitBounds(bounds);
+          // Atualiza os limites do mapa para exibir todos os marcadores
+          const padding = { top: 10, right: 10, bottom: 10, left: 10 }; // Margens desejadas
+          map.fitBounds(bounds, padding);
 
-          new Swiper('.swiper-container', {
+          // Recalcula os limites ao redimensionar a janela
+          window.addEventListener('resize', () => {
+            map.fitBounds(bounds);
+          });
+
+          const swiper = new Swiper('.swiper-container', {
             navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
             pagination: { el: '.swiper-pagination', clickable: true },
             slidesPerView: 3,
             spaceBetween: 8,
           });
+
+          // Selecionando o botão e o slide que será ocultado/mostrado
+          const bookmarkButton = document.getElementById('bookmark');
+          const slideToHide = document.getElementById('churchSwiper');
+
+          // Evento de clique para ocultar ou mostrar o slide
+          bookmarkButton.addEventListener('click', function () {
+            if (slideToHide.classList.contains('hidden')) {
+              slideToHide.classList.remove('hidden');  // Mostra o slide
+            } else {
+              slideToHide.classList.add('hidden'); // Oculta o slide
+            }
+
+            // Atualiza o Swiper após mudar a visibilidade
+            swiper.update();
+          });
         })
-        .catch(err => console.error('Erro ao carregar locais:', err));
+        .catch(err => console.error('Erro ao carregar igrejas:', err));
     }
   </script>
 </body>

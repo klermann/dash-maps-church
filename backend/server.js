@@ -33,7 +33,7 @@ app.set('view engine', 'ejs');
 
 // Configure o middleware CORS
 const corsOptions = {
-  origin: 'http://localhost:4000', // Substitua pela URL do seu frontend
+  origin: 'http://localhost:4000', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
   allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
 };
