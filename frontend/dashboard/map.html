@@ -8,7 +8,6 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
   <title>IADMS - Geolocalização | </title>
 
   <!-- Bootstrap -->
@@ -16,9 +15,9 @@
 
   <link href="../vendors/bootstrap/dist/css/swiper-bundle.min.css" rel="stylesheet">
 
-
   <!-- Font Awesome -->
   <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="../vendors/tabler-icons/tabler-icons.min.css" rel="stylesheet">
 
   <!-- NProgress -->
   <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
@@ -36,31 +35,53 @@
 <body class="nav-md">
 
   <div id="map"></div>
-  <div id="fullscreen-streetview"></div>
+  <div id="fullscreen-streetview">
+  </div>
 
   <!-- Modal lateral -->
   <div id="churchModal">
     <div class="modal-header">
       <h4 id="churchName">Nome da Igreja</h4>
-      <button class="close-button" onclick="closeModal()">&times;</button>
+      <button
+        style="position: absolute; top: 15px; right: 15px; background-color: #ffffff; color: #ff0000;  border: #cecece solid 1px; border-radius: 50%; width: 25px; height: 25px; cursor: pointer;"
+        onclick="closeModal();"><i class="fa fa-close"></i></button>
     </div>
     <div class="modal-body">
-      <p><strong>Pastor:</strong> <span id="churchPastor"></span></p>
-      <p><strong>Endereço:</strong> <span id="churchAddress"></span></p>
-      <p><strong>Status:</strong> <span id="churchStatus"></span></p>
-      <p><strong>Descrição:</strong> <span id="churchDescription"></span></p>
-      <p><strong>Horários de Funcionamento:<span id="churchHour"></span></p>
+      <p><strong><i class="ti ti-user icon-modal"></i> Pastor:</strong> <span id="churchPastor"></span></p>
+      <p><strong><i class="ti ti-address-book icon-modal"></i> Endereço:</strong> <span id="churchAddress"></span></p>
+      <p><strong><i class="ti ti-category icon-modal"></i> Categoria:</strong> <span id="churchCategoria"></span> -
+        <strong><i class="ti ti-activity-heartbeat icon-modal"></i> Status:</strong> <span id="churchStatus"></span>
+      </p>
+      <p><strong><i class="ti ti-file-description icon-modal"></i> Descrição:</strong> <span
+          id="churchDescription"></span></p>
+      <p><strong><i class="ti ti-file-description icon-modal"></i> Membros:</strong> <span
+          id="churchQuantMembros"></span> </p>
+      <p><strong><i class="ti ti-clock-2 icon-modal"></i> Horários de Funcionamento:<span id="churchHour"></span></p>
       <ul id="churchSchedule"></ul>
       <div id="churchIdentifiers" class="church-section">
-        <h3>Identificadores</h3>
+        <p><strong><i class="ti ti-barcode icon-modal"></i> Identificadores</p>
         <ul id="identifierList"></ul>
       </div>
-      <p><strong>Avaliação:</strong> <span id="churchRating"></span></p>
-      <img id="churchImage" src="" alt="Imagem da Igreja"
-        style="width: auto; height: 400px; border-radius: 8px; margin-top: 10px;">
+      <div class="church-section">
+        <p><strong><i class="ti ti-phone icon-modal"></i> Contato:</strong></p>
+        <p>
+          <a id="churchContact1"></a>
+          <a id="churchContact2"></a>
+          <a id="churchContact3"></a>
+          <a id="churchContact4"></a>
+        </p>
+      </div>
     </div>
   </div>
-
+  <div id="imageModal" class="modal" onclick="closeModal(); closeImageModal();">
+    <div class="modal-content">
+      <button
+        style="position: absolute; top: 10px; right: 5px; background-color: #ffffff; color: #ff0000;  border: #cecece solid 1px; border-radius: 50%; width: 25px; height: 25px; cursor: pointer;"
+        onclick="closeImageModal();"><i class="fa fa-close"></i></button>
+      <img id="modalImage" src="" alt="Imagem em tamanho real"
+        style="max-width: 100%; max-height: 100%;border: solid 1px #888;">
+    </div>
+  </div>
 
   <!-- top navigation -->
   <div id="topNav"></div>
@@ -70,72 +91,66 @@
   <!-- sidebar menu -->
 
   <div class="search-container">
-    <input type="text" class="search-input" placeholder="Buscar...">
-    <button class="filter-toggle-button"><i class="fa fa-search"></i></button>
-    <div class="filters-container">
-      <div class="filters-header">
-        <span>Filters</span>
-        <button class="reset-button">reset</button>
+    <div class="form-group row">
+      <div class="col-sm-12">
+        <div class="input-group">
+          <!-- Campo de busca -->
+          <input type="text" id="search-input" style="width: 180px;" class="form-control rounded-start"
+            placeholder="Digite para buscar..." aria-label="Campo de busca">
+
+          <!-- Select dropdown para filtro -->
+          <select id="column-filter" style="width: 130px;" class="form-control rounded-end"
+            aria-label="Filtrar por coluna">
+            <option value="Buscar por">Buscar por</option>
+            <option value="cidade">Cidade</option>
+            <option value="status">Status</option>
+            <option value="bairro">Bairro</option>
+          </select>
+
+          <!-- Botão de busca com filtro -->
+          <button type="button" id="search-button" class="btn btn-secondary rounded-end">
+            <i class="fa fa-search"></i>Filtrar
+          </button>
+
+          <!-- Botão de busca sem filtro (Busca Todos) -->
+          <button type="button" id="search-all-button" class="btn btn-secondary rounded-end ms-2">
+            <i class="fa fa-search"></i> Buscar Todas
+          </button>
+        </div>
       </div>
-      <ul class="filters-list">
-        <li class="filter-item">
-          <input type="checkbox" id="theaters">
-          <label for="theaters">
-            <span class="filter-icon">🎭</span>
-            <span class="filter-text">Theaters</span>
-            <span class="filter-count">2</span>
-          </label>
-        </li>
-        <li class="filter-item">
-          <input type="checkbox" id="churches">
-          <label for="churches">
-            <span class="filter-icon">⛪</span>
-            <span class="filter-text">Churches</span>
-            <span class="filter-count">2</span>
-          </label>
-        </li>
-        <li class="filter-item">
-          <input type="checkbox" id="automotive">
-          <label for="automotive">
-            <span class="filter-icon">🚗</span>
-            <span class="filter-text">Automotive</span>
-            <span class="filter-count">1</span>
-          </label>
-        </li>
-        <li class="filter-item">
-          <input type="checkbox" id="squares">
-          <label for="squares">
-            <span class="filter-icon">⬛</span>
-            <span class="filter-text">Squares</span>
-            <span class="filter-count">2</span>
-          </label>
-        </li>
-        <li class="filter-item">
-          <input type="checkbox" id="virtual-tour">
-          <label for="virtual-tour">
-            <span class="filter-icon">🌐</span>
-            <span class="filter-text">Virtual Tour</span>
-            <span class="filter-count">2</span>
-          </label>
-        </li>
-      </ul>
     </div>
   </div>
+
+  <div id="logo-container">
+    <a href="/dashboard/"><img src="images/logo-mini.png" height="120px" /></a>
+  </div>
+
   <!-- Menu flutuante -->
   <div class="menu-button">
     <button id="home" aria-label="Home View"><img src="images/pin.png" height="40px" /></button>
-    <button id="route" aria-label="route View"><i class="fa fa-exchange"></i></button>
+    <!-- <button id="route" aria-label="route View"><i class="fa fa-exchange"></i></button> -->
     <button id="bookmark" aria-label="bookmark View"><i class="fa fa-bookmark"></i></button>
   </div>
 
   <div id="churchSwiper" class="swiper-container">
     <div class="swiper-wrapper" id="churchSwiperItems">
+      <!-- Exemplo de slide -->
+      <div class="swiper-slide">
+        <div class="card">
+          <img src="https://via.placeholder.com/50" alt="Imagem do slide" class="swiper-img-top">
+          <div class="swiper-media-body">
+            <p class="title"><strong>Nome da Igreja</strong></p>
+            <p>Endereço da Igreja</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Botões de navegação -->
+    <div class="swiper-button-prev">
+      <i class="fa fa-chevron-up"></i>
     </div>
     <div class="swiper-button-next">
-      <i class="fa fa-chevron-right"></i>
-    </div>
-    <div class="swiper-button-prev">
-      <i class="fa fa-chevron-left"></i>
+      <i class="fa fa-chevron-down"></i>
     </div>
     <div class="swiper-pagination"></div>
   </div>
@@ -186,9 +201,258 @@
     const markers = [];
     let currentInfoWindow = null;
 
+    const slider = document.querySelector('.slider');
+    const sliderContainer = document.querySelector('.slider-container');
+
+    document.querySelector('#search-all-button').addEventListener('click', function () {
+      loadLocations(); // Função que carrega todos os dados
+    });
+
+    // Evento de clique no botão de busca
+    document.querySelector('#search-button').addEventListener('click', async function () {
+      console.log('Botão de busca clicado');
+      await handleSearch(); // Chama a função de busca com os filtros aplicados
+    });
+
     document.getElementById("home").addEventListener("click", () => {
       window.location.href = "/dashboard/";
     });
+
+    document.querySelector('#churchModal .close-button').addEventListener('click', () => {
+      document.getElementById('churchModal').classList.remove('open');
+    });
+
+    function openImageModal(imageSrc) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = imageSrc; // Define a imagem no modal
+      modal.style.display = 'block'; // Exibe o modal
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('imageModal');
+      modal.style.display = 'none'; // Esconde o modal
+    }
+
+    function validarEmail(email) {
+      const regexEmail = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return regexEmail.test(email);
+    }
+
+    function validarSite(url) {
+      const regexUrl = /^(https?:\/\/)?([a-z0-9]+[.])*([a-z0-9]+)\.[a-z]{2,5}(\/[a-z0-9#]+\/?)*$/;
+      return regexUrl.test(url);
+    }
+
+
+    // Função para obter o ícone do status
+    function getStatusIcon(status) {
+      return status === 'ativo' ? '🟢' : status === 'inativo' ? '🔴' : '🟡';
+    }
+
+    // Função para formatar o endereço
+    function formatAddress(endereco) {
+      const { logradouro, numero, bairro, cidade, estado } = endereco;
+      return `${logradouro}, ${numero}, ${bairro}, ${cidade}, ${estado}`;
+    }
+
+    // Função para resetar o mapa e o carrossel
+    function resetMapAndCarousel() {
+      markers.forEach(marker => marker.setMap(null));
+      markers.length = 0;
+
+      const swiperWrapper = document.getElementById('churchSwiperItems');
+      swiperWrapper.innerHTML = ''; // Limpa o carrossel
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('churchModal');
+      modal.classList.remove('open');
+    }
+
+    // Lógica da busca
+    async function handleSearch() {
+      const searchTerm = document.querySelector('#search-input').value.toLowerCase().trim();
+      const columnFilter = document.querySelector('#column-filter').value;
+
+      if (!searchTerm) {
+        resetMapAndCarousel(); // Reseta o mapa e o carrossel
+        return;
+      }
+
+      try {
+        const locations = await fetchFilteredLocations(searchTerm, columnFilter);
+        updateMapAndCarousel(locations); // Atualiza mapa e carrossel
+      } catch (error) {
+        console.error('Erro ao buscar localizações:', error);
+      }
+    }
+
+    function createInfoWindowContent(location) {
+      return `
+        <div style="width: 250px; overflow: hidden;">
+          <button 
+                style="position: absolute; top: 5px; right: 0px; background-color: #ffffff; color: #ff0000;  border: #cecece solid 1px; border-radius: 50%; width: 25px; height: 25px; cursor: pointer;" 
+                onclick="currentInfoWindow.close();"><i class="fa fa-close"></i></button>
+          <img 
+            src="images/${location.imagem.imagem}" 
+            alt="${location.nome}" 
+            style="width: 250px; height: auto; border-radius: 6px; margin-bottom: 4px; cursor: pointer; border: solid 1px #888;"
+            onclick="openImageModal('images/${location.imagem.imagem}'); closeModal();">
+          <div class="block">
+            <div class="block_content">
+              <h2 class="title"><a>${location.nome}</a> ${getStatusIcon(location)}</h2>
+              <p class="title-pastor"><a><strong>Pastor:</strong> ${location.pastor}</a></p>
+              <div class=""><button class="btn btn-sm btn-secondary" onclick="openChurchModal(${JSON.stringify(location).replace(/"/g, '&quot;')})">Ver mais! <i class="ti ti-report-search"></i></button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function createMarker(location) {
+      return new google.maps.Marker({
+        position: {
+          lat: location.localizacao.latitude,
+          lng: location.localizacao.longitude,
+        },
+        map,
+        animation: google.maps.Animation.DROP,
+        title: location.nome, icon: {
+          url: "images/pin.png",
+          size: new google.maps.Size(60, 70),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(25, 25),
+        },
+      });
+
+    }
+
+    function configureMarkerEvents(marker, map, infowindow) {
+      marker.addListener('click', () => {
+        map.setCenter(marker.getPosition());
+        showStreetViewThumbnail(marker.getPosition());
+        infowindow.open(map, marker);
+
+        panorama.setPosition(marker.getPosition());
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(() => marker.setAnimation(null), 1400);
+
+        // Fecha o InfoWindow anterior, se existir
+        if (currentInfoWindow) {
+          currentInfoWindow.close();
+        }
+        currentInfoWindow = infowindow; // Atualiza o infowindow atual
+      });
+    }
+
+    // Função para buscar dados filtrados na API
+    async function fetchFilteredLocations(searchTerm, columnFilter) {
+      const apiUrl = `http://localhost:3000/api/churches/criteria`; // Endpoint da API
+
+      // Supondo que o token esteja armazenado em localStorage (ou onde for apropriado para seu aplicativo)
+      const token = localStorage.getItem('authToken'); // Altere conforme necessário
+
+      // Verifique se o token existe antes de enviar a requisição
+      if (!token) {
+        throw new Error('Token não fornecido. Acesso negado.');
+      }
+
+      // Envia a coluna e o valor para a API, incluindo o token no cabeçalho Authorization
+      const response = await fetch(`${apiUrl}?column=${columnFilter}&value=${searchTerm}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Incluindo o token no cabeçalho
+        },
+      });
+
+
+      if (!response.ok) {
+        throw new Error('Erro ao buscar localizações na API.');
+      }
+
+      return await response.json(); // Retorna as localizações filtradas
+    }
+
+    // Função para atualizar o mapa e o carrossel com as localizações filtradas
+    function updateMapAndCarousel(filteredLocations) {
+      // Remove marcadores antigos do mapa
+      markers.forEach(marker => marker.setMap(null));
+      markers.length = 0; // Esvazia o array de marcadores
+
+      const swiperWrapper = document.getElementById('churchSwiperItems');
+      swiperWrapper.innerHTML = ''; // Limpa o carrossel
+
+      const bounds = new google.maps.LatLngBounds();
+
+      filteredLocations.forEach((location) => {
+        // Cria e adiciona marcador ao mapa
+        const marker = createMarker(location);
+        markers.push(marker); // Armazena no array global
+        bounds.extend(marker.getPosition()); // Ajusta os limites do mapa
+
+        // Configura o InfoWindow usando a função `createInfoWindowContent`
+        const infoWindow = new google.maps.InfoWindow({
+          content: createInfoWindowContent(location),
+        });
+
+        // Exibe o InfoWindow ao clicar no marcador
+        marker.addListener('click', () => {
+          if (currentInfoWindow) {
+            currentInfoWindow.close(); // Fecha o InfoWindow anterior
+          }
+          infoWindow.open(map, marker); // Abre o InfoWindow atual
+          currentInfoWindow = infoWindow; // Atualiza a referência ao InfoWindow atual
+
+          // Anima o marcador
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+          setTimeout(() => marker.setAnimation(null), 1400);
+        });
+
+        // Cria o slide do carrossel
+        const slide = document.createElement('div');
+        slide.classList.add('swiper-slide');
+        slide.innerHTML = `
+          <div class="row">
+            <div class="col-md-3">
+              <!-- Inserir a imagem com o caminho dinâmico -->
+              <img src="images/${location.imagem.imagem}" class="swiper-img-top" alt="Igreja">
+              <!-- Ícone de status flutuante -->
+              <div class="status-icon">
+                ${getStatusIcon(location)}
+              </div>
+            </div>                  
+            <div class="col-md-9 pl-20">
+              <div class="swiper-media-body">
+                <p class="title"><strong>${location.nome}</strong>
+                <br>${location.endereco.logradouro}, ${location.endereco.numero}</p>
+              </div>
+            </div>
+          </div>
+        `;
+
+        swiperWrapper.appendChild(slide);
+
+        // Adicionar evento de clique ao slide
+        slide.addEventListener('click', () => {
+          if (currentInfoWindow) {
+            currentInfoWindow.close(); // Fecha o InfoWindow anterior
+          }
+          map.panTo(marker.getPosition());
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+          setTimeout(() => marker.setAnimation(null), 1400);
+          infoWindow.open(map, marker); // Exibe o InfoWindow ao clicar no slide
+          currentInfoWindow = infoWindow; // Atualiza a referência ao InfoWindow atual
+          showStreetViewThumbnail(marker.getPosition());
+        });
+      });
+
+      // Ajusta o mapa aos novos marcadores
+      if (filteredLocations.length > 0) {
+        map.fitBounds(bounds);
+      }
+    }
 
     function showStreetViewThumbnail(position) {
       if (!position) {
@@ -222,6 +486,19 @@
         fullScreenContainer.style.zIndex = '10000';
         fullScreenContainer.style.backgroundColor = 'white';
 
+        // Adiciona o logo ao Street View em tela cheia
+        const logo = document.createElement('img');
+        logo.src = 'images/logo-mini.png'; // Caminho para a imagem do logo
+        logo.alt = 'Logo';
+        logo.style.position = 'absolute';
+        logo.style.top = '100px';
+        logo.style.left = '30px';
+        logo.style.width = '150px';
+        logo.style.height = 'auto';
+        logo.style.zIndex = '10001';
+
+        fullScreenContainer.appendChild(logo);
+
         document.body.appendChild(fullScreenContainer);
 
         const fullScreenPanorama = new google.maps.StreetViewPanorama(fullScreenContainer, {
@@ -235,18 +512,18 @@
 
         // Adiciona um botão para fechar o Street View em tela cheia
         const closeButton = document.createElement('button');
-        closeButton.innerHTML = '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+        closeButton.innerHTML = '<span class="ti ti-x" style="font-size: 25px;" aria-hidden="true"></span>';
         closeButton.style.position = 'absolute';
         closeButton.style.top = '10px';
         closeButton.style.right = '60px';
         closeButton.style.width = '40px';
         closeButton.style.height = '40px';
         closeButton.style.zIndex = '10001';
-        closeButton.style.padding = '10px';
-        closeButton.style.backgroundColor = '#ff0000';
-        closeButton.style.color = 'white';
+        closeButton.style.padding = '5px';
+        closeButton.style.backgroundColor = '#444444';
+        closeButton.style.color = '#b3b3b3';
         closeButton.style.border = 'none';
-        closeButton.style.borderRadius = '5px';
+        closeButton.style.borderRadius = '3px';
         closeButton.style.cursor = 'pointer';
 
         closeButton.onclick = () => {
@@ -273,8 +550,6 @@
         }
       });
     });
-    const slider = document.querySelector('.slider');
-    const sliderContainer = document.querySelector('.slider-container');
 
     function initMap() {
       const token = localStorage.getItem('authToken');
@@ -322,68 +597,131 @@
         if (currentInfoWindow) {
           currentInfoWindow.close();  // Fecha o infowindow atual
         }
+        closeImageModal()
+        closeModal();
       });
 
       loadLocations();
     }
 
-    function openChurchModal(church) {
-      // Preencher campos básicos
-      document.getElementById('churchName').innerText = `Igreja ${church.nome || 'Não informado'}`;
-      document.getElementById('churchAddress').innerText = church.endereco
-        ? `${church.endereco.logradouro || ''}, ${church.endereco.numero || ''}, ${church.endereco.bairro || ''}, ${church.endereco.cidade || ''} - ${church.endereco.estado || ''}, ${church.endereco.cep || ''}`
-        : 'Endereço não informado';
-      document.getElementById('churchPastor').innerText = church.pastor || 'Não informado';
-      document.getElementById('churchStatus').innerText = church.status || 'Não informado';
-      document.getElementById('churchDescription').innerText = church.detalhes?.descricao || 'Não informado';
-      document.getElementById('churchImage').src = `images/${church.imagem.imagem}`;
+    function getStatusIcon(church) {
+      return church.status === "ativo"
+        ? "🟢"  // Ícone para status ativo
+        : church.status === "inativo"
+          ? "🔴"  // Ícone para status inativo
+          : "🟡"; // Ícone para status desconhecido ou outro
+    }
 
-      // Preencher horários de funcionamento
+    function openChurchModal(church) {
+
+      // Validação de email
+      const email = church.contato.email;
+      const isEmailValido = validarEmail(email);
+      const emailHTML = isEmailValido ? `<a class="btn-link"  href="mailto:${email}"><i style="font-size: 25px; padding-left: 10px" class="ti ti-mail icon-modal"></i></a>` : email || 'Não informado';
+
+      // Validação de site
+      const site = church.contato.site;
+      const isSiteValido = validarSite(site);
+      const siteHTML = isSiteValido ? `<a href="${site}" target="_blank">${site}</a>` : site || 'Não informado';
+
+      // Função para garantir que a URL tenha o prefixo http(s)
+      function formatarLink(url) {
+        if (!url) return ''; // Retorna vazio se não houver URL
+        return url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`;
+      }
+
+      // Função para gerar o HTML com o ícone e link
+      function gerarIconeRedeSocial(url, rede) {
+        if (!url) return ''; // Se não houver URL, retorna vazio
+        const redes = {
+          instagram: 'ti ti-brand-instagram',
+          facebook: 'ti ti-brand-facebook',
+          alkipage: 'ti ti-fish-christianity'  // Ícone para Ok.ru
+        };
+
+        return `<a href="${formatarLink(url)}" target="_blank" title="${rede}"><i style="font-size: 25px; padding-left: 10px" class="${redes[rede]} icon-modal"></i></a>`;
+      }
+
+      // Gerar o HTML para os ícones
+      const alkipageHTML = church.contato.alkipage ? gerarIconeRedeSocial(church.contato.alkipage, 'alkipage') : '';
+      const facebookHTML = church.contato.facebook ? gerarIconeRedeSocial(church.contato.facebook, 'facebook') : '';
+      const instagramHTML = church.contato.instagram ? gerarIconeRedeSocial(church.contato.instagram, 'instagram') : '';
+
+      console.info(alkipageHTML);
+      console.info(facebookHTML);
+      console.info(instagramHTML);
+
+      // Preencher campos básicos
+      if (document.getElementById('churchName')) {
+        document.getElementById('churchName').innerText = `Igreja ${church.nome || 'Não informado'}`;
+      }
+      if (document.getElementById('churchAddress')) {
+        document.getElementById('churchAddress').innerText = church.endereco
+          ? `${church.endereco.logradouro || ''}, ${church.endereco.numero || ''}, ${church.endereco.bairro || ''}, ${church.endereco.cidade || ''} - ${church.endereco.estado || ''}, ${church.endereco.cep || ''}`
+          : 'Endereço não informado';
+      }
+      if (document.getElementById('churchPastor')) {
+        document.getElementById('churchPastor').innerText = church.pastor || 'Não informado';
+      }
+      if (document.getElementById('churchStatus')) {
+        document.getElementById('churchStatus').innerText = `${church.status || ''} ${getStatusIcon(church)}`;
+      }
+      if (document.getElementById('churchCategoria')) {
+        document.getElementById('churchCategoria').innerText = church.categoria || '';
+      }
+      if (document.getElementById('churchDescription')) {
+        document.getElementById('churchDescription').innerText = church.detalhes?.descricao || 'Não informado';
+      }
+      if (document.getElementById('churchQuantMembros')) {
+        document.getElementById('churchQuantMembros').innerText = church.detalhes?.quant_membros || 'Não informado';
+      }
+
+      // Contatos - agora com links
+      // Preencher os campos de contatos com os ícones emailHTML
+      document.getElementById('churchContact1').innerHTML = emailHTML;
+      document.getElementById('churchContact2').innerHTML = alkipageHTML;
+      document.getElementById('churchContact3').innerHTML = facebookHTML;
+      document.getElementById('churchContact4').innerHTML = instagramHTML;
+
+      // Preencher horáriosF de funcionamento
       const scheduleList = document.getElementById('churchSchedule');
-      scheduleList.innerHTML = ""; // Limpar lista anterior
-      church.detalhes.horario_funcionamento.forEach(horario => {
-        const li = document.createElement('li');
-        li.innerText = `${horario.dia_semana}: ${horario.hora_abertura} - ${horario.hora_fechamento}`;
-        scheduleList.appendChild(li);
-      });
+      if (scheduleList) {
+        scheduleList.innerHTML = "";
+        church.detalhes.horario_funcionamento.forEach(horario => {
+          const li = document.createElement('li');
+          li.innerText = `${horario.dia_semana}: ${horario.hora_abertura} - ${horario.hora_fechamento}`;
+          scheduleList.appendChild(li);
+        });
+      }
 
       // Preencher identificadores
       const identifierList = document.getElementById('identifierList');
-      identifierList.innerHTML = ""; // Limpar lista anterior
-
-      console.info("Posição inválida:", church.identificadores);
-      console.info("Posição inválida:", church.identificadores.contas);
-      if (church.identificadores && church.identificadores.contas) {
-        console.info("Posição inválida:", church.identificadores.contas);
-        church.identificadores.contas.forEach(conta => {
-          console.error("church.identificadores.conta:", church.identificadores.conta);
+      if (identifierList) {
+        identifierList.innerHTML = "";
+        if (church.identificadores && church.identificadores.contas) {
+          church.identificadores.contas.forEach(conta => {
+            const li = document.createElement('li');
+            li.innerText = `${conta.tipo.toUpperCase()}: Código ${conta.codigo}`;
+            identifierList.appendChild(li);
+          });
+        } else {
           const li = document.createElement('li');
-          li.innerText = `${conta.tipo.toUpperCase()}: Código ${conta.codigo} - ${conta.descricao}`;
+          li.innerText = 'Identificadores não informados';
           identifierList.appendChild(li);
-        });
-      } else {
-        const li = document.createElement('li');
-        li.innerText = 'Identificadores não informados';
-        identifierList.appendChild(li);
+        }
       }
 
       // Preencher avaliação
-      document.getElementById('churchRating').innerText = `${church.avaliacao.nota_media} (${church.avaliacao.numero_avaliacoes} avaliações)`;
+      if (document.getElementById('churchRating')) {
+        document.getElementById('churchRating').innerText = `${church.avaliacao.nota_media} (${church.avaliacao.numero_avaliacoes} avaliações)`;
+      }
 
       // Abrir modal
       const modal = document.getElementById('churchModal');
-      modal.classList.add('open');
+      if (modal) {
+        modal.classList.add('open');
+      }
     }
-
-    function closeModal() {
-      const modal = document.getElementById('churchModal');
-      modal.classList.remove('open');
-    }
-
-
-    document.querySelector('#churchModal .close-button').addEventListener('click', () => {
-      document.getElementById('churchModal').classList.remove('open');
-    });
 
     function loadLocations() {
       const token = localStorage.getItem('authToken');
@@ -402,41 +740,11 @@
             if (location.localizacao?.latitude && location.localizacao?.longitude) {
               const { latitude, longitude } = location.localizacao;
 
-              const marker = new google.maps.Marker({
-                position: { lat: latitude, lng: longitude },
-                map,
-                title: location.nome,
-                icon: {
-                  url: "images/pin.png", // Caminho da sua imagem personalizada
-                  size: new google.maps.Size(60, 70), // Tamanho do ícone
-                  origin: new google.maps.Point(0, 0), // Posição de origem do ícone
-                  anchor: new google.maps.Point(25, 25) // Ponto de ancoragem do ícone (ajustar conforme necessário)
-                }
-              });
+              const marker = createMarker(location);
 
-              // Conteúdo do InfoWindow com imagem e outras informações
-              const statusIcon = location.status === "ativo"
-                ? "🟢" // Ícone para status ativo
-                : location.status === "inativo"
-                  ? "🔴" // Ícone para status inativo
-                  : "🟡"; // Ícone para status desconhecido ou outro
+              const infowindowContent = createInfoWindowContent(location)
 
-              const infowindowContent = `
-                <div style="max-width: 200px; overflow: hidden;">
-                  <img src="images/${location.imagem.imagem}" alt="${location.nome}" style="width: 100%; height: 120px; border-radius: 8px; margin-bottom: 8px;">
-                  <div class="block">
-                    <div class="block_content">
-                      <h2 class="title"><a>${location.nome}</a> ${statusIcon}</h2>
-                      <div class="byline">
-                        <span>Informações </span> estão <a> aqui</a>
-                      </div>
-                      <p class="excerpt"><a><strong>Endereço:</strong> ${location.endereco.logradouro}, ${location.endereco.numero}</a>
-                      <p class="excerpt"><a><strong>Pastor:</strong> ${location.pastor}</a></p>
-                      <button class="btn btn-sm btn-link" onclick="openChurchModal(${JSON.stringify(location).replace(/"/g, '&quot;')})">Ver Detalhes</button>
-                    </div>
-                  </div>
-                </div>
-              `;
+              //<p class="excerpt"><a><strong>Endereço:</strong> ${location.endereco.logradouro}, ${location.endereco.numero}</a>
 
               const infowindow = new google.maps.InfoWindow({
                 content: infowindowContent,
@@ -465,23 +773,22 @@
               const slide = document.createElement('div');
               slide.classList.add('swiper-slide');
               slide.innerHTML = `
-                <div class="row position-relative">
-                <div class="col-md-5">
-                  <!-- Inserir a imagem com o caminho dinâmico -->
-                  <img src="images/${location.imagem.imagem}" class="swiper-img-top" alt="Igreja">
-                  <!-- Ícone de status flutuante -->
-                  <div class="status-icon">
-                    <i class="fa fa-circle" aria-hidden="true" style="color: green;"></i> <!-- Exemplo: ícone verde -->
+                  <div class="row position-relative">
+                  <div class="col-md-3">
+                    <!-- Inserir a imagem com o caminho dinâmico -->
+                    <img src="images/${location.imagem.imagem}" class="swiper-img-top" alt="Igreja">
+                    <!-- Ícone de status flutuante -->
+                    <div class="status-icon">
+                      ${getStatusIcon(location)}
+                    </div>
+                  </div>                  
+                  <div class="col-md-9 pl-20">
+                    <div class="swiper-media-body">
+                      <p class="title"><strong>${location.nome}</strong>
+                      <br>${location.endereco.logradouro}, ${location.endereco.numero}</p>
+                    </div>
                   </div>
-                </div>                  
-                <div class="col-md-7 p-0">
-                  <div class="swiper-media-body">
-                    <p class="title"><strong>${location.nome}</strong>
-                    <br>${location.endereco.logradouro}, ${location.endereco.numero}</p>
-                  </div>
-                </div>
-              </div>
-              `;
+                </div>`;
 
               slide.addEventListener('click', () => {
                 const targetPosition = marker.getPosition(); // Posição do marcador correspondente ao slide
@@ -514,10 +821,23 @@
           });
 
           const swiper = new Swiper('.swiper-container', {
-            navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-            pagination: { el: '.swiper-pagination', clickable: true },
-            slidesPerView: 3,
+            direction: "vertical",
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+            slidesPerView:  5,
             spaceBetween: 8,
+            freeMode: true,
+            mousewheel: {
+              forceToAxis: true, // Garante que a rolagem siga o eixo vertical
+              sensitivity: 1,    // Ajusta a sensibilidade do scroll
+              releaseOnEdges: false, // Permite "sair" do swiper ao atingir os limites
+            },
           });
 
           // Selecionando o botão e o slide que será ocultado/mostrado
@@ -538,6 +858,8 @@
         })
         .catch(err => console.error('Erro ao carregar igrejas:', err));
     }
+
+
   </script>
 </body>
 

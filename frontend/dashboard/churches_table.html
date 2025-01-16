@@ -115,9 +115,10 @@
                           <thead>
                             <tr>
                               <th>Nome</th>
+                              <th>Pastor</th>
                               <th>Status</th>
                               <th>Endereço</th>
-                              <th>Nº</th>
+                              <!-- <th>Nº</th> -->
                               <th>Bairro</th>
                               <th>Cidade</th>
                               <th>Fone</th>
@@ -200,9 +201,10 @@
           data.forEach((location) => {
             table.row.add([
               location.nome,
+              location.pastor,
               location.status,
               location.endereco.logradouro,
-              location.endereco.numero,
+              //location.endereco.numero,
               location.endereco.bairro,
               location.endereco.cidade,
               location.contato.telefone,

@@ -91,7 +91,6 @@
             <div class="title_left">
               <h3>Adicionar igreja</h3>
             </div>
-
             <div class="title_right">
               <div class="col-md-5 col-sm-5  form-group row pull-right top_search">
                 <div class="input-group">
@@ -104,7 +103,6 @@
             </div>
           </div>
           <div class="clearfix"></div>
-
           <div class="row">
             <div class="col-md-12 col-sm-12 ">
               <div class="x_panel">
@@ -138,22 +136,29 @@
                         <li>
                           <a href="#step-1">
                             <span class="step_no">1</span>
-                            <span class="step_descr">Nome<br />
-                              <small>Step 4 description</small></span>
+                            <span class="step_descr">Etapa 1<br />
+                              <small>Nome, igreja e localização</small></span>
                           </a>
                         </li>
                         <li>
                           <a href="#step-2">
                             <span class="step_no">2</span>
-                            <span class="step_descr">Detalhes<br />
-                              <small>Step 4 description</small></span>
+                            <span class="step_descr">Etapa 2<br />
+                              <small>Detalhes, Contas e Status</small></span>
                           </a>
                         </li>
                         <li>
                           <a href="#step-3">
                             <span class="step_no">3</span>
-                            <span class="step_descr">Contato<br />
-                              <small>Step 4 description</small></span>
+                            <span class="step_descr">Etapa 3<br />
+                              <small>Horário de funcionamento</small></span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#step-4">
+                            <span class="step_no">4</span>
+                            <span class="step_descr">Etapa 4<br />
+                              <small>Contato e redes sociais</small></span>
                           </a>
                         </li>
                       </ul>
@@ -256,10 +261,10 @@
                                 <i class="fa fa-map-marker"></i> Address → Position
                               </button>-->
                               <button type="button" class="btn btn-primary" id="setPosition">
-                                <i class="fa fa-map-marker"></i> Set Position
+                                <i class="fa fa-map-marker"></i> Setar Posição
                               </button>
                               <button type="button" class="btn btn-primary" id="getGPSPosition">
-                                <i class="fa fa-map-marker"></i> Get GPS Position
+                                <i class="fa fa-map-marker"></i> Pegar posição pelo GPS
                               </button>
                             </div>
                           </div>
@@ -286,10 +291,16 @@
                           </div>
                         </div>
 
-                        <!-- Ponto de Referência e Status -->
+                        <div class="ln_solid"></div>
                         <div class="form-group row">
+                          <label class="col-sm-3 col-md-3 col-form-label label-align">Conta</label>
+                          <div class="col-sm-3">
+                            <button type="button" id="add-field-btn" class="col-sm-12 btn btn-info btn-sm">
+                              <i class="fa fa-plus"></i> Adicione campo para conta
+                            </button>
+                          </div>
 
-                          <label class="col-sm-3 col-form-label label-align">Status</label>
+                          <label class="col-sm-3 col-form-label label-align">Status da igreja</label>
                           <div class="col-sm-3">
                             <div id="status" class="btn-group btn-group-sm w-100" data-toggle="buttons">
                               <label class="btn btn-info w-50">
@@ -299,6 +310,25 @@
                                 <input type="radio" name="status" value="fechada" class="join-btn"> Fechada
                               </label>
                             </div>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <!-- Container para os campos dinâmicos -->
+                          <div id="dynamic-fields">
+                            <!-- Espaço para os campos dinâmicos -->
+                          </div>
+                        </div>
+                        <div class="ln_solid"></div>
+
+                        <!-- Ponto de Referência e Status -->
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label label-align">Quant. de membros</label>
+                          <div class="col-sm-3">
+                            <input type="text" class="form-control" id="estacionamento"
+                              placeholder="Quantidade de membros"
+                              data-parsley-required-message="O campo Quantidade de membros é obrigatório."
+                              data-parsley-trigger="change">
                           </div>
                           <label class="col-sm-3 col-form-label label-align">Tem estacionamento?</label>
                           <div class="col-sm-3">
@@ -319,10 +349,10 @@
                               data-parsley-trigger="keyup"></textarea>
                           </div>
                         </div>
+                      </div>
 
-                        <div class="ln_solid"></div>
+                      <div id="step-3">
                         <!-- Horário de Funcionamento -->
-
                         <h3>Horário</h3>
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label label-align">Horário de Funcionamento</label>
@@ -371,7 +401,7 @@
                         </div>
                       </div>
 
-                      <div id="step-3">
+                      <div id="step-4">
                         <h3>Contato</h3>
                         <div class="form-group row">
                           <label class="col-sm-3 col-form-label label-align">Telefone</label>
@@ -487,7 +517,7 @@
       if (!token) {
         //alert('Você precisa fazer login primeiro.');
         window.location.href = '/login';
-      // Use o token para chamadas à API ou outros usos
+        // Use o token para chamadas à API ou outros usos
       }
 
 
@@ -572,6 +602,56 @@
           alert("Erro ao realizar logout. Verifique sua conexão.");
         }
       });
+
+      document.getElementById('add-field-btn').addEventListener('click', function () {
+        // Seleciona o container dos campos dinâmicos
+        const dynamicFields = document.getElementById('dynamic-fields');
+
+        // Cria um novo conjunto de campos (para tipo, código e descrição)
+        const newField = document.createElement('div');
+        newField.classList.add('form-group', 'row');
+        newField.innerHTML = `
+          <label class="col-sm-3 col-md-3 col-form-label label-align">Tipo</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" placeholder="Ex.: água, energia, tel, etc"
+              data-parsley-required-message="O campo Tipo é obrigatório."
+              data-parsley-trigger="change">
+          </div>
+          <div class="col-sm-2">
+            <input type="text" class="form-control" placeholder="Ex.: 123456789123"
+              data-parsley-required-message="O campo Código é obrigatório."
+              data-parsley-trigger="change">
+          </div>
+          <div class="col-sm-3">
+            <input type="text" class="form-control" placeholder="Descrição da conta"
+              data-parsley-required-message="O campo Descrição é obrigatório."
+              data-parsley-trigger="change">
+          </div>
+          <!-- Botão de excluir para o novo conjunto de campos, alinhado à direita -->
+          <div class="col-sm-1 text-right"><button type="button" class="btn btn-danger remove-field-btn">
+              <i class="fa fa-trash"></i> 
+            </button>
+          </div>
+        `;
+
+        // Adiciona o novo conjunto de campos ao container
+        dynamicFields.appendChild(newField);
+
+        // Adiciona o evento de exclusão para o botão de excluir do novo campo
+        newField.querySelector('.remove-field-btn').addEventListener('click', function () {
+          dynamicFields.removeChild(newField); // Remove o campo
+        });
+      });
+
+      // Adiciona evento de exclusão para o primeiro conjunto de campos
+      document.querySelectorAll('.remove-field-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const field = btn.closest('.form-group'); // Encontra o campo mais próximo
+          field.remove(); // Remove o campo
+        });
+      });
+
+
     });
 
     // Função genérica para chamadas à API
